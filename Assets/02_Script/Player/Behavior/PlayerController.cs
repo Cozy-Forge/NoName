@@ -10,9 +10,21 @@ public enum EnumPlayerState
 
 }
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class PlayerController : StateController<EnumPlayerState>
 {
 
-    [SerializeField] private PlayerInputReader _inputReader;    
+    [SerializeField] private PlayerInputReader _inputReader;
+    [SerializeField] private PlayerDataSO _data;
+
+    private void Awake()
+    {
+
+        var moveState = new MoveState(this, _inputReader, _data);
+
+        _stateContainer.Add(EnumPlayerState.Move, moveState);
+
+    }
 
 }

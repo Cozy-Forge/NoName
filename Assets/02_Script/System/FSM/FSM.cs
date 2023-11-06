@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface ISubState
+{
+
+    public void Run();
+
+}
+
 public class StateController<T> : MonoBehaviour where T : System.Enum
 {
 
-    private Dictionary<T, State<T>> _stateContainer = new();
+    protected Dictionary<T, State<T>> _stateContainer = new();
 
     public T CurrentState { get; private set; } = default;
 
@@ -25,6 +32,7 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
     {
 
         _stateContainer[CurrentState].Run();
+        _stateContainer[CurrentState].RunSubState();
         _stateContainer[CurrentState].ChackTransitioins();
 
     }
@@ -71,6 +79,7 @@ public abstract class State<T> where T : System.Enum
     }
 
     protected HashSet<Transition<T>> _transitions = new();
+    protected HashSet<ISubState> _subStates = new();
     protected StateController<T> _controller;
     protected Transform _transform;
     protected GameObject _gameObject;
@@ -81,16 +90,28 @@ public abstract class State<T> where T : System.Enum
     public virtual void OnExit() { }
     public abstract void Run();
 
+    public void RunSubState()
+    {
+
+        foreach (var item in _subStates)
+        {
+
+            item.Run();
+
+        }
+
+    }
+
     public virtual void ChackTransitioins()
     {
 
-        foreach(var itme in _transitions)
+        foreach(var item in _transitions)
         {
 
-            if (itme.ChackTransition())
+            if (item.ChackTransition())
             {
 
-                _controller.ChangeState(itme.NextState);
+                _controller.ChangeState(item.NextState);
                 break;
 
             }

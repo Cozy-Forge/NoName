@@ -6,6 +6,6 @@ using UnityEngine;
 public class PlayerDataSO : ScriptableObject
 {
 
-    public float MoveSpeed { get; private set; }
+    [field: SerializeField] public float MoveSpeed { get; private set; }
 
 }
