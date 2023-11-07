@@ -7,6 +7,9 @@ public class StomachManager : MonoBehaviour
     public static StomachManager Instance;
 
     [SerializeField]private EquipmentImg _curEquipmentImg;
+    [SerializeField] private GameObject _stomach;
+
+    [SerializeField] private List<EquipmentImg> testList;
 
     private void Awake()
     {
@@ -23,10 +26,19 @@ public class StomachManager : MonoBehaviour
 
     private void Update()
     {
+        Test();
         if(_curEquipmentImg != null)
         {
             if(_curEquipmentImg.UpdateFunction())
                 _curEquipmentImg = null;
+        }
+    }
+
+    public void Test()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            _curEquipmentImg = Instantiate(testList[Random.Range(0, testList.Count - 1)],_stomach.transform);
         }
     }
 

@@ -33,6 +33,7 @@ public class PriortyQueueEquipment
                 return;
             }
         }
+        _equipmentList.Add(equipmentImg);
     }
 
     /// <summary>

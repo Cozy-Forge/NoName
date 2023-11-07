@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
+using UnityEditor;
 using UnityEngine;
 
 public struct Equipment
@@ -7,15 +9,20 @@ public struct Equipment
     public Sprite image;        // 얜 나중에 아이템으로 바뀔 예정
     public Vector3 position;    // 위치
     public Vector3 rotation;    // 각도
+
 }
 
 public class EquipmentImg : MonoBehaviour
 {
-    private RectTransform _rectTransform;
     public Equipment equipment;
+    bool _isStopped = false;
 
+    private RectTransform _rectTransform;
+    private PolygonCollider2D _rect1Dimensions;
+    private PolygonCollider2D _rect2Dimensions;
     private void Awake()
     {
+        _rect1Dimensions = transform.GetComponent<PolygonCollider2D>();
         _rectTransform = GetComponent<RectTransform>();
     }
 
@@ -25,10 +32,11 @@ public class EquipmentImg : MonoBehaviour
     /// <returns>충돌여부반환</returns>
     public bool UpdateFunction()
     {
-        if(!CheckCollision())
+        if(!_isStopped)
         {
-            MoveDown();
+            Move();
             Rotation();
+            CheckOutLine();
             return false;
         }
         else
@@ -39,10 +47,14 @@ public class EquipmentImg : MonoBehaviour
     }
 
     //내려가는 함수
-    private void MoveDown()
+    private void Move()
     {
-        _rectTransform.position = new Vector3(_rectTransform.position.x,
-            _rectTransform.position.y - 1, _rectTransform.position.z);
+        Vector3 dir = new Vector3(0,-0.7f,0);
+        if (Input.GetKey(KeyCode.LeftArrow))
+            dir.x -= 1f;
+        if (Input.GetKey(KeyCode.RightArrow))
+            dir.x += 1f;
+        _rectTransform.position = _rectTransform.position + dir;
     }
 
     //돌리는 함수
@@ -54,24 +66,19 @@ public class EquipmentImg : MonoBehaviour
         }
     }
 
-    //충돌 확인
-    private bool CheckCollision()
+    //Y값 확인
+    private void CheckOutLine()
     {
-        if (_rectTransform.position.y < -288)
-            return true;
-        RectTransform tempRect;
-        List<EquipmentImg> tempList = PriortyQueueEquipment.Instance.GetEquipmentList();
-        Rect rect1Dimensions = new Rect(_rectTransform.localPosition,_rectTransform.rect.size);
-        Rect rect2Dimensions;
-
-        for (int i = 0; i < tempList.Count; ++i)
+        if (_rectTransform.localPosition.y <= -280)
         {
-            tempRect = tempList[i]._rectTransform;
-            rect2Dimensions = new Rect(tempRect.localPosition, tempRect.rect.size);
-
-            if (rect1Dimensions.Overlaps(rect2Dimensions))
-                return true;
+            Debug.Log("맨 밑");
+            _isStopped = true;
         }
-        return false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Tetris"))
+            _isStopped = true;
     }
 }
