@@ -13,7 +13,10 @@ public abstract class Weapon : MonoBehaviour
     public void CastingWeapon(Transform target, float range)
     {
 
-        if (_data.Range > range) return;
+        if (_data.Range < range) return;
+
+        RotateWeapon(target);
+
         if (_isCoolDown) return;
 
         _isCoolDown = true;
@@ -26,6 +29,15 @@ public abstract class Weapon : MonoBehaviour
         }, _data.AttackCoolDown);
 
         DoAttack();
+
+    }
+
+    protected virtual void RotateWeapon(Transform target)
+    {
+
+        var dir = target.position - transform.position;
+
+        transform.up = dir.normalized;
 
     }
 
