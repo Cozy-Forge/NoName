@@ -62,10 +62,37 @@ public class EnemyMoveState : EnemyState
     private Transform _target;
     private Rigidbody2D _rigid;
 
+    private class EnemyAttackTransition : EnemyTargetRangeTransition
+    {
+        public EnemyAttackTransition(EnemyDataSO data, Transform transform) : base(transform, data.AttackAbleRange, data.TargetAbleLayer, DefaultEnemyState.Attack)
+        {
+
+            _data = data;
+
+        }
+
+        private EnemyDataSO _data;
+
+        public override bool ChackTransition()
+        {
+
+            return _data.IsAttackCoolDown && base.ChackTransition();
+
+        }
+
+    }
+
     public override void Create()
     {
 
         _rigid = _transform.GetComponent<Rigidbody2D>();
+
+        var attackTransition = new EnemyAttackTransition(_data, _transform);
+        var idleBase = new EnemyTargetRangeTransition(_transform, _data.Range, _data.TargetAbleLayer, DefaultEnemyState.Idle);
+        var idleTransition = new ReverseTransition<DefaultEnemyState>(idleBase);
+
+        _transitions.Add(attackTransition);
+        _transitions.Add(idleTransition);
 
     }
 
@@ -136,26 +163,6 @@ public class EnemyTargetRangeTransition : Transition<DefaultEnemyState>
     {
 
         return Physics2D.OverlapCircle(_transform.position, _range, _targetLayer);
-
-    }
-
-}
-
-public class EnemyAttackTransition : EnemyTargetRangeTransition
-{
-    public EnemyAttackTransition(EnemyDataSO data,Transform transform, float range, LayerMask targetLayer, DefaultEnemyState nextState) : base(transform, range, targetLayer, nextState)
-    {
-
-        _data = data;
-
-    }
-
-    private EnemyDataSO _data;
-
-    public override bool ChackTransition()
-    {
-
-        return _data.IsAttackCoolDown && base.ChackTransition();
 
     }
 

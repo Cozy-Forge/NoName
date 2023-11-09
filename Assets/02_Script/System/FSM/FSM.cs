@@ -187,7 +187,7 @@ public class BoolTransition<T> : Transition<T> where T : System.Enum
 public class ReverseTransition<T> : Transition<T> where T : System.Enum
 {
 
-    public ReverseTransition(Transition<T> transition, T nextState) : base(nextState)
+    public ReverseTransition(Transition<T> transition) : base(transition.NextState)
     {
 
         _transition = transition;
