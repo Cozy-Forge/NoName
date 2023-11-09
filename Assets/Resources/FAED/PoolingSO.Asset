@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a87865d090e2b41a4425fdde434ffb, type: 3}
   m_Name: PoolingSO
   m_EditorClassIdentifier: 
-  alwaysPoolingObjects: []
+  alwaysPoolingObjects:
+  - poolingKey: TestBullet
+    poolingObject: {fileID: 686663316002418839, guid: bcfd5f9072767c941bff0b9706532d43, type: 3}
+    poolCount: 30
   scenePoolingObjects: []
