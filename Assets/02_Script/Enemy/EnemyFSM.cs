@@ -105,3 +105,32 @@ public class EnemyMoveState : EnemyState
 }
 
 #endregion
+
+#region Transition
+
+public class TargetRangeTransition : Transition<DefaultEnemyState>
+{
+
+    public TargetRangeTransition(Transform transform,float range, LayerMask targetLayer, DefaultEnemyState nextState) : base(nextState)
+    {
+
+        _range = range;
+        _targetLayer = targetLayer;
+        _transform = transform;
+
+    }
+
+    private Transform _transform;
+    private float _range;
+    private LayerMask _targetLayer;
+
+    public override bool ChackTransition()
+    {
+
+        return Physics2D.OverlapCircle(_transform.position, _range, _targetLayer);
+
+    }
+
+}
+
+#endregion
