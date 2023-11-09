@@ -152,6 +152,13 @@ public class EnemyAttackTransition : EnemyTargetRangeTransition
 
     private EnemyDataSO _data;
 
+    public override bool ChackTransition()
+    {
+
+        return _data.IsAttackCoolDown && base.ChackTransition();
+
+    }
+
 }
 
 #endregion

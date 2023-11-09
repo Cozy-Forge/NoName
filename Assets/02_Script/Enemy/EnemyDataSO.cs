@@ -15,18 +15,18 @@ public class EnemyDataSO : ScriptableObject
     [field: SerializeField] public float AttackCoolDown { get; private set; }
     [field: SerializeField] public LayerMask TargetAbleLayer { get; private set; }
 
-    public bool IsCoolDown { get; private set; }
+    public bool IsAttackCoolDown { get; private set; }
 
     public void SetCoolDown()
     {
 
-        if (IsCoolDown) return;
-        IsCoolDown = true;
+        if (IsAttackCoolDown) return;
+        IsAttackCoolDown = true;
 
         FAED.InvokeDelay(() =>
         {
 
-            IsCoolDown = false;
+            IsAttackCoolDown = false;
 
         }, AttackCoolDown);
 
