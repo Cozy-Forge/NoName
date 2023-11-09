@@ -42,31 +42,6 @@ public class MoveState : PlayerState
         private PlayerWeaponContainer _container;
         private LayerMask _targetLayer;
 
-        private (Transform trm, float range) FirstObj(Collider2D[] arr)
-        {
-
-            Transform trm = null;
-            float minRange = float.MaxValue;
-
-            foreach(var item in arr)
-            {
-
-                float dist = Vector2.Distance(_transform.position, item.transform.position);
-
-                if (dist < minRange)
-                {
-
-                    trm = item.transform;
-                    minRange = dist;
-
-                }
-
-            }
-
-            return (trm, minRange);
-
-        }
-
         public void Run()
         {
 
@@ -74,8 +49,7 @@ public class MoveState : PlayerState
             if(hits.Length != 0)
             {
 
-                var obj = FirstObj(hits);
-                _container.CastingAll(obj.trm, obj.range);
+                _container.CastingAll(hits);
 
             }
 
@@ -97,7 +71,21 @@ public class MoveState : PlayerState
 
     }
 
-    public override void Run()
+    protected override void OnEnter()
+    {
+
+        _inputReader.OnDashKeyPressEvent += HandleDash;
+
+    }
+
+    protected override void OnExit()
+    {
+
+        _inputReader.OnDashKeyPressEvent -= HandleDash;
+
+    }
+
+    protected override void Run()
     {
 
         Move();
@@ -107,7 +95,109 @@ public class MoveState : PlayerState
     private void Move()
     {
 
+        if (_isControlReleased) return;
         _rigid.velocity = _inputReader.MoveInputDir.normalized * _data.MoveSpeed;
+
+    }
+
+    private void HandleDash()
+    {
+
+        if (_data.IsCoolDown) return;
+
+        _data.SetCoolDown();
+        _controller.ChangeState(EnumPlayerState.Dash);
+
+    }
+
+}
+
+public class DashState : PlayerState
+{
+    public DashState(PlayerController controller, PlayerInputReader inputReader, PlayerDataSO data) : base(controller, inputReader, data)
+    {
+    }
+
+    private DashTransition _dashTransition;
+    private Rigidbody2D _rigid;
+
+    public class DashTransition : Transition<EnumPlayerState>
+    {
+
+        private Transform _transform;
+        private Vector3 _endPos;
+        private float _oldDest;
+
+        public DashTransition(Transform transform,EnumPlayerState nextState) : base(nextState)
+        {
+
+            _transform = transform;
+
+        }
+
+        public void Set(Vector3 endPos)
+        {
+
+            _endPos = endPos;
+            _oldDest = (_endPos - _transform.position).sqrMagnitude + 1;
+        }
+
+        public override bool ChackTransition()
+        {
+
+            var vec = _endPos - _transform.position;
+
+            var dist = vec.sqrMagnitude;
+            if (_oldDest - dist < 0)
+            {
+
+                return true;
+
+            }
+            _oldDest = dist;
+
+            return false;
+
+        }
+
+    }
+
+    public override void Create()
+    {
+        _dashTransition = new DashTransition(_transform, EnumPlayerState.Move);
+        _transitions.Add(_dashTransition);
+        _rigid = _transform.GetComponent<Rigidbody2D>();
+
+    }
+
+    protected override void OnEnter()
+    {
+
+        var dir = _inputReader.MoveInputDir == Vector2.zero ? Vector2.right : _inputReader.MoveInputDir;
+
+        var hit = Physics2D.Raycast(_transform.position, dir, _data.DashLength, _data.DashObstacleLayer);
+
+        if (hit.collider != null)
+        {
+
+            _dashTransition.Set(hit.point);
+
+        }
+        else
+        {
+
+            _dashTransition.Set((dir * _data.DashLength) + (Vector2)_transform.position);
+
+        }
+
+        _rigid.velocity = dir * _data.DashPower;
+
+    }
+
+    protected override void Run()
+    {
+
+
 
     }
 

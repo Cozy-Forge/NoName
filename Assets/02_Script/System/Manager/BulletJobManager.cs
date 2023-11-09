@@ -38,7 +38,6 @@ public struct BulletJob : IJobParallelForTransform
 public class HandleBulletController : IDisposable
 {
 
-
     public TransformAccessArray BulletContainer;
     public JobHandle HandleJob;
 

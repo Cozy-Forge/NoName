@@ -22,7 +22,7 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
         foreach (var state in _stateContainer.Values)
         {
 
-            state.Create();
+            state.Create(); 
 
         }
 
@@ -31,8 +31,7 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
     protected virtual void Update()
     {
 
-        _stateContainer[CurrentState].Run();
-        _stateContainer[CurrentState].RunSubState();
+        _stateContainer[CurrentState].Execute();
         _stateContainer[CurrentState].ChackTransitioins();
 
     }
@@ -40,12 +39,12 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
     public virtual void ChangeState(T state)
     {
 
-        _stateContainer[CurrentState].OnExit();
+        _stateContainer[CurrentState].Exit();
 
         var old = CurrentState;
 
         CurrentState = state;
-        _stateContainer[CurrentState].OnEnter();
+        _stateContainer[CurrentState].Enter();
 
 
     }
@@ -83,14 +82,44 @@ public abstract class State<T> where T : System.Enum
     protected StateController<T> _controller;
     protected Transform _transform;
     protected GameObject _gameObject;
+    protected bool _isControlReleased;
 
     public virtual void Create() { }
     public virtual void Destroy() { }
-    public virtual void OnEnter() { }
-    public virtual void OnExit() { }
-    public abstract void Run();
 
-    public void RunSubState()
+    public void Enter()
+    {
+
+        _isControlReleased = false;
+        OnEnter();
+
+    }
+
+    public void Exit()
+    {
+
+        _isControlReleased = true;
+        OnExit();
+
+    }
+
+    protected virtual void OnEnter() { }
+    protected virtual void OnExit() { }
+
+    public void Execute()
+    {
+
+        Run();
+
+        if (_isControlReleased) return;
+
+        RunSubState();
+
+    }
+
+    protected abstract void Run();
+
+    private void RunSubState()
     {
 
         foreach (var item in _subStates)
@@ -136,4 +165,21 @@ public abstract class Transition<T> where T : System.Enum
 
     public abstract bool ChackTransition();
 
+}
+
+public class BoolTransition<T> : Transition<T> where T : System.Enum
+{
+
+    public bool ChackValue;
+
+    protected BoolTransition(T nextState) : base(nextState)
+    {
+    }
+
+    public override bool ChackTransition()
+    {
+
+        return ChackValue;
+
+    }
 }

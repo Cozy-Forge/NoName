@@ -541,11 +541,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 586706903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3213df3023ca03c468f9e9b857c906c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 452d39b1988cafd488dcbecb8d65d05e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: f1aeb78d0fde41241a61926a9d0747cd, type: 2}
-  bulletPoolingKey: TestBullet
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +705,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894184947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.42, y: 1.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

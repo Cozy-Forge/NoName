@@ -32,15 +32,42 @@ public class PlayerWeaponContainer : MonoBehaviour
 
     }
 
-    public void CastingAll(Transform target, float range)
+    public void CastingAll(Collider2D[] arr)
     {
 
         foreach(var item in _weapons)
         {
 
-            item.CastingWeapon(target, range);
+            var targetData = FirstObj(arr, item.transform);
+
+            item.CastingWeapon(targetData.target, targetData.range);
 
         }
+
+    }
+
+    private (Transform target, float range) FirstObj(Collider2D[] arr, Transform root)
+    {
+
+        Transform trm = null;
+        float minRange = float.MaxValue;
+
+        foreach (var item in arr)
+        {
+
+            float dist = Vector2.Distance(root.position, item.transform.position);
+
+            if (dist < minRange)
+            {
+
+                trm = item.transform;
+                minRange = dist;
+
+            }
+
+        }
+
+        return (trm, minRange);
 
     }
 

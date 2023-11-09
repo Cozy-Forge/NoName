@@ -16,3 +16,9 @@ MonoBehaviour:
   <TargetLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 8
+  <DashObstacleLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
+  <DashLength>k__BackingField: 3
+  <DashPower>k__BackingField: 20
+  _dashCoolDown: 0.5

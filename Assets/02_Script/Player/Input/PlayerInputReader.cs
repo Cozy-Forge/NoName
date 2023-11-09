@@ -12,6 +12,7 @@ public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayer
 
     public Vector2 MoveInputDir { get; private set; }
     public event Action<Vector2> OnMoveEvent;
+    public event Action OnDashKeyPressEvent;
 
     private void OnEnable()
     {
@@ -28,7 +29,7 @@ public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayer
 
     }
 
-    public void OnKey(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
 
         var value = context.ReadValue<Vector2>();
@@ -36,5 +37,18 @@ public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayer
         OnMoveEvent?.Invoke(value);
 
     }
+    
 
+    public void OnDash(InputAction.CallbackContext context)
+    {
+
+
+        if (context.performed)
+        {
+
+            OnDashKeyPressEvent?.Invoke();
+
+        }
+
+    }
 }

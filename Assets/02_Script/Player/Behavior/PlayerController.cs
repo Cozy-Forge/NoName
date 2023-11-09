@@ -6,6 +6,7 @@ public enum EnumPlayerState
 {
 
     Move,
+    Dash,
     Die
 
 }
@@ -22,9 +23,16 @@ public class PlayerController : StateController<EnumPlayerState>
     private void Awake()
     {
 
+        _data = Instantiate(_data);
+
         var moveState = new MoveState(this, _inputReader, _data);
+        var dashState = new DashState(this, _inputReader, _data);
 
         _stateContainer.Add(EnumPlayerState.Move, moveState);
+        _stateContainer.Add(EnumPlayerState.Dash, dashState);
+
+
+        ChangeState(EnumPlayerState.Move);
 
     }
 
