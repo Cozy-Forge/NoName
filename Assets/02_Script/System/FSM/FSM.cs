@@ -186,10 +186,11 @@ public class BoolTransition<T> : Transition<T> where T : System.Enum
 
 public class ReverseTransition<T> : Transition<T> where T : System.Enum
 {
+
     public ReverseTransition(Transition<T> transition, T nextState) : base(nextState)
     {
 
-        transition = _transition;
+        _transition = transition;
 
     }
 
@@ -201,4 +202,5 @@ public class ReverseTransition<T> : Transition<T> where T : System.Enum
         return !_transition.ChackTransition();
 
     }
+
 } 

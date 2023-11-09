@@ -35,6 +35,14 @@ public class EnemyIdleState : EnemyState
     {
     }
 
+    public override void Create()
+    {
+
+
+
+
+    }
+
     protected override void Run()
     {
 
