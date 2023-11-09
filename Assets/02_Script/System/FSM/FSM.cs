@@ -14,7 +14,7 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
 
     protected Dictionary<T, State<T>> _stateContainer = new();
 
-    public T CurrentState { get; private set; } = default;
+    public T CurrentState { get; protected set; } = default;
 
     protected virtual void Start()
     {
@@ -25,6 +25,8 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
             state.Create(); 
 
         }
+
+        ChangeState(CurrentState);
 
     }
 

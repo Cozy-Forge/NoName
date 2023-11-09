@@ -31,8 +31,7 @@ public class PlayerController : StateController<EnumPlayerState>
         _stateContainer.Add(EnumPlayerState.Move, moveState);
         _stateContainer.Add(EnumPlayerState.Dash, dashState);
 
-
-        ChangeState(EnumPlayerState.Move);
+        CurrentState = EnumPlayerState.Move;
 
     }
 

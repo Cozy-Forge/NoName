@@ -2,20 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DefaultEnemyState
+
+
+
+public abstract class EnemyState<T> : State<T> where T : System.Enum
 {
-
-    Idle,
-    Move,
-    Attack,
-    Die
-
-}
-
-
-public abstract class EnemyState : State<DefaultEnemyState>
-{
-    protected EnemyState(StateController<DefaultEnemyState> controller, EnemyDataSO data) : base(controller)
+    protected EnemyState(StateController<T> controller, EnemyDataSO data) : base(controller)
     {
 
         _data = data;
@@ -24,24 +16,25 @@ public abstract class EnemyState : State<DefaultEnemyState>
 
     protected EnemyDataSO _data;
 
+    public EnemyState<T> AddTransition(Transition<T> transition)
+    {
+
+        _transitions.Add(transition);
+        return this;
+
+    }
+
 }
 
 #region States
 
-public class EnemyIdleState : EnemyState
+public class EnemyIdleState<T> : EnemyState<T> where T : System.Enum
 {
 
-    public EnemyIdleState(StateController<DefaultEnemyState> controller, EnemyDataSO data) : base(controller, data)
+    public EnemyIdleState(StateController<T> controller, EnemyDataSO data) : base(controller, data)
     {
     }
 
-    public override void Create()
-    {
-
-        var rangeTransition = new EnemyTargetRangeTransition(_transform, _data.Range, _data.TargetAbleLayer, DefaultEnemyState.Move);
-        _transitions.Add(rangeTransition);
-
-    }
 
     protected override void Run()
     {
@@ -50,49 +43,35 @@ public class EnemyIdleState : EnemyState
 
     }
 
+
+
 }
 
-public class EnemyMoveState : EnemyState
+public class EnemyMoveState<T> : EnemyState<T> where T : System.Enum
 {
 
-    public EnemyMoveState(StateController<DefaultEnemyState> controller, EnemyDataSO data) : base(controller, data)
+    public EnemyMoveState(T idleState, StateController<T> controller, EnemyDataSO data) : base(controller, data)
     {
+
+        _idleState = idleState;
+
     }
 
     private Transform _target;
     private Rigidbody2D _rigid;
-
-    private class EnemyAttackTransition : EnemyTargetRangeTransition
-    {
-        public EnemyAttackTransition(EnemyDataSO data, Transform transform) : base(transform, data.AttackAbleRange, data.TargetAbleLayer, DefaultEnemyState.Attack)
-        {
-
-            _data = data;
-
-        }
-
-        private EnemyDataSO _data;
-
-        public override bool ChackTransition()
-        {
-
-            return _data.IsAttackCoolDown && base.ChackTransition();
-
-        }
-
-    }
+    private T _idleState;
 
     public override void Create()
     {
 
         _rigid = _transform.GetComponent<Rigidbody2D>();
 
-        var attackTransition = new EnemyAttackTransition(_data, _transform);
-        var idleBase = new EnemyTargetRangeTransition(_transform, _data.Range, _data.TargetAbleLayer, DefaultEnemyState.Idle);
-        var idleTransition = new ReverseTransition<DefaultEnemyState>(idleBase);
+    }
 
-        _transitions.Add(attackTransition);
-        _transitions.Add(idleTransition);
+    protected override void OnExit()
+    {
+
+        _rigid.velocity = Vector3.zero;
 
     }
 
@@ -111,7 +90,16 @@ public class EnemyMoveState : EnemyState
     {
 
         var dir = _target.position - _transform.position;
+        var dist = dir.sqrMagnitude;
         dir.Normalize();
+
+        if(dist < _data.AttackAbleRange * _data.AttackAbleRange)
+        {
+
+            _rigid.velocity = Vector2.zero;
+            return;
+
+        }
 
         _rigid.velocity = dir * _data.Speed;
 
@@ -126,12 +114,11 @@ public class EnemyMoveState : EnemyState
         {
 
             _target = hit.transform;
-
         }
         else
         {
 
-            _controller.ChangeState(DefaultEnemyState.Idle);
+            _controller.ChangeState(_idleState);
 
         }
 
@@ -139,14 +126,16 @@ public class EnemyMoveState : EnemyState
 
 }
 
+
+
 #endregion
 
 #region Transition
 
-public class EnemyTargetRangeTransition : Transition<DefaultEnemyState>
+public class EnemyTargetRangeTransition<T> : Transition<T> where T : System.Enum
 {
 
-    public EnemyTargetRangeTransition(Transform transform,float range, LayerMask targetLayer, DefaultEnemyState nextState) : base(nextState)
+    public EnemyTargetRangeTransition(Transform transform,float range, LayerMask targetLayer, T nextState) : base(nextState)
     {
 
         _range = range;
@@ -163,6 +152,25 @@ public class EnemyTargetRangeTransition : Transition<DefaultEnemyState>
     {
 
         return Physics2D.OverlapCircle(_transform.position, _range, _targetLayer);
+
+    }
+
+}
+public class EnemyAttackTransition<T> : EnemyTargetRangeTransition<T> where T : System.Enum
+{
+    public EnemyAttackTransition(EnemyDataSO data, Transform transform, T nextState) : base(transform, data.AttackAbleRange, data.TargetAbleLayer, nextState)
+    {
+
+        _data = data;
+
+    }
+
+    private EnemyDataSO _data;
+
+    public override bool ChackTransition()
+    {
+
+        return _data.IsAttackCoolDown && base.ChackTransition();
 
     }
 
