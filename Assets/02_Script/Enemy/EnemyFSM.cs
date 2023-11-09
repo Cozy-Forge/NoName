@@ -38,8 +38,8 @@ public class EnemyIdleState : EnemyState
     public override void Create()
     {
 
-
-
+        var rangeTransition = new EnemyTargetRangeTransition(_transform, _data.Range, _data.TargetAbleLayer, DefaultEnemyState.Move);
+        _transitions.Add(rangeTransition);
 
     }
 
@@ -116,10 +116,10 @@ public class EnemyMoveState : EnemyState
 
 #region Transition
 
-public class TargetRangeTransition : Transition<DefaultEnemyState>
+public class EnemyTargetRangeTransition : Transition<DefaultEnemyState>
 {
 
-    public TargetRangeTransition(Transform transform,float range, LayerMask targetLayer, DefaultEnemyState nextState) : base(nextState)
+    public EnemyTargetRangeTransition(Transform transform,float range, LayerMask targetLayer, DefaultEnemyState nextState) : base(nextState)
     {
 
         _range = range;
@@ -138,6 +138,19 @@ public class TargetRangeTransition : Transition<DefaultEnemyState>
         return Physics2D.OverlapCircle(_transform.position, _range, _targetLayer);
 
     }
+
+}
+
+public class EnemyAttackTransition : EnemyTargetRangeTransition
+{
+    public EnemyAttackTransition(EnemyDataSO data,Transform transform, float range, LayerMask targetLayer, DefaultEnemyState nextState) : base(transform, range, targetLayer, nextState)
+    {
+
+        _data = data;
+
+    }
+
+    private EnemyDataSO _data;
 
 }
 
