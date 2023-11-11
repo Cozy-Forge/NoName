@@ -43,7 +43,6 @@ public class MapGenerater : MonoBehaviour
         Queue<Room> notIncludedRoom = new();
         notIncludedRoom.Enqueue(new Room(Vector2Int.zero, new List<Vector2Int>(), 20, 20));
         
-
         while(percent < 0)
         {
 
@@ -56,7 +55,7 @@ public class MapGenerater : MonoBehaviour
 
             }
 
-            percent--;
+            percent -= 10;
 
         }
 
