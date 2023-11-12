@@ -9,15 +9,22 @@ public class TetrisTileManager : MonoBehaviour
 
     [Header("전체 보드 사이즈")]
     [SerializeField] private int _boardXSize;
+    public int boardXSize => _boardXSize;
     [SerializeField] private int _boardYSize;
+    public int boardYSize => _boardYSize;
 
 
     [Header("오브젝트")]
     [SerializeField] private RectTransform _tileParent;     //타일 중 제일 부모
+    public RectTransform tileParent => _tileParent;
     [SerializeField] private RectTransform  _weapon;        //이 친구자식으로 블록 소환
 
     [Header("벡터")]
     [SerializeField] private Vector2 _endPos;               //최대 사이즈일때 부모 위치
+
+    [Header("내려가는 딜레이")]
+    [SerializeField] private float _speed;
+    public float speed => _speed;
 
     private Transform _tempTrm;
 

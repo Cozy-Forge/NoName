@@ -12,8 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a87865d090e2b41a4425fdde434ffb, type: 3}
   m_Name: PoolingSO
   m_EditorClassIdentifier: 
-  alwaysPoolingObjects:
-  - poolingKey: TestBullet
-    poolingObject: {fileID: 686663316002418839, guid: bcfd5f9072767c941bff0b9706532d43, type: 3}
-    poolCount: 30
-  scenePoolingObjects: []
+  alwaysPoolingObjects: []
+  scenePoolingObjects:
+  - sceneName: June
+    scenePoolingObjects:
+    - poolingKey: test1
+      poolingObject: {fileID: 649820166860820019, guid: 1e791647df12fcf449e27cb92ccaf00c, type: 3}
+      poolCount: 0
+    - poolingKey: test2
+      poolingObject: {fileID: 7840890361883307607, guid: 2614ce5a8dc158d47a5e55995afc190c, type: 3}
+      poolCount: 0
+    - poolingKey: test3
+      poolingObject: {fileID: 4266826605156476375, guid: 66721be78b0a2064bbf13186c998c9e8, type: 3}
+      poolCount: 0
+    - poolingKey: test4
+      poolingObject: {fileID: 4034262574713306547, guid: 0b3591acdb77b8549a73744792e323a8, type: 3}
+      poolCount: 0
+    - poolingKey: test5
+      poolingObject: {fileID: 3651162930752843095, guid: 5b8ad8b96756d8547974b7371115f5ae, type: 3}
+      poolCount: 0
+    - poolingKey: test6
+      poolingObject: {fileID: 7127751929270978968, guid: 869a6e28525b1714da25b4dfca2a7c39, type: 3}
+      poolCount: 0

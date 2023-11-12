@@ -1,40 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI.Table;
+
+public enum BLOCKMOVEDIR
+{
+    DOWN = 0,
+    UP = 1,
+    LEFT = 2,
+    RIGHT = 3
+}
+
+public struct XY
+{
+    public int x;
+    public int y;
+}
 
 public class TetrisImg : MonoBehaviour
 {
-    private Texture2D       _texture;
-    private RectTransform   _rectTransform;
-    private int[,]          _board = new int[4,4];
-    private int[,]          _tempboard = new int[4,4];
+    private Texture2D _texture;
+    private RectTransform _rectTransform;
+
+    private int[,] _board = new int[4, 4];
+    public int[,] board => _board;
+
+    private XY _pos = new XY();
+    public XY pos => _pos;
+
+    private int[,] _tempboard = new int[4, 4];
 
     const int _row = 4;
     const int _col = 4;
     const int _pixerSize = 16;
     const int _spriteSize = 200;
+    const int _tileLength = 50;
 
     public bool _isDebug = false;
 
-    Color[]   _tempPixels;
+    private Color[] _tempPixels;
 
     private void Awake()
     {
+        Debug.Log($"test/{transform.name}");
+        transform.name = transform.name.Replace("(Clone)", "");
+
         _texture = Resources.Load<Texture2D>($"test/{transform.name}") as Texture2D;
         _rectTransform = GetComponent<RectTransform>();
 
         #region 예외처리
+
+        if (_texture == null)
+            Debug.LogError($"{transform} : _texture path is wrong!");
+
         if (!_texture.isReadable)
             Debug.LogError($"{transform} : This sprite can't read!");
 
-        if(_texture == null)
-            Debug.LogError($"{transform} : _texture path is wrong!");
-
-
-        if(_rectTransform.rect.width != _spriteSize || _rectTransform.rect.height != _spriteSize)
+        if (_rectTransform.rect.width != _spriteSize || _rectTransform.rect.height != _spriteSize)
         {
             Debug.LogWarning($"{transform} : This sprite's size is not 200!");
             _rectTransform.sizeDelta = new Vector2(_spriteSize, _spriteSize);
@@ -47,9 +73,9 @@ public class TetrisImg : MonoBehaviour
         if (_isDebug)
         {
             string s = "";
-            for(int i = _row - 1; i >= 0; i--)
+            for (int i = _row - 1; i >= 0; i--)
             {
-                for(int j = 0; j < _col; j++)
+                for (int j = 0; j < _col; j++)
                 {
                     s += _board[i, j].ToString() + " ";
                 }
@@ -60,15 +86,23 @@ public class TetrisImg : MonoBehaviour
         #endregion
     }
 
+    public void Init()
+    {
+        _pos.x = (TetrisTileManager.Instance.boardXSize - 4) / 2 + 3;
+        _pos.y = 0;
+        //CorrectionPos();
+        SetPos();
+    }
+
     //이미지를 잘라서 칠해져 있으면 배열에 할당 <- 이거 문제 생기면 그냥 인스펙터에서 관리하자 준이야
     public void CheckImage()
     {
-        for(int x = 0; x < _col; x++)
+        for (int x = 0; x < _col; x++)
         {
-            for(int y = 0; y < _row; y++)
+            for (int y = 0; y < _row; y++)
             {
                 _tempPixels = _texture.GetPixels(y * _pixerSize, x * _pixerSize, _pixerSize, _pixerSize);
-                for(int i = 0; i < _tempPixels.Length; i++)
+                for (int i = 0; i < _tempPixels.Length; i++)
                 {
                     if (_tempPixels[i].a != 0)
                     {
@@ -85,16 +119,80 @@ public class TetrisImg : MonoBehaviour
     /// </summary>
     public void RotateImage()
     {
-        _rectTransform.eulerAngles = new Vector3(0, 0, _rectTransform.rotation.z + 90);
+        _rectTransform.rotation = Quaternion.Euler(0, 0, _rectTransform.eulerAngles.z - 90);
+
+        //값복사
+        for (int i = 0; i < _row; i++)
+        {
+            for (int j = 0; j < _col; j++)
+            {
+                _tempboard[i, j] = _board[i, j];
+            }
+        }
 
         //배열 돌리기
         for (int i = 0; i < _row; i++)
         {
             for (int j = 0; j < _col; j++)
             {
-                _tempboard[j, _row - 1 - i] = _board[i, j];
+                _board[i, j] = _tempboard[j, _row - i - 1];
             }
         }
-        _board = _tempboard;
+    }
+
+    //인덱스 이동
+    public void Move(BLOCKMOVEDIR dir)
+    {
+        switch (dir)
+        {
+            case BLOCKMOVEDIR.LEFT:
+                _pos.x--;
+                break;
+            case BLOCKMOVEDIR.RIGHT:
+                _pos.x++;
+                break;
+            case BLOCKMOVEDIR.UP:
+                _pos.y--;
+                break;
+            case BLOCKMOVEDIR.DOWN:
+                _pos.y++;
+                break;
+        }
+
+        #region IndexoutofRange 예외처리
+        _pos.x = Mathf.Clamp(_pos.x, 0, TetrisTileManager.Instance.boardXSize + BlockManager.empty_place_size);
+        _pos.y = Mathf.Clamp(_pos.y, 0, TetrisTileManager.Instance.boardYSize + BlockManager.empty_place_size);
+        #endregion
+
+        SetPos();
+    }
+
+    //인덱스에 맞춰 포지션 적용
+    public void SetPos()
+    {
+        Debug.Log($"{_pos.x} : {_pos.y}");
+        float x = TetrisTileManager.Instance.tileParent.localPosition.x + _tileLength * _pos.x
+            + (_spriteSize / 4 + _tileLength / 2) - 150;
+        float y = TetrisTileManager.Instance.tileParent.localPosition.y - _tileLength * _pos.y
+            - (_spriteSize / 4 + _tileLength / 2) + 150;
+        _rectTransform.localPosition = new Vector3(x, y);
+    }
+
+    //Init후 위치 보정
+    public void CorrectionPos()
+    {
+        XY tempPos = new XY { x = pos.x, y = pos.y };
+        for(int i = 0; i < BlockManager.empty_place_size; i++)
+        {
+            tempPos.x++; 
+        }
+
+        for (int i = 0; i < BlockManager.empty_place_size; i++)
+        {
+            tempPos.y++;
+        }
+
+        _pos.x = tempPos.x;
+        _pos.y = tempPos.y;
     }
 }
