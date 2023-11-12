@@ -14,6 +14,7 @@ public enum EnumPlayerState
 [RequireComponent(typeof(PlayerWeaponContainer))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class PlayerController : StateController<EnumPlayerState>
 {
 

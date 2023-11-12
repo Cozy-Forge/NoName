@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -120,6 +121,7 @@ public class DashState : PlayerState
 
     private DashTransition _dashTransition;
     private Rigidbody2D _rigid;
+    public event Action OnDashEvent;
 
     public class DashTransition : Transition<EnumPlayerState>
     {
