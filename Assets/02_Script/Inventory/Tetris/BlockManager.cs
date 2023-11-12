@@ -9,9 +9,9 @@ public class BlockManager : MonoBehaviour
     public static BlockManager Instance;
 
     private TetrisImg _selectBlock;             //현재 선택된 블록
-    private WaitForSeconds wfs;                 //MoveCo 코루틴 딜레이
+    private WaitForSeconds _wfs;                 //MoveCo 코루틴 딜레이
 
-    public int[,] _board = new int[16,26];     //테트리스 보드 --> +3씩 예외처리
+    public int[,] board = new int[16,26];     //테트리스 보드 --> +3씩 예외처리
 
     public static int empty_place_size = 3;
 
@@ -32,7 +32,7 @@ public class BlockManager : MonoBehaviour
 
     private void Start()
     {
-        wfs = new WaitForSeconds(TetrisTileManager.Instance.speed);
+        _wfs = new WaitForSeconds(TetrisTileManager.Instance.speed);
         StartCoroutine(MoveCo());
     }
 
@@ -82,7 +82,7 @@ public class BlockManager : MonoBehaviour
         {
             if (_selectBlock != null)
             {
-                yield return wfs;
+                yield return _wfs;
                 _selectBlock.Move(BLOCKMOVEDIR.DOWN);
             }
             else
@@ -102,7 +102,7 @@ public class BlockManager : MonoBehaviour
         {
             for (int j = 0; j < 4; j++)
             {
-                if ((fill[i,j] == 1 && _board[pos.x + i + empty_place_size, pos.y + j + empty_place_size] == 1) 
+                if ((fill[i,j] == 1 && board[pos.x + i + empty_place_size, pos.y + j + empty_place_size] == 1) 
                     || !CheckCanGo(pos))
                 {
                     return false;

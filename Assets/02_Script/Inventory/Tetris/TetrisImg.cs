@@ -182,9 +182,9 @@ public class TetrisImg : MonoBehaviour
     public void CorrectionPos()
     {
         XY tempPos = new XY { x = pos.x, y = pos.y };
-        for(int i = 0; i < BlockManager.empty_place_size; i++)
+        for (int i = 0; i < BlockManager.empty_place_size; i++)
         {
-            tempPos.x++; 
+            tempPos.x++;
         }
 
         for (int i = 0; i < BlockManager.empty_place_size; i++)
@@ -194,5 +194,97 @@ public class TetrisImg : MonoBehaviour
 
         _pos.x = tempPos.x;
         _pos.y = tempPos.y;
+    }
+
+    /// <summary>
+    /// 이동할 수 있지는 확인합니다.
+    /// </summary>
+    /// <param name="dir">이동할 방향</param>
+    /// <returns>이동이 가능하면 true 아니면 false를 리턴합니다.</returns>
+    public bool CanGo(BLOCKMOVEDIR dir)
+    {
+        XY tempPos = new XY { x = _pos.x, y = _pos.y };
+
+        switch (dir)
+        {
+            case BLOCKMOVEDIR.DOWN:
+                tempPos.y++;
+                break;
+            case BLOCKMOVEDIR.UP:
+                tempPos.y--;
+                break;
+            case BLOCKMOVEDIR.RIGHT:
+                tempPos.x++;
+                break;
+            case BLOCKMOVEDIR.LEFT:
+                tempPos.x--;
+                break;
+        }
+
+        for (int k = 0; k < 4; k++)
+        {
+            for (int l = 0; l < 4; l++)
+            {
+                if (_board[k, l] == 1 && BlockManager.Instance.board[tempPos.x, tempPos.y] == 1)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public bool OverBlockXLeft()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            for(int j = 0; j < 4; j++)
+            {
+                if (_board[i, j] == 1 && pos.x + i < 3)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public bool OverBlockXRight()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (_board[i, j] == 1 && pos.x + i > TetrisTileManager.Instance.boardXSize + 6)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public bool OverBlockYUp()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            for(int j = 0; j < 4; j++)
+            {
+                if (_board[i, j] == 1 && pos.y + j < 3)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+
+    public bool OverBlockYDown()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (_board[i, j] == 1 && pos.y + j > TetrisTileManager.Instance.boardYSize + 6)
+                    return false;
+            }
+        }
+        return true;
     }
 }
