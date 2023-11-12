@@ -173,7 +173,7 @@ MonoBehaviour:
   _minRoadLength: 15
   _maxRoadLength: 17
   _tilemap: {fileID: 2090218149}
-  _tile: {fileID: 11400000, guid: 888b9941dc9cfeb41be2f80e763a30d5, type: 2}
+  _tile: {fileID: 11400000, guid: 2502944f1c5501d41a92cfeaadbaa4cb, type: 2}
 --- !u!1 &962726258
 GameObject:
   m_ObjectHideFlags: 0
