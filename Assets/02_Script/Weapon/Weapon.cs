@@ -6,9 +6,17 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
 
-    [SerializeField] protected WeaponDataSO _data;
+    [SerializeField] protected WeaponDataSO _so;
+    protected WeaponData _data;
 
     protected bool _isCoolDown { get; private set; }
+
+    protected virtual void Awake()
+    {
+        
+        _data = _so.Data;
+
+    }
 
     public void CastingWeapon(Transform target, float range)
     {
@@ -28,7 +36,7 @@ public abstract class Weapon : MonoBehaviour
 
         }, _data.AttackCoolDown);
 
-        DoAttack();
+        DoAttack(target);
 
     }
 
@@ -41,6 +49,6 @@ public abstract class Weapon : MonoBehaviour
 
     }
 
-    protected abstract void DoAttack();
+    protected abstract void DoAttack(Transform trm);
 
 }
