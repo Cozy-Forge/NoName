@@ -49,9 +49,8 @@ public class MapGenerater : MonoBehaviour
     {
         
         CreateRooms();
-        //RemoveOverlapsRoom();
-
         DrawTile();
+        DrawOutline();
 
     }
 
@@ -208,6 +207,79 @@ public class MapGenerater : MonoBehaviour
             _rooms.Add(curRoom);
 
             percent -= 5;
+
+        }
+
+    }
+
+    private void DrawOutline()
+    {
+
+        Vector3Int point = Vector3Int.zero;
+
+        foreach (var room in _rooms)
+        {
+
+            for (int x = (int)room.MinPoint.x; x < room.MaxPoint.x; x++)
+            {
+
+                for (int y = (int)room.MinPoint.y; y < room.MaxPoint.y; y++)
+                {
+
+                    point.x = x;
+                    point.y = y;
+                    _tilemap.SetTile(point, _tile);
+
+                }
+
+            }
+
+            foreach (var cr in room._connectRoom)
+            {
+
+                var minX = Mathf.Min(cr.Item1._pos.x, room._pos.x);
+                var maxX = Mathf.Max(cr.Item1._pos.x, room._pos.x);
+                var minY = Mathf.Min(cr.Item1._pos.y, room._pos.y);
+                var maxY = Mathf.Max(cr.Item1._pos.y, room._pos.y);
+
+                if (cr.Item2.x != 0)
+                {
+
+                    for (int x = (int)minX; x < maxX; x++)
+                    {
+
+                        for (int i = -1; i <= 1; i++)
+                        {
+
+                            point.x = x;
+                            point.y = (int)room._pos.y + i;
+                            _tilemap.SetTile(point, _tile);
+
+                        }
+
+                    }
+
+                }
+                else
+                {
+
+                    for (int y = (int)minY; y < maxY; y++)
+                    {
+
+                        for (int i = -1; i <= 1; i++)
+                        {
+
+                            point.x = (int)room._pos.x + i;
+                            point.y = y;
+                            _tilemap.SetTile(point, _tile);
+
+                        }
+
+                    }
+
+                }
+
+            }
 
         }
 

@@ -36,7 +36,7 @@ public abstract class Weapon : MonoBehaviour
 
         }, _data.AttackCoolDown);
 
-        DoAttack();
+        DoAttack(target);
 
     }
 
@@ -49,6 +49,6 @@ public abstract class Weapon : MonoBehaviour
 
     }
 
-    protected abstract void DoAttack();
+    protected abstract void DoAttack(Transform trm);
 
 }

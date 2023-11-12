@@ -8,7 +8,7 @@ public class RangeWeapon : Weapon
 
     [SerializeField] private string bulletPoolingKey;
 
-    protected override void DoAttack()
+    protected override void DoAttack(Transform trm)
     {
 
         var blt = FAED.TakePool<Bullet>(bulletPoolingKey, transform.position, Quaternion.identity);
