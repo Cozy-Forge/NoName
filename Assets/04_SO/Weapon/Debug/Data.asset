@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a45b9ee4dc372458c9979e562d8d88, type: 3}
   m_Name: Data
   m_EditorClassIdentifier: 
-  <Range>k__BackingField: 5
-  <AttackPower>k__BackingField: 3
-  <AttackCoolDown>k__BackingField: 3
+  <Data>k__BackingField:
+    Range: 3
+    AttackPower: 12
+    AttackCoolDown: 1
