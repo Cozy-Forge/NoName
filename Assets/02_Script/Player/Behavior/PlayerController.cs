@@ -15,14 +15,15 @@ public enum EnumPlayerState
 [RequireComponent(typeof(PlayerWeaponContainer))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerAnimator))]
 public class PlayerController : StateController<EnumPlayerState>
 {
 
     [SerializeField] private PlayerInputReader _inputReader;
     [SerializeField] private PlayerDataSO _data;
 
-    public event Action OnDashEvent, OnDashEndEvent;
+    public event Action<Vector2> OnDashEvent;
+    public event Action OnDashEndEvent;
 
     private void Awake()
     {

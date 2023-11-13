@@ -11,11 +11,44 @@ public abstract class PlayerState : State<EnumPlayerState>
 
         _inputReader = inputReader;
         _data = data;
+        _animator = _transform.GetComponent<PlayerAnimator>();
 
     }
 
     protected PlayerInputReader _inputReader;
     protected PlayerDataSO _data;
+    protected PlayerAnimator _animator;
+
+}
+
+public class PlayerFlipSubState : ISubState
+{
+
+
+    public PlayerFlipSubState(Transform trm, PlayerInputReader inputReader)
+    {
+
+        _spriteRenderer = trm.GetComponent<SpriteRenderer>();
+        _inputReader = inputReader;
+
+    }
+
+    private SpriteRenderer _spriteRenderer;
+    private PlayerInputReader _inputReader;
+
+    public void Run()
+    {
+
+        _spriteRenderer.flipX = _inputReader.MoveInputDir.x switch
+        {
+
+            var x when x > 0 => true,
+            var x when x < 0 => false,
+            _ => _spriteRenderer.flipX
+
+        };
+
+    }
 
 }
 
@@ -68,7 +101,10 @@ public class MoveState : PlayerState
         var attackSub = new AttackSubState
             (_transform.GetComponent<PlayerWeaponContainer>(), _data.TargetLayer);
 
+        var flipSub = new PlayerFlipSubState(_transform, _inputReader);
+
         _subStates.Add(attackSub);
+        _subStates.Add(flipSub);
 
     }
 
@@ -99,6 +135,8 @@ public class MoveState : PlayerState
         if (_isControlReleased) return;
         _rigid.velocity = _inputReader.MoveInputDir.normalized * _data.MoveSpeed;
 
+        _animator.SetIsMove(_inputReader.MoveInputDir != Vector2.zero);
+
     }
 
     private void HandleDash()
@@ -121,7 +159,7 @@ public class DashState : PlayerState
 
     private DashTransition _dashTransition;
     private Rigidbody2D _rigid;
-    public event Action OnDashEvent;
+    public event Action<Vector2> OnDashEvent;
     public event Action OnDashEndEvent;
 
     public class DashTransition : Transition<EnumPlayerState>
@@ -194,7 +232,7 @@ public class DashState : PlayerState
         }
 
         _rigid.velocity = dir * _data.DashPower;
-        OnDashEvent?.Invoke();
+        OnDashEvent?.Invoke(dir);
 
     }
 
