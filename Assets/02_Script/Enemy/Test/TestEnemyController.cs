@@ -18,7 +18,8 @@ public enum TestEnemyState
 public class TestEnemyController : StateController<TestEnemyState>
 {
 
-    [SerializeField] private EnemyDataSO _data;
+    [field:SerializeField] public EnemyDataSO Data { get; private set; }
+
 
     private class ExampleEnemyAttackState : EnemyState<TestEnemyState>
     {
@@ -44,27 +45,27 @@ public class TestEnemyController : StateController<TestEnemyState>
     private void Awake()
     {
         
-        _data = Instantiate(_data);
+        Data = Instantiate(Data);
 
         var goMove = new EnemyTargetRangeTransition<TestEnemyState>
-            (transform, _data.Range, _data.TargetAbleLayer, TestEnemyState.Move);
+            (transform, Data.Range, Data.TargetAbleLayer, TestEnemyState.Move);
 
         var goAttack = new EnemyTargetRangeTransition<TestEnemyState>
-            (transform, _data.AttackAbleRange, _data.TargetAbleLayer, TestEnemyState.Attack);
+            (transform, Data.AttackAbleRange, Data.TargetAbleLayer, TestEnemyState.Attack);
 
         var goIdleBase = new EnemyTargetRangeTransition<TestEnemyState>
-            (transform, _data.Range, _data.TargetAbleLayer, TestEnemyState.Idle);
+            (transform, Data.Range, Data.TargetAbleLayer, TestEnemyState.Idle);
 
         var goIdle = new ReverseTransition<TestEnemyState>(goIdleBase);
 
-        var idleState = new EnemyIdleState<TestEnemyState>(this, _data)
+        var idleState = new EnemyIdleState<TestEnemyState>(this, Data)
             .AddTransition(goMove);
 
-        var moveState = new EnemyMoveState<TestEnemyState>(TestEnemyState.Idle, this, _data)
+        var moveState = new EnemyMoveState<TestEnemyState>(TestEnemyState.Idle, this, Data)
             .AddTransition(goAttack)
             .AddTransition(goIdle);
 
-        var attackState = new ExampleEnemyAttackState(this, _data);
+        var attackState = new ExampleEnemyAttackState(this, Data);
 
         _stateContainer.Add(TestEnemyState.Idle, idleState);
         _stateContainer.Add(TestEnemyState.Move, moveState);
