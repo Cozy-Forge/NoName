@@ -339,27 +339,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISheet_53
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 80
-        width: 32
-        height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
-      border: {x: 5, y: 4, z: 5, w: 8}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2343f4dae13f4d24a95d9c55d2bc7ce4
-      internalID: 858495915
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: UISheet_55
       rect:
         serializedVersion: 2
@@ -489,13 +468,13 @@ TextureImporter:
       name: UISheet_0
       rect:
         serializedVersion: 2
-        x: 21
+        x: 16
         y: 80
-        width: 27
+        width: 32
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 8, y: 4, z: 9, w: 8}
+      pivot: {x: 0, y: 0}
+      border: {x: 12, y: 4, z: 8, w: 7}
       outline: []
       physicsShape: []
       tessellationDetail: 0
