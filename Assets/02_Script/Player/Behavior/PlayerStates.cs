@@ -233,12 +233,14 @@ public class DashState : PlayerState
 
         _rigid.velocity = dir * _data.DashPower;
         OnDashEvent?.Invoke(dir);
+        _animator.SetDash(true);
 
     }
 
     protected override void OnExit()
     {
 
+        _animator.SetDash(false);
         OnDashEndEvent?.Invoke();
 
     }

@@ -7,6 +7,8 @@ public class PlayerAnimator : MonoBehaviour
 {
 
     private readonly int HASH_ISMOVE = Animator.StringToHash("IsMove");
+    private readonly int HASH_DASHSTART = Animator.StringToHash("DashStart");
+    private readonly int HASH_DASHEND = Animator.StringToHash("DashEnd");
 
     private Animator _animator;
 
@@ -21,6 +23,24 @@ public class PlayerAnimator : MonoBehaviour
     {
 
         _animator.SetBool(HASH_ISMOVE, value);
+
+    }
+
+    public void SetDash(bool value)
+    {
+
+        if (value)
+        {
+
+            _animator.SetTrigger(HASH_DASHSTART);
+
+        }
+        else
+        {
+
+            _animator.SetTrigger(HASH_DASHEND);
+
+        }
 
     }
 
