@@ -46,6 +46,8 @@ public class PlayerFlipSubState : ISubState
 
         };
 
+
+
     }
 
 }
@@ -171,7 +173,7 @@ public class DashState : PlayerState
         private Vector3 _endPos;
         private float _oldDest;
 
-        public DashTransition(Transform transform,EnumPlayerState nextState) : base(nextState)
+        public DashTransition(Transform transform, EnumPlayerState nextState) : base(nextState)
         {
 
             _transform = transform;
@@ -191,6 +193,7 @@ public class DashState : PlayerState
             var vec = _endPos - _transform.position;
 
             var dist = vec.sqrMagnitude;
+
             if (_oldDest - dist < 0)
             {
 
@@ -207,6 +210,7 @@ public class DashState : PlayerState
 
     public override void Create()
     {
+
         _dashTransition = new DashTransition(_transform, EnumPlayerState.Move);
         _transitions.Add(_dashTransition);
         _rigid = _transform.GetComponent<Rigidbody2D>();
@@ -216,7 +220,7 @@ public class DashState : PlayerState
     protected override void OnEnter()
     {
 
-        var dir = _inputReader.MoveInputDir == Vector2.zero ? Vector2.right : _inputReader.MoveInputDir;
+        var dir = _inputReader.OldMoveInputDir;
 
         var hit = Physics2D.Raycast(_transform.position, dir, _data.DashLength, _data.DashObstacleLayer);
 
@@ -234,6 +238,7 @@ public class DashState : PlayerState
         }
 
         _rigid.velocity = dir * _data.DashPower;
+
         OnDashEvent?.Invoke(dir);
         _animator.SetDash(true);
 

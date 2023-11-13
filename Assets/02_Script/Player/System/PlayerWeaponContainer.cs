@@ -33,6 +33,15 @@ public class PlayerWeaponContainer : MonoBehaviour
 
     }
 
+    public void RemoveWeapon(Weapon weapon)
+    {
+
+        _weapons.Remove(weapon);
+
+        Destroy(weapon);
+
+    }
+
     public void CastingAll(Collider2D[] arr)
     {
 

@@ -51,7 +51,6 @@ public class MoveParticleController : MonoBehaviour
     }
 
 
-
     private void HandlePlayerMove(Vector2 value)
     {
 
@@ -64,7 +63,18 @@ public class MoveParticleController : MonoBehaviour
 
         };
 
-        _particle.Play();
+        if(value == Vector2.zero)
+        {
+
+            _particle.Stop();
+
+        }
+        else if(!_particle.isPlaying)
+        {
+
+            _particle.Play();
+
+        }
 
     }
 }
