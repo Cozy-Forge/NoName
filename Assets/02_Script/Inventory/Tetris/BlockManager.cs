@@ -48,7 +48,8 @@ public class BlockManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) && _selectBlock == null)
         {
-            CreateBlock(test[Random.Range(0,test.Length - 1)]);
+            //CreateBlock(test[Random.Range(0,test.Length - 1)]);
+            CreateBlock(test[0]);
         }
 
         if (Input.GetKeyDown(KeyCode.D))

@@ -14080,7 +14080,7 @@ MonoBehaviour:
   _tileParent: {fileID: 1383318206}
   _weapon: {fileID: 457114530}
   _endPos: {x: -225, y: 475}
-  _speed: 3
+  _speed: 0.3
 --- !u!1 &1195831772
 GameObject:
   m_ObjectHideFlags: 0
