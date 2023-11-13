@@ -50,5 +50,6 @@ public abstract class Weapon : MonoBehaviour
     }
 
     protected abstract void DoAttack(Transform trm);
+    public virtual void OnEquip() { }
 
 }
