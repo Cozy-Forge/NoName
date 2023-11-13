@@ -213,6 +213,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _so: {fileID: 11400000, guid: a04f35bed1045f644b48b6173d3b0bd6, type: 2}
+  _swingTime: 0.3
+  _swingDelayTime: 2
 --- !u!1 &382227523
 GameObject:
   m_ObjectHideFlags: 0
