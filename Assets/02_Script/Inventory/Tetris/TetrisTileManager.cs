@@ -39,7 +39,7 @@ public class TetrisTileManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            Debug.LogError($"{transform} : TetrisTile is Multiply running!");
+            Debug.LogError($"{transform} : TetrisTile is Multiple running!");
         }
         #endregion
 

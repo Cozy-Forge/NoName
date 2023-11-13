@@ -14075,12 +14075,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af9b7c0bdf1f524fa434dab7840deed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boardXSize: 6
-  _boardYSize: 6
+  _boardXSize: 10
+  _boardYSize: 10
   _tileParent: {fileID: 1383318206}
   _weapon: {fileID: 457114530}
   _endPos: {x: -225, y: 475}
-  _speed: 0.3
+  _speed: 3
 --- !u!1 &1195831772
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,7 +25,14 @@ public class BlockManager : MonoBehaviour
         else
         {
             Destroy(transform);
-            Debug.LogError($"{transform} : BlockManager is Multiply running!");
+            Debug.LogError($"{transform} : BlockManager is Multiple running!");
+        }
+
+        if(PriortyQueueBlock.Instance == null)
+            PriortyQueueBlock.Instance = new PriortyQueueBlock();
+        else
+        {
+            Debug.LogError($"{transform} : PriortyQueueBlock is Multiple Running!");
         }
         #endregion
     }
@@ -39,10 +46,9 @@ public class BlockManager : MonoBehaviour
     //여긴 테스트용 나중에 지워야댐
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && _selectBlock == null)
         {
-            //CreateBlock(test[Random.Range(0,test.Length - 1)]);
-            CreateBlock(test[0]);
+            CreateBlock(test[Random.Range(0,test.Length - 1)]);
         }
 
         if (Input.GetKeyDown(KeyCode.D))

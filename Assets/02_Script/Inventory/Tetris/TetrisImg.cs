@@ -147,9 +147,11 @@ public class TetrisImg : MonoBehaviour
         {
             for (int j = 0; j < _col; j++)
             {
-                _board[i, j] = _tempboard[j, _row - i - 1];
+                _board[i, j] = _tempboard[_col - j - 1, i];
             }
         }
+
+        DebugArr();
     }
 
     //인덱스 이동
@@ -161,23 +163,30 @@ public class TetrisImg : MonoBehaviour
         switch (dir)
         {
             case BLOCKMOVEDIR.LEFT:
+                if (!CollisionOtherBlock(dir))
+                    return;
                 _pos.x--;
                 break;
             case BLOCKMOVEDIR.RIGHT:
+                if (!CollisionOtherBlock(dir))
+                    return;
                 _pos.x++;
                 break;
             case BLOCKMOVEDIR.UP:
+                if (!CollisionOtherBlock(dir))
+                    return;
                 _pos.y--;
                 break;
             case BLOCKMOVEDIR.DOWN:
+                if (!CollisionOtherBlock(dir))
+                {
+                    BlockManager.Instance.SetSelectBlockNull();
+                    FillBoard();
+                    return;
+                }
                 _pos.y++;
                 break;
         }
-
-        #region IndexoutofRange 예외처리
-        _pos.x = Mathf.Clamp(_pos.x, 0, TetrisTileManager.Instance.boardXSize + BlockManager.empty_place_size);
-        _pos.y = Mathf.Clamp(_pos.y, 0, TetrisTileManager.Instance.boardYSize + BlockManager.empty_place_size);
-        #endregion
 
         SetPos();
     }
@@ -226,6 +235,7 @@ public class TetrisImg : MonoBehaviour
                 if (!OverBlockYDown(tempPos))
                 {
                     BlockManager.Instance.SetSelectBlockNull();
+                    FillBoard();
                     return false;
                 }
                 break;
@@ -252,9 +262,9 @@ public class TetrisImg : MonoBehaviour
                 break;
         }
 
-        for (int k = 0; k < 4; k++)
+        for (int k = 0; k < _col; k++)
         {
-            for (int l = 0; l < 4; l++)
+            for (int l = 0; l < _row; l++)
             {
                 if (_board[k, l] == 1 && BlockManager.Instance.board[tempPos.x, tempPos.y] == 1)
                 {
@@ -301,6 +311,7 @@ public class TetrisImg : MonoBehaviour
                     return false;
             }
         }
+        DebugArr();
         return true;
     }
 
@@ -317,7 +328,6 @@ public class TetrisImg : MonoBehaviour
             {
                 if (_board[i, j] == 1 && tempPos.y + i < 3)
                 {
-                    Debug.Log($"{tempPos.y} : {i}");
                     return false;
                 }
             }
@@ -363,16 +373,16 @@ public class TetrisImg : MonoBehaviour
             case BLOCKMOVEDIR.UP:
                 tempPos.y--;
                 break;
-            case BLOCKMOVEDIR.DOWN: 
+            case BLOCKMOVEDIR.DOWN:
                 tempPos.y++;
                 break;
         }
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < _col; i++)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < _row; j++)
             {
-                if (_board[i, j] == 1 && BlockManager.Instance.board[tempPos.x + i,tempPos.y  + j] == 1)
+                if (board[i, j] == 1 && BlockManager.Instance.board[tempPos.y + i, tempPos.x + j] == 1)
                 {
                     return false;
                 }
