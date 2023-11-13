@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveWeapon : Weapon
+public class BoomWeapon : Weapon
 {
     private PlayerController _playerController;
 
@@ -11,10 +11,10 @@ public class WaveWeapon : Weapon
     {
         base.Awake();
         _playerController = FindObjectOfType<PlayerController>();
-        _playerController.OnDashEndEvent += SpawnWave;
+        _playerController.OnDashEvent += SpawnWave;
     }
 
-    private void SpawnWave()
+    private void SpawnWave(Vector2 dir)
     {
         var obj = Instantiate(gameObject, _playerController.transform.position, Quaternion.identity);
         _data.Range = transform.localScale.x;
@@ -27,7 +27,7 @@ public class WaveWeapon : Weapon
             }
         }, 0.5f);
 
-        StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(8f, 8f, 1f), 0.3f));
+       StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(8f, 8f, 1f), 0.3f));
     }
 
     private IEnumerator ObjectTransformScaleOverTime(Transform objTransform, Vector3 targetScale, float duration)
@@ -50,8 +50,9 @@ public class WaveWeapon : Weapon
         if (other.CompareTag("Enemy"))
         {
             TestEnemyController enemyController = other.GetComponent<TestEnemyController>();
-            if (enemyController != null && enemyController.Data.Speed > 2)
+            if (enemyController != null)
             {
+                //나중에 체력으로 바꾸기
                 enemyController.Data.Speed -= 2;
             }
             else
@@ -64,7 +65,7 @@ public class WaveWeapon : Weapon
 
     private void OnDestroy()
     {
-        _playerController.OnDashEndEvent -= SpawnWave;
+        _playerController.OnDashEvent -= SpawnWave;
     }
 
 
