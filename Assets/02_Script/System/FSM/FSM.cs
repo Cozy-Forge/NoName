@@ -9,10 +9,14 @@ public interface ISubState
 
 }
 
+public delegate void StateChangeEvent<T>(T oldState, T newState) where T : System.Enum;
+
 public class StateController<T> : MonoBehaviour where T : System.Enum
 {
 
     protected Dictionary<T, State<T>> _stateContainer = new();
+
+    public event StateChangeEvent<T> OnStateChangeEvent;
 
     public T CurrentState { get; protected set; } = default;
 
@@ -48,6 +52,7 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
         CurrentState = state;
         _stateContainer[CurrentState].Enter();
 
+        OnStateChangeEvent?.Invoke(old, state);
 
     }
 

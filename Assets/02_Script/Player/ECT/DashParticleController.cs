@@ -5,8 +5,6 @@ using UnityEngine;
 public class DashParticleController : MonoBehaviour
 {
 
-    [SerializeField] private PlayerInputReader _inputReader;
-
     private PlayerController _controller;
     private ParticleSystem _particle;
 

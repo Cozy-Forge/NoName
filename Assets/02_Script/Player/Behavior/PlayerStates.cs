@@ -23,8 +23,6 @@ public abstract class PlayerState : State<EnumPlayerState>
 
 public class PlayerFlipSubState : ISubState
 {
-
-
     public PlayerFlipSubState(Transform trm, PlayerInputReader inputReader)
     {
 
@@ -54,6 +52,8 @@ public class PlayerFlipSubState : ISubState
 
 public class MoveState : PlayerState
 {
+
+    public event Action<Vector2> OnMoveEvent;
 
     public MoveState(PlayerController controller, PlayerInputReader inputReader, PlayerDataSO data) : base(controller, inputReader, data)
     {
@@ -136,6 +136,8 @@ public class MoveState : PlayerState
         _rigid.velocity = _inputReader.MoveInputDir.normalized * _data.MoveSpeed;
 
         _animator.SetIsMove(_inputReader.MoveInputDir != Vector2.zero);
+
+        OnMoveEvent?.Invoke(_inputReader.MoveInputDir);
 
     }
 

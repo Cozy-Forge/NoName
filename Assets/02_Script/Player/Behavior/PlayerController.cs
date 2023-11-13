@@ -22,7 +22,7 @@ public class PlayerController : StateController<EnumPlayerState>
     [SerializeField] private PlayerInputReader _inputReader;
     [SerializeField] private PlayerDataSO _data;
 
-    public event Action<Vector2> OnDashEvent;
+    public event Action<Vector2> OnDashEvent, OnMoveEvent;
     public event Action OnDashEndEvent;
 
     private void Awake()
@@ -36,10 +36,19 @@ public class PlayerController : StateController<EnumPlayerState>
         dashState.OnDashEvent += HandleOnDash;
         dashState.OnDashEndEvent += HandleOnDashEnd;
 
+        moveState.OnMoveEvent += HandleOnMove;
+
         _stateContainer.Add(EnumPlayerState.Move, moveState);
         _stateContainer.Add(EnumPlayerState.Dash, dashState);
 
         CurrentState = EnumPlayerState.Move;
+
+    }
+
+    private void HandleOnMove(Vector2 value)
+    {
+
+        OnMoveEvent?.Invoke(value);
 
     }
 
