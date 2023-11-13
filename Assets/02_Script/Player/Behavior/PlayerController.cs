@@ -33,13 +33,27 @@ public class PlayerController : StateController<EnumPlayerState>
         var moveState = new MoveState(this, _inputReader, _data);
         var dashState = new DashState(this, _inputReader, _data);
 
-        dashState.OnDashEvent += OnDashEvent;
-        dashState.OnDashEndEvent += OnDashEndEvent;
+        dashState.OnDashEvent += HandleOnDash;
+        dashState.OnDashEndEvent += HandleOnDashEnd;
 
         _stateContainer.Add(EnumPlayerState.Move, moveState);
         _stateContainer.Add(EnumPlayerState.Dash, dashState);
 
         CurrentState = EnumPlayerState.Move;
+
+    }
+
+    private void HandleOnDash(Vector2 value)
+    {
+
+        OnDashEvent?.Invoke(value);
+
+    }
+
+    private void HandleOnDashEnd()
+    {
+
+        OnDashEndEvent?.Invoke();
 
     }
 
