@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoomWeapon : Weapon
+public class EWaveWeapon : Weapon
 {
     private PlayerController _playerController;
 
@@ -13,12 +13,9 @@ public class BoomWeapon : Weapon
         _playerController = FindObjectOfType<PlayerController>();
     }
 
-    public override void OnEquip()
-    {
-        _playerController.OnDashEvent += SpawnWave;
-    }
+    
 
-    private void SpawnWave(Vector2 dir)
+    private void SpawnWave()
     {
         var obj = Instantiate(gameObject, _playerController.transform.position, Quaternion.identity);
         _data.Range = transform.localScale.x;
@@ -29,9 +26,9 @@ public class BoomWeapon : Weapon
             {
                 Destroy(obj);
             }
-        }, 0.5f);
+        }, 0.7f);
 
-       StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(8f, 8f, 1f), 0.3f));
+       StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(7f, 7f, 1f), 0.6f));
     }
 
     private IEnumerator ObjectTransformScaleOverTime(Transform objTransform, Vector3 targetScale, float duration)
@@ -49,7 +46,7 @@ public class BoomWeapon : Weapon
         objTransform.localScale = targetScale;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    /*private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
         {
@@ -64,17 +61,11 @@ public class BoomWeapon : Weapon
                 Debug.Log("null");
             }
         }
-    }
+    }*/
 
-
-    private void OnDestroy()
-    {
-        _playerController.OnDashEvent -= SpawnWave;
-    }
-
-
+    
     protected override void DoAttack(Transform trm)
     {
-        
+        SpawnWave();
     }
 }

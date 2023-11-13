@@ -11,6 +11,11 @@ public class WaveWeapon : Weapon
     {
         base.Awake();
         _playerController = FindObjectOfType<PlayerController>();
+        
+    }
+
+    public override void OnEquip()
+    {
         _playerController.OnDashEndEvent += SpawnWave;
     }
 
