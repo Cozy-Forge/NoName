@@ -24,6 +24,8 @@ public class MeleeWeapon : Weapon
 
         float t = 0.0f;
 
+        
+
         // Move backward
         while (t < 1.0f)
         {
