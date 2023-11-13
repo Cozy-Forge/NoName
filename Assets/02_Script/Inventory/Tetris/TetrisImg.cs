@@ -13,7 +13,9 @@ public enum BLOCKMOVEDIR
     DOWN = 0,
     UP = 1,
     LEFT = 2,
-    RIGHT = 3
+    RIGHT = 3,
+    UPTwo = 4,
+    NONE = 5,
 }
 
 public struct XY
@@ -151,7 +153,38 @@ public class TetrisImg : MonoBehaviour
             }
         }
 
-        DebugArr();
+        if (!CollisionOtherBlock(BLOCKMOVEDIR.NONE))
+        {
+            if (CollisionOtherBlock(BLOCKMOVEDIR.RIGHT)) //&& OverBlockXRight(new XY() { x = _pos.x + 1, y = _pos.y }))
+            {
+                _pos.x++;
+            }
+            else if (CollisionOtherBlock(BLOCKMOVEDIR.LEFT)) //&& OverBlockXLeft(new XY() { x = _pos.x - 1, y = _pos.y }))
+            {
+                _pos.x--;
+            }
+            else if (CollisionOtherBlock(BLOCKMOVEDIR.UP)) //&& OverBlockYUp(new XY() { x = _pos.x, y = _pos.y - 1}))
+            {
+                _pos.y--;
+            }
+            else if (CollisionOtherBlock(BLOCKMOVEDIR.UPTwo)) //&& OverBlockYUp(new XY() { x = _pos.x, y = _pos.y - 2 }))
+            {
+                _pos.y -= 2;
+            }
+            else
+            {
+                //다 안되면 못돌려
+                for (int i = 0; i < _row; i++)
+                {
+                    for (int j = 0; j < _col; j++)
+                    {
+                        _board[i, j] = _tempboard[i, j];
+                    }
+                }
+                _rectTransform.rotation = Quaternion.Euler(0, 0, _rectTransform.eulerAngles.z + 90);
+            }
+
+        }
     }
 
     //인덱스 이동
@@ -311,7 +344,6 @@ public class TetrisImg : MonoBehaviour
                     return false;
             }
         }
-        DebugArr();
         return true;
     }
 
@@ -375,6 +407,11 @@ public class TetrisImg : MonoBehaviour
                 break;
             case BLOCKMOVEDIR.DOWN:
                 tempPos.y++;
+                break;
+            case BLOCKMOVEDIR.UPTwo:
+                tempPos.y += 2;
+                break;
+            default:
                 break;
         }
 
