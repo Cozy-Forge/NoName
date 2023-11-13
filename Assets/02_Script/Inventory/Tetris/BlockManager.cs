@@ -36,13 +36,17 @@ public class BlockManager : MonoBehaviour
         StartCoroutine(MoveCo());
     }
 
-    //여긴 테스트 나중에 지워야댐
+    //여긴 테스트용 나중에 지워야댐
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            CreateBlock(test[Random.Range(0,test.Length - 1)]);
+            //CreateBlock(test[Random.Range(0,test.Length - 1)]);
+            CreateBlock(test[0]);
         }
+
+        if (Input.GetKeyDown(KeyCode.D))
+            _selectBlock.DebugArr();
 
         MoveBlock();
     }
@@ -125,17 +129,22 @@ public class BlockManager : MonoBehaviour
         return true;
     }
 
-    public bool CheckInBoard(XY pos, int[,]fill)
+    //넘쳤을때 지워버리는 코드
+    public void EraseBoard(int cnt = 3, TetrisImg tetrisImg = null)
     {
-        for (int i = 0; i < empty_place_size; i++)
+        if(tetrisImg != null)
         {
-            pos.x++;
+            if (_selectBlock == tetrisImg)
+                SetSelectBlockNull();
+
+            FAED.InsertPool(tetrisImg.gameObject);            
         }
 
-        for (int i = 0; i < empty_place_size; i++)
+        for(int i = 0; i < cnt; i++)
         {
-
+            //여기서 랜덤으로 팝해주셈 ㅇㅇ;
         }
-        return false;
     }
+
+    public void SetSelectBlockNull() => _selectBlock = null;
 }

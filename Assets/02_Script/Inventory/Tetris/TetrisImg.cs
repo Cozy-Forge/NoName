@@ -1,3 +1,4 @@
+using SpriteShadersUltimate.Demo;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -46,7 +47,6 @@ public class TetrisImg : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log($"test/{transform.name}");
         transform.name = transform.name.Replace("(Clone)", "");
 
         _texture = Resources.Load<Texture2D>($"test/{transform.name}") as Texture2D;
@@ -86,11 +86,23 @@ public class TetrisImg : MonoBehaviour
         #endregion
     }
 
+    // 초기화
     public void Init()
     {
         _pos.x = (TetrisTileManager.Instance.boardXSize - 4) / 2 + 3;
         _pos.y = 0;
-        //CorrectionPos();
+
+        while (!OverBlockXLeft(_pos))
+        {
+            _pos.x++;
+        }
+
+        while (!OverBlockYUp(_pos))
+        {
+            _pos.y++;
+        }
+
+
         SetPos();
     }
 
@@ -106,7 +118,7 @@ public class TetrisImg : MonoBehaviour
                 {
                     if (_tempPixels[i].a != 0)
                     {
-                        _board[x, y] = 1;
+                        _board[_col - x - 1, y] = 1;
                         break;
                     }
                 }
@@ -143,6 +155,9 @@ public class TetrisImg : MonoBehaviour
     //인덱스 이동
     public void Move(BLOCKMOVEDIR dir)
     {
+        if (!CanGo(dir))
+            return;
+
         switch (dir)
         {
             case BLOCKMOVEDIR.LEFT:
@@ -170,11 +185,10 @@ public class TetrisImg : MonoBehaviour
     //인덱스에 맞춰 포지션 적용
     public void SetPos()
     {
-        Debug.Log($"{_pos.x} : {_pos.y}");
         float x = TetrisTileManager.Instance.tileParent.localPosition.x + _tileLength * _pos.x
-            + (_spriteSize / 4 + _tileLength / 2) - 150;
+            + (_spriteSize / 4 + _tileLength / 2) - _tileLength * 3;
         float y = TetrisTileManager.Instance.tileParent.localPosition.y - _tileLength * _pos.y
-            - (_spriteSize / 4 + _tileLength / 2) + 150;
+            - (_spriteSize / 4 + _tileLength / 2) + _tileLength * 3;
         _rectTransform.localPosition = new Vector3(x, y);
     }
 
@@ -207,17 +221,34 @@ public class TetrisImg : MonoBehaviour
 
         switch (dir)
         {
-            case BLOCKMOVEDIR.DOWN:
+            case BLOCKMOVEDIR.DOWN: //아래가 안되면 끝내야댐
                 tempPos.y++;
+                if (!OverBlockYDown(tempPos))
+                {
+                    BlockManager.Instance.SetSelectBlockNull();
+                    return false;
+                }
                 break;
             case BLOCKMOVEDIR.UP:
                 tempPos.y--;
+                if (!OverBlockYUp(tempPos))
+                {
+                    return false;
+                }
                 break;
             case BLOCKMOVEDIR.RIGHT:
                 tempPos.x++;
+                if (!OverBlockXRight(tempPos))
+                {
+                    return false;
+                }
                 break;
             case BLOCKMOVEDIR.LEFT:
                 tempPos.x--;
+                if (!OverBlockXLeft(tempPos))
+                {
+                    return false;
+                }
                 break;
         }
 
@@ -235,56 +266,149 @@ public class TetrisImg : MonoBehaviour
         return true;
     }
 
-    public bool OverBlockXLeft()
-    {
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < 4; j++)
-            {
-                if (_board[i, j] == 1 && pos.x + i < 3)
-                    return false;
-            }
-        }
-        return true;
-    }
-
-    public bool OverBlockXRight()
+    /// <summary>
+    /// 매개 뱐수 Pos의 값을 기준으로 왼쪽 벽을 넘었는지 확인합니다.
+    /// </summary>
+    /// <param name="tempPos">이동된 위치</param>
+    /// <returns>벽을 넘으면 false, 벽을 넘지 않으면 true를 리턴합니다.</returns>
+    public bool OverBlockXLeft(XY tempPos)
     {
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                if (_board[i, j] == 1 && pos.x + i > TetrisTileManager.Instance.boardXSize + 6)
+                if (_board[i, j] == 1 && tempPos.x + j < 3)
+                {
                     return false;
+                }
             }
         }
         return true;
     }
 
-    public bool OverBlockYUp()
-    {
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < 4; j++)
-            {
-                if (_board[i, j] == 1 && pos.y + j < 3)
-                    return false;
-            }
-        }
-        return true;
-    }
-
-
-    public bool OverBlockYDown()
+    /// <summary>
+    /// 매개 뱐수 Pos의 값을 기준으로 오른쪽 벽을 넘었는지 확인합니다.
+    /// </summary>
+    /// <param name="tempPos">이동된 위치</param>
+    /// <returns>벽을 넘으면 false, 벽을 넘지 않으면 true를 리턴합니다.</returns>
+    public bool OverBlockXRight(XY tempPos)
     {
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                if (_board[i, j] == 1 && pos.y + j > TetrisTileManager.Instance.boardYSize + 6)
+                if (_board[i, j] == 1 && tempPos.x + j >= TetrisTileManager.Instance.boardXSize + 3)
                     return false;
             }
         }
         return true;
+    }
+
+    /// <summary>
+    /// 매개 뱐수 Pos의 값을 기준으로 위쪽 벽을 넘었는지 확인합니다.
+    /// </summary>
+    /// <param name="tempPos">이동된 위치</param>
+    /// <returns>벽을 넘으면 false, 벽을 넘지 않으면 true를 리턴합니다.</returns>
+    public bool OverBlockYUp(XY tempPos)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (_board[i, j] == 1 && tempPos.y + i < 3)
+                {
+                    Debug.Log($"{tempPos.y} : {i}");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// 매개 뱐수 Pos의 값을 기준으로 아래쪽 벽을 넘었는지 확인합니다.
+    /// </summary>
+    /// <param name="tempPos">이동된 위치</param>
+    /// <returns>벽을 넘으면 false, 벽을 넘지 않으면 true를 리턴합니다.</returns>
+    public bool OverBlockYDown(XY tempPos)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (_board[i, j] == 1 && tempPos.y + i >= TetrisTileManager.Instance.boardYSize + 3)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// 다른 블록과 충돌하는지 확인합니다.
+    /// </summary>
+    /// <param name="dir">이동할 방향</param>
+    /// <returns>충돌이 일어나면 false, 아니면 true를 리턴합니다.</returns>
+    public bool CollisionOtherBlock(BLOCKMOVEDIR dir)
+    {
+        XY tempPos = new XY() { x = pos.x, y = pos.y };
+
+        switch (dir)
+        {
+            case BLOCKMOVEDIR.LEFT:
+                tempPos.x--;
+                break;
+            case BLOCKMOVEDIR.RIGHT:
+                tempPos.x++;
+                break;
+            case BLOCKMOVEDIR.UP:
+                tempPos.y--;
+                break;
+            case BLOCKMOVEDIR.DOWN: 
+                tempPos.y++;
+                break;
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (_board[i, j] == 1 && BlockManager.Instance.board[tempPos.x + i,tempPos.y  + j] == 1)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    //이동 멈추면 1로 채우기
+    public void FillBoard()
+    {
+        for (int i = 0; i < _col; i++)
+        {
+            for (int j = 0; j < _row; j++)
+            {
+                if (board[i, j] == 1)
+                {
+                    if (BlockManager.Instance.board[_pos.y + i, _pos.x + j] == 1)
+                        Debug.LogError($"[{_pos.y + i} , {_pos.x + j}] : 어멋! 여기 제집을 침범해욧!!");
+                    BlockManager.Instance.board[_pos.y + i, _pos.x + j] = 1;
+                }
+            }
+        }
+    }
+
+    public void DebugArr()
+    {
+        string s = "";
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                s += _board[i, j];
+            }
+            s += '\n';
+        }
+        Debug.Log(s);
     }
 }
