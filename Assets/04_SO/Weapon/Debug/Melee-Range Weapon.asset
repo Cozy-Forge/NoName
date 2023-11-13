@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98a45b9ee4dc372458c9979e562d8d88, type: 3}
-  m_Name: Data
+  m_Name: Melee-Range Weapon
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    Range: 3
-    AttackPower: 12
+    Range: 2
+    AttackPower: 15
     AttackCoolDown: 1
