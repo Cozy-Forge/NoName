@@ -10,6 +10,7 @@ public class Panel : MonoBehaviour
     protected RectTransform _rectTransform;
 
     private float _popupTime = 1f;
+    protected Sequence _mySeq;
 
     protected virtual void Awake()
     {
@@ -41,19 +42,22 @@ public class Panel : MonoBehaviour
             PopupEffect();
     }
 
+    public virtual void ShowOff()
+    {
+        _mySeq.Kill();
+        _isShow = false;
+        gameObject.SetActive(false);
+    }
+
     public virtual void PopupEffect()
     {
         _rectTransform.localScale = Vector3.zero;
 
-        Sequence seq = DOTween.Sequence();
-        seq.Append(_rectTransform.DOScale(Vector3.one, _popupTime))
+        _mySeq.Kill();
+        _mySeq = DOTween.Sequence();
+        _mySeq.Append(_rectTransform.DOScale(Vector3.one, _popupTime))
             .SetEase(Ease.OutBounce)
             .OnComplete(() => { _isAnim = false; });
     }
 
-    public virtual void ShowOff()
-    {
-        _isShow = false;
-        gameObject.SetActive(false);
-    }
 }

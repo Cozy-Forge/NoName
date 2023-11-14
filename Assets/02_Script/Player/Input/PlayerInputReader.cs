@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(menuName = "SO/Player/Input")]
 public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayerActions
 {
-
     private PlayerInputController _input;
 
     public Vector2 MoveInputDir { get; private set; }

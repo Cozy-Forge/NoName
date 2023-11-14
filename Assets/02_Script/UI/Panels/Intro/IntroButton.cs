@@ -5,11 +5,13 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class IntroButton : MonoBehaviour, IPointerEnterHandler
 {
     public RectTransform RectTrm    { get; private set; }
     public TMP_Text Text            { get; private set; }
+    private Button _btn;
 
     private readonly Color _disableColor  = Color.gray;
     private readonly Color _enableColor   = Color.white;
@@ -21,11 +23,19 @@ public class IntroButton : MonoBehaviour, IPointerEnterHandler
 
     Sequence mySeq;
     public event Action HoverEvent;
+    public event Action BtnClickEvent;
 
     private void Awake()
     {
         RectTrm = GetComponent<RectTransform>();
+        _btn = GetComponent<Button>();
         Text = transform.Find("Text").GetComponent<TMP_Text>();
+
+        _btn.onClick.AddListener(() =>
+        {
+            Debug.Log(1);
+            BtnClickEvent?.Invoke();
+        });
     }
 
     public void Activate(bool value)
@@ -45,8 +55,14 @@ public class IntroButton : MonoBehaviour, IPointerEnterHandler
 
     private void PopText()
     {
+        mySeq.Kill();
         mySeq = DOTween.Sequence();
         mySeq.Append(Text.rectTransform.DOScale(_popScale, PopTextTime)).SetEase(Ease.OutBounce);
+    }
+
+    public void DoClickEvent()
+    {
+        _btn.onClick?.Invoke();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

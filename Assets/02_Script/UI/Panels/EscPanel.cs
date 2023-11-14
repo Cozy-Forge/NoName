@@ -25,10 +25,17 @@ public class EscPanel : Panel
     // panel_type - panel
     private Dictionary<Panel_Type, Panel> _panels = new Dictionary<Panel_Type, Panel>();
 
+    [Header("IntroUIController")]
+    [SerializeField]
+    private PlayerUIReader _introUIController;
+
+    [Header("Panel Info")]
     [SerializeField]
     private List<PanelInfo> _panelInfos = new List<PanelInfo>();
     [SerializeField]
     private RectTransform _panelContainer;
+    [SerializeField]
+    private RectTransform _escPanelBackground;
 
     private bool _showPanel             = false; // is showed other panel
     private Panel_Type _activePanel     = Panel_Type.None; // current active panel
@@ -82,7 +89,7 @@ public class EscPanel : Panel
         _activePanel = type;
         _panels[type].ShowOn();
     }
-
+    
     // current active panel off
     public void ShowOffPanel()
     {
@@ -95,11 +102,22 @@ public class EscPanel : Panel
         _activePanel = Panel_Type.None;
     }
 
+    public override void ShowOn(bool isPopUpEffect = true)
+    {
+        if (_escPanelBackground.gameObject.activeSelf == true)
+            return;
+
+        _escPanelBackground.gameObject.SetActive(true);
+        base.ShowOn(isPopUpEffect);
+    }
+
     public override void ShowOff()
     {
         if (_showPanel == true)
             ShowOffPanel();
 
+        _introUIController.SetEnable(true);
+        _escPanelBackground.gameObject.SetActive(false);
         base.ShowOff();
     }
 }
