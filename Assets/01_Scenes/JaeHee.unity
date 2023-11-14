@@ -5788,9 +5788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38d3590b4c00a8b468d340866f5ab4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentItem: {fileID: 0}
-  coinSound: {fileID: 0}
-  usingItem: {fileID: 0}
+  currentItem: {fileID: 1648319646}
 --- !u!1 &1456808193
 GameObject:
   m_ObjectHideFlags: 0
@@ -6213,7 +6211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76aac8f96802214cb7f510cdfce174c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: d38f44df5c6a61e43981164e6c8d7b49, type: 2}
 --- !u!1 &1981975605
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,8 +8,6 @@ using UnityEngine.EventSystems;
 public class ItemSlot : MonoBehaviour, IPointerUpHandler
 {
     [SerializeField] Item currentItem = null;
-    [SerializeField] AudioSource coinSound;
-    [SerializeField] AudioSource usingItem;
 
     public Item CurrentItem => currentItem;
 
@@ -17,58 +15,24 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
     public int CurrentStackCount => currentStackCount;
 
     private TextMeshProUGUI stackText = null;
+    private TextMeshProUGUI itemName = null;
+    private TextMeshProUGUI itemDescription = null;
     private Image image = null;
 
     private void Awake()
     {
         stackText = GetComponentInChildren<TextMeshProUGUI>();
-        image = transform.GetChild(1).GetComponent<Image>();
+        image = transform.GetChild(0).GetComponent<Image>();
         image.sprite = currentItem.ItemData.ItemImage;
     }
 
+    /// <summary>
+    /// 슬롯 클릭시 이벤트
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerUp(PointerEventData eventData)
     {
-        //if (currentItem.ItemData.ItemType == ItemType.Interectable)
-        //{
-        //    Use();
-        //}
-        //else if (Inventory.instance.SaleToggle && currentItem.ItemData.ItemType != ItemType.None)
-        //{
-        //    Sale();
-        //}   
-    }
 
-    private void Sale()
-    {
-        coinSound.Play();
-        if (currentStackCount > 0)
-        {
-            currentStackCount--;
-            Inventory.instance.ItemList.Remove(currentItem);
-            if (currentStackCount <= 0)
-            {
-                currentItem = Inventory.instance.NoneItem;
-                image.sprite = currentItem.ItemData.ItemImage;
-            }
-        }
-        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
-    }
-
-    public void Use()
-    {
-        usingItem.Play();
-        if (currentStackCount > 0)
-        {
-            currentStackCount--;
-            Inventory.instance.ItemList.Remove(currentItem);
-
-            if (currentStackCount <= 0)
-            {
-                currentItem = Inventory.instance.NoneItem;
-                image.sprite = currentItem.ItemData.ItemImage;
-            }
-        }
-        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
     }
 
     public void AddItem()
