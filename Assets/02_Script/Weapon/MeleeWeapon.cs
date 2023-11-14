@@ -5,7 +5,7 @@ using static UnityEditor.PlayerSettings;
 
 public class MeleeWeapon : Weapon
 {
-    public Vector3 startLocalPosition;
+    Vector3 startLocalPosition;
     [SerializeField] private float _stingBackTime = 0.2f;
 
     protected override void DoAttack(Transform trm)
@@ -14,7 +14,6 @@ public class MeleeWeapon : Weapon
         startLocalPosition = transform.localPosition;
         Debug.Log("근접공격");
         StartCoroutine(Sting(trm));
-
     }
 
     private IEnumerator Sting(Transform trm)
