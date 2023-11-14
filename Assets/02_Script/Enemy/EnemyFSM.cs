@@ -126,8 +126,6 @@ public class EnemyMoveState<T> : EnemyState<T> where T : System.Enum
 
 }
 
-
-
 #endregion
 
 #region Transition
