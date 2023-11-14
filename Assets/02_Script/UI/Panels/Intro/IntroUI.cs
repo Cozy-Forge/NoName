@@ -15,7 +15,6 @@ public class IntroUI : MonoBehaviour
     private List<IntroButton> _btnLists = new List<IntroButton>();
 
     private int _currentIndex = 0;
-    private bool _isOpenOtherPanel = false;
     // Setting Panel 열었을 때 조작 안 되도록 수정하기
 
     private void Awake()
@@ -38,6 +37,8 @@ public class IntroUI : MonoBehaviour
                         bt.Activate(false);
                 }
             };
+
+            btn.BtnClickEvent += () => _introUIController.SetEnable(false);
         }
         _btnLists[0].Activate(true);
 
@@ -47,7 +48,7 @@ public class IntroUI : MonoBehaviour
 
     private void HandleUISelect()
     {
-        _introUIController.SetEnable(false);
+        
         _btnLists[_currentIndex].DoClickEvent();
     }
 
@@ -62,10 +63,25 @@ public class IntroUI : MonoBehaviour
             _currentIndex = Math.Min(_currentIndex + 1, _btnLists.Count - 1);
         }
 
-        Debug.Log(_currentIndex);
         for(int i = 0; i < _btnLists.Count; ++i)
         {
             _btnLists[i].Activate(_currentIndex == i);
         }
+    }
+
+    public void StartBtn()
+    {
+        // 시작
+
+        // 시작 애니메이션 넣기
+
+        // 패널 끄기 ( 임시 )
+        gameObject.SetActive(false);
+    }
+
+    public void Exit()
+    {
+        // 나가기
+        Application.Quit();
     }
 }

@@ -3014,7 +3014,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 928554184}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2031067591}
+        m_TargetAssemblyTypeName: IntroUI, Assembly-CSharp
+        m_MethodName: StartBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &928554184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3312,7 +3324,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1035038054}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2031067591}
+        m_TargetAssemblyTypeName: IntroUI, Assembly-CSharp
+        m_MethodName: Exit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1035038054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4552,7 +4576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b4e7f9a51ab4c419782d2d115d94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: f3362a4a7ef2f7d4ab8eb2033380637f, type: 2}
+  _introUIController: {fileID: 11400000, guid: f3362a4a7ef2f7d4ab8eb2033380637f, type: 2}
   _btnLists:
   - {fileID: 928554186}
   - {fileID: 1634617846}
@@ -4564,6 +4588,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 999187338}
     m_Modifications:
+    - target: {fileID: 1695845895, guid: 86673c37c76c2804abaf2464e8bf912f, type: 3}
+      propertyPath: _introUIController
+      value: 
+      objectReference: {fileID: 11400000, guid: f3362a4a7ef2f7d4ab8eb2033380637f, type: 2}
     - target: {fileID: 1551224782297730771, guid: 86673c37c76c2804abaf2464e8bf912f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

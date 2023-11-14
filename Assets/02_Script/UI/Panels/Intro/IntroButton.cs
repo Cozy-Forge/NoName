@@ -33,7 +33,6 @@ public class IntroButton : MonoBehaviour, IPointerEnterHandler
 
         _btn.onClick.AddListener(() =>
         {
-            Debug.Log(1);
             BtnClickEvent?.Invoke();
         });
     }
