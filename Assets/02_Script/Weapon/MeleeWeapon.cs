@@ -1,17 +1,29 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class MeleeWeapon : Weapon
 {
-    public float _swingTime = 5.0f;
-    public float _swingDelayTime = 0.3f;
+    public Vector3 startLocalPosition;
+    [SerializeField] private float _stingBackTime = 0.2f;
 
     protected override void DoAttack(Transform trm)
     {
+        Debug.Log(transform.position);
+        startLocalPosition = transform.localPosition;
         Debug.Log("근접공격");
+        StartCoroutine(Sting(trm));
 
-        StartCoroutine(Swing());
+    }
+
+    private IEnumerator Sting(Transform trm)
+    {
+        
+        transform.up = trm.position;
+        transform.position = trm.position;
+        yield return new WaitForSeconds(_stingBackTime);
+        transform.localPosition = startLocalPosition;
     }
 
     private PlayerController _playerController;
@@ -28,42 +40,21 @@ public class MeleeWeapon : Weapon
         _playerController.OnDashEvent += DashSting;
     }
 
+   
+
     private void DashSting(Vector2 pos)
     {
         //돌진긴
-        transform.LookAt(pos);
+        transform.up = pos;
+
     }
 
-    private IEnumerator Swing()
+    private void OnDestroy()
     {
-        Vector3 startLocalPosition = transform.localPosition;
-        Vector3 backwardPosition = startLocalPosition - new Vector3(0, 0, 3); 
-        Vector3 forwardPosition = startLocalPosition + new Vector3(0, 0, 1);  
-
-        float t = 0.0f;
-
-        while (t < 1.0f)
-        {
-            t += Time.deltaTime / (_swingTime * 0.5f);
-            transform.localPosition = Vector3.Lerp(startLocalPosition, backwardPosition, t);
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(_swingDelayTime);
-
-        t = 0.0f;
-
-        while (t < 1.0f)
-        {
-            t += Time.deltaTime / (_swingTime * 0.5f); 
-            transform.localPosition = Vector3.Lerp(backwardPosition, forwardPosition, t);
-            yield return null;
-        }
-
-        transform.localPosition = startLocalPosition;
-
-         StopCoroutine(Swing());
+        _playerController.OnDashEvent -= DashSting;
     }
+
+
 
 
 }
