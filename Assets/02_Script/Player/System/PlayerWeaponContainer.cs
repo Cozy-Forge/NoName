@@ -29,6 +29,7 @@ public class PlayerWeaponContainer : MonoBehaviour
 
         weapon.transform.position = pos + transform.position;
         weapon.transform.SetParent(transform);
+        weapon.OnEquip();
 
     }
 

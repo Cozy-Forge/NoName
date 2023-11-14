@@ -7,7 +7,6 @@ public class RangeWeapon : Weapon
 {
 
     [SerializeField] private string bulletPoolingKey;
-
     protected override void DoAttack(Transform trm)
     {
 
