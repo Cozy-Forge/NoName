@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: NoneItem
   m_EditorClassIdentifier: 
   itemName: 
-  itemImage: {fileID: -1223307722, guid: a9d536ef60040e443965c9c7c6ee5ff3, type: 3}
+  itemDescription: 
+  itemImage: {fileID: 1885534115, guid: 6a344a210db596243befb5781d6b63b3, type: 3}
   stackCount: 1
+  weight: {x: 0, y: 0}
   itemType: 2
