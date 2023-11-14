@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab98f1876f420454f9680ca3d8542dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugWeapon: {fileID: 382227527}
+  debugWeapon: {fileID: 1996450935}
 --- !u!95 &396081520
 Animator:
   serializedVersion: 5
