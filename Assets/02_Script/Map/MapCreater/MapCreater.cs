@@ -8,8 +8,8 @@ public class MapCreater : MonoBehaviour
 {
 
     [SerializeField] private int _minRoad, _maxRoad;
-    [SerializeField] private Tilemap _roadTilemap;
-    [SerializeField] private TileBase _baseTile;
+    [SerializeField] private Tilemap _roadTilemap, _wallTilemap;
+    [SerializeField] private TileBase _baseTile, _wallTile, _wallSideXTile, _wallSideYTile_T1, _wallSideYTile_T2;
     private List<RoomData> _rooms = new List<RoomData>();
     private List<RoomBindData> _roomBind = new();
 
@@ -17,8 +17,8 @@ public class MapCreater : MonoBehaviour
     {
 
         public RoomData room;
-        public List<Vector2Int> dirs;
-        public List<float> roadLens;
+        public List<(Vector2Int point, Vector2Int dir)> points;
+        public Vector2Int oldDir;
 
         public bool Overlap(RoomData nRoom)
         {
@@ -38,6 +38,40 @@ public class MapCreater : MonoBehaviour
 
         }
 
+        public void CloseUnUsedRoad(params TileBase[] tile)
+        {
+
+            Vector2Int[] dirs = { Vector2Int.down, Vector2Int.up, Vector2Int.left, Vector2Int.right };
+
+            foreach(var dir in dirs)
+            {
+
+                if(points.Find(x => x.dir == dir).dir != default || oldDir == -dir) continue;
+
+                var wallTileMap = room.transform.Find("Wall").GetComponent<Tilemap>();
+                var groundTileMap = room.transform.Find("Ground").GetComponent<Tilemap>();
+
+                if (dir.x != 0)
+                {
+
+                    var point = dir.x == 1 ? (int)wallTileMap.transform.localPosition.x + room.Width / 2 : 
+                        ((int)wallTileMap.transform.localPosition.x - room.Width / 2) - 1;
+                    var curtile = dir.x == 1 ? tile[4] : tile[3];//
+
+                    for (int i = -2; i < 4; i++)
+                    {
+
+                        wallTileMap.SetTile(new Vector3Int(point, (int)wallTileMap.transform.localPosition.y - i), curtile);
+                        groundTileMap.SetTile(new Vector3Int(point, (int)wallTileMap.transform.localPosition.y - i), null);
+
+                    }
+
+                }
+
+            }
+
+        }
+
     }
 
 
@@ -53,6 +87,19 @@ public class MapCreater : MonoBehaviour
 
         CreateRoom();
         DrawRoad();
+        CloseMap();
+
+    }
+
+    private void CloseMap()
+    {
+
+        foreach(var item in _roomBind)
+        {
+
+            item.CloseUnUsedRoad(_baseTile, _wallTile, _wallSideXTile, _wallSideYTile_T1, _wallSideYTile_T2);
+
+        }
 
     }
 
@@ -62,25 +109,68 @@ public class MapCreater : MonoBehaviour
         foreach(var room in _roomBind)
         {
 
-            foreach(var dir in room.dirs)
+            for (int iters = 0; iters < room.points.Count; iters++)
             {
-
-                if(dir.x != 0)
+                var point = room.points[iters];
+                if (point.dir.x != 0)
                 {
 
-                    for(
-                        int x = ((int)room.room.transform.position.x - (room.room.Width / 2)) + 1;
-                        x < room.room.Width; x++)
+                    var val1 = point.dir.x == 1 ? (int)(room.room.transform.position.x + room.room.Width / 2) : (int)(room.room.transform.position.x - room.room.Width / 2);
+                    var val2 = point.point.x + (int)room.room.transform.position.x;
+
+                    var min = Mathf.Min(val1, val2);
+                    var max = Mathf.Max(val1, val2);
+                    var y = (int)room.room.transform.position.y;
+
+                    for (
+                        int x = min + 1;
+                        x < max - 1; x++)
                     {
 
-                        for(int i = -1; i < 2; i++)
+                        for(int i = 0; i < 3; i++)
                         {
 
-                            _roadTilemap.SetTile(new Vector3Int(x, (int)room.room.transform.position.y + i), _baseTile);
+                            _roadTilemap.SetTile(new Vector3Int(x, y - i), _baseTile);
 
                         }
 
+                        _wallTilemap.SetTile(new Vector3Int(x, y - 3), _wallTile);
+                        _wallTilemap.SetTile(new Vector3Int(x, y + 1), _wallTile);
+                        _wallTilemap.SetTile(new Vector3Int(x, y - 2), _wallSideXTile);
+                        _wallTilemap.SetTile(new Vector3Int(x, y + 2), _wallSideXTile);
+
                     }
+
+                }
+                else
+                {
+
+                    var val1 = point.dir.y == 1 ? (int)(room.room.transform.position.y + room.room.Height / 2) : (int)(room.room.transform.position.y - room.room.Height / 2);
+                    var val2 = point.point.y + (int)room.room.transform.position.y;
+
+                    var min = Mathf.Min(val1, val2);
+                    var max = Mathf.Max(val1, val2);
+                    var x = (int)room.room.transform.position.x;
+
+                    for (
+                        int y = min + 1;
+                        y < max; y++)
+                    {
+
+                        for (int i = -2; i < 2; i++)
+                        {
+
+                            if(y + i == max) continue;
+
+                            _roadTilemap.SetTile(new Vector3Int(x + i, y), _baseTile);
+
+                        }
+
+                        _wallTilemap.SetTile(new Vector3Int(x - 3, y), _wallSideYTile_T1);
+                        _wallTilemap.SetTile(new Vector3Int(x + 2, y), _wallSideYTile_T2);
+
+                    }
+
 
                 }
 
@@ -103,8 +193,8 @@ public class MapCreater : MonoBehaviour
 
             var room = notVistidData.Dequeue();
             var dirs = GetRamdomDir(percent);
-            var dataDir = new List<Vector2Int>();
-            var roadLens = new List<float>();
+            var points = new List<(Vector2Int point, Vector2Int dir)>();
+            var roadLens = new List<int>();
 
             foreach(var dir in dirs)
             {
@@ -119,6 +209,7 @@ public class MapCreater : MonoBehaviour
                 var obj = Instantiate(_rooms[idx]);
 
                 var point =  dir * (roadLen + (room.room.Width / 2 + obj.Width / 2));
+                var pointEv = dir * (roadLen + (room.room.Width / 2));
                 obj.transform.position = (Vector2)point + (Vector2)room.room.transform.position;
 
                 bool isOverlap = false;
@@ -158,7 +249,7 @@ public class MapCreater : MonoBehaviour
                 else
                 {
 
-                    dataDir.Add(dir);
+                    points.Add((pointEv, dir));//
                     notVistidData.Enqueue((obj, dir));
 
                 }
@@ -169,8 +260,8 @@ public class MapCreater : MonoBehaviour
             {
                 
                 room = room.room,
-                dirs = dataDir,
-                roadLens = roadLens,
+                points = points,
+                oldDir = room.oldDir
 
             });
             percent--;
