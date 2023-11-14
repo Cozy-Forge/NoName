@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Melee-Range Weapon
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    Range: 2
+    Range: 4
     AttackPower: 15
     AttackCoolDown: 1

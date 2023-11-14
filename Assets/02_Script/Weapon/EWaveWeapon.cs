@@ -16,7 +16,6 @@ public class EWaveWeapon : Weapon
     private void SpawnWave()
     {
         var obj = Instantiate(gameObject, _playerController.transform.position, Quaternion.identity);
-        _data.Range = transform.localScale.x;
 
         FAED.InvokeDelay(() =>
         {
