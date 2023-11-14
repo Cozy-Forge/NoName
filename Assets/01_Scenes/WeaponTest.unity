@@ -265,7 +265,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _so: {fileID: 11400000, guid: a04f35bed1045f644b48b6173d3b0bd6, type: 2}
-  startLocalPosition: {x: 0, y: 0, z: 0}
   _stingBackTime: 0.2
 --- !u!1 &396081513
 GameObject:
@@ -828,7 +827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1233478080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -926,7 +925,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1372169462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,7 +1025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1493500921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1141,7 +1140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!70 &1898143277
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1255,7 +1254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1996450935
 MonoBehaviour:
   m_ObjectHideFlags: 0
