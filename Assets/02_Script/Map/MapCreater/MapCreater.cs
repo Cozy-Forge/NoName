@@ -89,7 +89,6 @@ public class MapCreater : MonoBehaviour
 
     }
 
-
     private void Awake()
     {
 
