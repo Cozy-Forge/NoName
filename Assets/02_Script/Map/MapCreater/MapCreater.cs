@@ -67,6 +67,21 @@ public class MapCreater : MonoBehaviour
                     }
 
                 }
+                else
+                {
+
+                    var point = dir.y == 1 ? (int)wallTileMap.transform.localPosition.y + room.Height / 2 :
+                        ((int)wallTileMap.transform.localPosition.x - room.Height / 2) - 1;
+
+                    for (int i = -2; i < 2; i++)
+                    {
+
+                        wallTileMap.SetTile(new Vector3Int((int)wallTileMap.transform.localPosition.x + i, point), tile[1]);
+                        wallTileMap.SetTile(new Vector3Int((int)wallTileMap.transform.localPosition.x + i, point + 1), tile[2]);
+
+                    }
+
+                }
 
             }
 
