@@ -15,7 +15,8 @@ public enum BLOCKMOVEDIR
     LEFT = 2,
     RIGHT = 3,
     UPTwo = 4,
-    NONE = 5,
+    UPThree = 5,
+    NONE = 6,
 }
 
 public struct XY
@@ -153,23 +154,27 @@ public class TetrisImg : MonoBehaviour
             }
         }
 
-        if (!CollisionOtherBlock(BLOCKMOVEDIR.NONE))
+        if (!CollisionOtherBlock(BLOCKMOVEDIR.NONE) || !OverBlockAllSide(_pos))
         {
-            if (CollisionOtherBlock(BLOCKMOVEDIR.RIGHT)) //&& OverBlockXRight(new XY() { x = _pos.x + 1, y = _pos.y }))
+            if (CollisionOtherBlock(BLOCKMOVEDIR.RIGHT) && OverBlockAllSide(new XY() { x = _pos.x + 1, y = _pos.y }))
             {
                 _pos.x++;
             }
-            else if (CollisionOtherBlock(BLOCKMOVEDIR.LEFT)) //&& OverBlockXLeft(new XY() { x = _pos.x - 1, y = _pos.y }))
+            else if (CollisionOtherBlock(BLOCKMOVEDIR.LEFT) && OverBlockAllSide(new XY() { x = _pos.x - 1, y = _pos.y }))
             {
                 _pos.x--;
             }
-            else if (CollisionOtherBlock(BLOCKMOVEDIR.UP)) //&& OverBlockYUp(new XY() { x = _pos.x, y = _pos.y - 1}))
+            else if (CollisionOtherBlock(BLOCKMOVEDIR.UP) && OverBlockAllSide(new XY() { x = _pos.x, y = _pos.y - 1 }))
             {
                 _pos.y--;
             }
-            else if (CollisionOtherBlock(BLOCKMOVEDIR.UPTwo)) //&& OverBlockYUp(new XY() { x = _pos.x, y = _pos.y - 2 }))
+            else if (CollisionOtherBlock(BLOCKMOVEDIR.UPTwo) && OverBlockAllSide(new XY() { x = _pos.x, y = _pos.y - 2 }))
             {
                 _pos.y -= 2;
+            }
+            else if (CollisionOtherBlock(BLOCKMOVEDIR.UPThree) && OverBlockAllSide(new XY() { x = _pos.x, y = _pos.y - 3 }))
+            {
+                _pos.y -= 3;
             }
             else
             {
@@ -183,7 +188,7 @@ public class TetrisImg : MonoBehaviour
                 }
                 _rectTransform.rotation = Quaternion.Euler(0, 0, _rectTransform.eulerAngles.z + 90);
             }
-
+            SetPos();
         }
     }
 
@@ -385,6 +390,13 @@ public class TetrisImg : MonoBehaviour
         return true;
     }
 
+    public bool OverBlockAllSide(XY tempPos)
+    {
+        if (OverBlockYDown(tempPos) && OverBlockXRight(tempPos) && OverBlockYUp(tempPos) && OverBlockXLeft(tempPos))
+            return true;
+        return false;
+    }
+
     /// <summary>
     /// 다른 블록과 충돌하는지 확인합니다.
     /// </summary>
@@ -410,6 +422,9 @@ public class TetrisImg : MonoBehaviour
                 break;
             case BLOCKMOVEDIR.UPTwo:
                 tempPos.y += 2;
+                break;
+            case BLOCKMOVEDIR.UPThree:
+                tempPos.y += 3;
                 break;
             default:
                 break;
