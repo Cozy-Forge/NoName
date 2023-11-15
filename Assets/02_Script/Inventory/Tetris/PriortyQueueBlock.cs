@@ -1,3 +1,4 @@
+using FD.Dev;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.EditorTools;
@@ -7,8 +8,8 @@ public class PriortyQueueBlock
 {
     public static PriortyQueueBlock Instance = null;
 
-    List<TetrisImg> _tetrisImgList = new List<TetrisImg>(); // 우선순위 리스트
-    int size => _tetrisImgList.Count; // 리스트 사이즈
+    public List<TetrisImg> _tetrisImgList = new List<TetrisImg>(); // 우선순위 리스트
+    private int size => _tetrisImgList.Count; // 리스트 사이즈
 
     /// <summary>
     /// 생성자 인스턴스 예외처리
@@ -56,7 +57,7 @@ public class PriortyQueueBlock
     /// <param name="idx"></param>
     public void Pop(int idx)
     {
-        Object.Destroy(_tetrisImgList[idx]);
+        FAED.InsertPool(_tetrisImgList[idx].gameObject);
         _tetrisImgList.RemoveAt(idx);
     }
 
@@ -67,5 +68,19 @@ public class PriortyQueueBlock
     public List<TetrisImg> GetEquipmentList()
     {
         return _tetrisImgList;
+    }
+
+    /// <summary>
+    /// 빈자리가 있으면 다시 내려감
+    /// </summary>
+    public void AllDownBlock()
+    {
+        List<TetrisImg> temptetrisImgList = new List<TetrisImg>(); // 템프에 옮기고
+        while(size > 0)
+        {
+            temptetrisImgList.Add(_tetrisImgList[0]);
+            Pop(0);
+        }
+
     }
 }

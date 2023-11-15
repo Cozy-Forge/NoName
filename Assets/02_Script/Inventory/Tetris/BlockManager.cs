@@ -137,20 +137,17 @@ public class BlockManager : MonoBehaviour
     }
 
     //넘쳤을때 지워버리는 코드
-    public void EraseBoard(int cnt = 3, TetrisImg tetrisImg = null)
+    public void EraseBoard(TetrisImg tetrisImg = null, int cnt = 3)
     {
         if(tetrisImg != null)
         {
             if (_selectBlock == tetrisImg)
                 SetSelectBlockNull();
 
-            FAED.InsertPool(tetrisImg.gameObject);            
+            FAED.InsertPool(tetrisImg.gameObject);
         }
 
-        for(int i = 0; i < cnt; i++)
-        {
-            //여기서 랜덤으로 팝해주셈 ㅇㅇ;
-        }
+        PriortyQueueBlock.Instance.RandomPop(cnt);
     }
 
     public void SetSelectBlockNull() => _selectBlock = null;

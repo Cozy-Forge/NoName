@@ -92,6 +92,7 @@ public class TetrisImg : MonoBehaviour
     // 초기화
     public void Init()
     {
+        _rectTransform.rotation = Quaternion.Euler(0, 0, 0);
         _pos.x = (TetrisTileManager.Instance.boardXSize - 4) / 2 + 3;
         _pos.y = 0;
 
@@ -105,13 +106,24 @@ public class TetrisImg : MonoBehaviour
             _pos.y++;
         }
 
-
+        CheckImage();
         SetPos();
     }
+
+    public void IncreaseXPos() => _pos.x++;
+    public void IncreaseYPos() => _pos.y++;
 
     //이미지를 잘라서 칠해져 있으면 배열에 할당 <- 이거 문제 생기면 그냥 인스펙터에서 관리하자 준이야
     public void CheckImage()
     {
+        for(int x = 0; x < _col; x++)
+        {
+            for(int y = 0; y < _row; y++)
+            {
+                _board[x,y] = 0;
+            }
+        }
+
         for (int x = 0; x < _col; x++)
         {
             for (int y = 0; y < _row; y++)
@@ -443,7 +455,9 @@ public class TetrisImg : MonoBehaviour
         return true;
     }
 
-    //이동 멈추면 1로 채우기
+    /// <summary>
+    /// 이동 멈추면 1로 채우고 우선순위 리스트에 넣어줍니다. 만약 그 자리에 다른 블록이 있으면 제거하고 추가로 랜덤으로 3개의 블록을 제거합니다.
+    /// </summary>
     public void FillBoard()
     {
         for (int i = 0; i < _col; i++)
@@ -453,11 +467,25 @@ public class TetrisImg : MonoBehaviour
                 if (board[i, j] == 1)
                 {
                     if (BlockManager.Instance.board[_pos.y + i, _pos.x + j] == 1)
-                        Debug.LogError($"[{_pos.y + i} , {_pos.x + j}] : 어멋! 여기 제집을 침범해욧!!");
+                    {
+                        BlockManager.Instance.EraseBoard(this);
+                        return;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < _col; i++)
+        {
+            for (int j = 0; j < _row; j++)
+            {
+                if (board[i, j] == 1)
+                {
                     BlockManager.Instance.board[_pos.y + i, _pos.x + j] = 1;
                 }
             }
         }
+        PriortyQueueBlock.Instance.Push(this);
     }
 
     public void DebugArr()

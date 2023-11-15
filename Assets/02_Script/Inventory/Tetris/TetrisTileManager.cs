@@ -17,7 +17,7 @@ public class TetrisTileManager : MonoBehaviour
     [Header("오브젝트")]
     [SerializeField] private RectTransform _tileParent;     //타일 중 제일 부모
     public RectTransform tileParent => _tileParent;
-    [SerializeField] private RectTransform  _weapon;        //이 친구자식으로 블록 소환
+    [SerializeField] private RectTransform _weapon;        //이 친구자식으로 블록 소환
 
     [Header("벡터")]
     [SerializeField] private Vector2 _endPos;               //최대 사이즈일때 부모 위치
@@ -47,7 +47,7 @@ public class TetrisTileManager : MonoBehaviour
         if (_tileParent == null)
             Debug.LogError($"{transform} : tileParent is null!");
 
-        if( _weapon == null )
+        if (_weapon == null)
             Debug.LogError($"{transform} : weapon is null");
         #endregion
 
@@ -59,13 +59,11 @@ public class TetrisTileManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            _boardXSize++;
-            SettingBoard();
+            IncreaseBoardSizeX();
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            _boardYSize++;
-            SettingBoard();
+            IncreaseBoardSizeY();
         }
     }
 
@@ -109,5 +107,42 @@ public class TetrisTileManager : MonoBehaviour
         float y = Mathf.Lerp(0, _endPos.y, 1 - (float)(screenY - _boardYSize) / (float)screenY);
 
         _tileParent.localPosition = new Vector2(x, y);
+    }
+
+    //보드의 X사이즈를 증가시킵니다.
+    public void IncreaseBoardSizeX()
+    {
+        if (_boardXSize < screenX)
+        {
+            _boardXSize++;
+            SettingBoard();
+            foreach (TetrisImg tetrisImg in PriortyQueueBlock.Instance._tetrisImgList)
+            {
+                tetrisImg.SetPos();
+            }
+        }
+        else
+        {
+            Debug.LogError($"{transform} : 잘못된 접근 수치 - 보드X사이즈가 너무 커짐");
+        }
+    }
+
+    //보드의 Y사이즈를 증가시킵니다.
+    public void IncreaseBoardSizeY()
+    {
+        if(_boardYSize < screenY)
+        {
+            _boardYSize++;
+            SettingBoard();
+            foreach (TetrisImg tetrisImg in PriortyQueueBlock.Instance._tetrisImgList)
+            {
+                tetrisImg.IncreaseYPos();
+                tetrisImg.SetPos();
+            }
+        }
+        else
+        {
+            Debug.LogError($"{transform} : 잘못된 접근 수치 - 보드Y사이즈가 너무 커짐");
+        }
     }
 }
