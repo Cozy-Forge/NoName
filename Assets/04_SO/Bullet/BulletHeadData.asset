@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 15
   Damage: 4
+  HitAbleTag:
+  - Hit
