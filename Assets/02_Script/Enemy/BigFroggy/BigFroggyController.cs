@@ -29,7 +29,7 @@ public class BigFroggyController : StateController<EnumBigFroggyState>
             (transform, _data.JumpRange, _data.TargetAbleLayer, EnumBigFroggyState.Skill_Jump, () => !_data.IsJumpCoolDown);
 
         var idleToFire = new EnemyTargetRangeTransition<EnumBigFroggyState>
-            (transform, _data.JumpRange, _data.TargetAbleLayer, EnumBigFroggyState.Skill_Fire, () => !_data.IsFireCoolDown);
+            (transform, _data.FireRange, _data.TargetAbleLayer, EnumBigFroggyState.Skill_Fire, () => !_data.IsFireCoolDown);
 
         idleState
             .AddTransition(idleToJump)

@@ -25,3 +25,5 @@ MonoBehaviour:
   <JumpDuration>k__BackingField: 1
   <JumpCoolDown>k__BackingField: 3
   <LandBulletCount>k__BackingField: 10
+  <FireCoolDown>k__BackingField: 3
+  <FireRange>k__BackingField: 7

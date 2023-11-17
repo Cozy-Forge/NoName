@@ -10,11 +10,13 @@ public abstract class BigFroggyState : State<EnumBigFroggyState>
     {
 
         _data = data;
+        _animater = _transform.GetComponent<BigFroggyAnimater>();
 
     }
 
     protected BigFroggyDataSO _data;
     protected Transform _target;
+    protected BigFroggyAnimater _animater;
 
     protected void SetTarget(float lenght)
     {
@@ -44,12 +46,26 @@ public class BigFroggyJumpState : BigFroggyState
     {
     }
 
+    public override void Create()
+    {
+
+        _animater.OnJumpStartEvent += HandleJumpStart;
+
+    }
+
     protected override void OnEnter()
+    {
+
+        _animater.SetJump();
+
+    }
+
+    private void HandleJumpStart()
     {
 
         SetTarget(_data.JumpRange);
 
-        if(_target != null)
+        if (_target != null)
         {
 
             _transform.DOJump(_target.position, _data.JumpPower, 1, _data.JumpDuration)
@@ -79,6 +95,8 @@ public class BigFroggyJumpState : BigFroggyState
 
         }
 
+        _animater.SetJumpEnd();
+
         FAED.InvokeDelay(() =>
         {
 
@@ -107,9 +125,23 @@ public class BigFroggyFireState : BigFroggyState
     
     }
 
+    public override void Create()
+    {
+
+        _animater.OnFireStartEvent += HandleFireStart;
+
+    }
 
     protected override void OnEnter()
     {
+
+        _animater.SetFire();
+
+    }
+
+    private void HandleFireStart()
+    {
+
 
         FireType t = (FireType)Random.Range(0, (int)FireType.END);
         Fire(t);
@@ -159,6 +191,8 @@ public class BigFroggyFireState : BigFroggyState
 
         }
 
+        _animater.SetFireEnd();
+
         yield return new WaitForSeconds(0.5f);
 
         _controller.ChangeState(EnumBigFroggyState.Idle);
@@ -184,6 +218,8 @@ public class BigFroggyFireState : BigFroggyState
 
         }
 
+        _animater.SetFireEnd();
+
         yield return new WaitForSeconds(0.5f);
 
         _controller.ChangeState(EnumBigFroggyState.Idle);
@@ -204,6 +240,8 @@ public class BigFroggyFireState : BigFroggyState
             yield return new WaitForSeconds(0.025f);
 
         }
+
+        _animater.SetFireEnd();
 
         yield return new WaitForSeconds(0.5f);
 
