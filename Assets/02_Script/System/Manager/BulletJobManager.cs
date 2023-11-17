@@ -62,7 +62,7 @@ public class BulletJobManager : MonoBehaviour
     
     public static BulletJobManager Instance { get; private set; }
 
-    private Dictionary<BulletData, HandleBulletController> _bulletHandleController = new();
+    private Dictionary<float, HandleBulletController> _bulletHandleController = new();
 
     private void Awake()
     {
@@ -84,7 +84,7 @@ public class BulletJobManager : MonoBehaviour
                 {
 
                     Dt = Time.deltaTime,
-                    Speed = item.Key.Speed
+                    Speed = item.Key
 
                 }.Schedule(item.Value.BulletContainer);
 
@@ -97,29 +97,29 @@ public class BulletJobManager : MonoBehaviour
     public void AddBullet(Bullet bullet)
     {
 
-        if (!_bulletHandleController.ContainsKey(bullet.Data))
+        if (!_bulletHandleController.ContainsKey(bullet.Data.Speed))
         {
 
-            _bulletHandleController.Add(bullet.Data, new HandleBulletController());
+            _bulletHandleController.Add(bullet.Data.Speed, new HandleBulletController());
 
         }
 
-        _bulletHandleController[bullet.Data].BulletContainer.Add(bullet.transform);
+        _bulletHandleController[bullet.Data.Speed].BulletContainer.Add(bullet.transform);
 
     }
 
     public void RemoveBullet(Bullet bullet)
     {
 
-        if (!_bulletHandleController.ContainsKey(bullet.Data)) return;
+        if (!_bulletHandleController.ContainsKey(bullet.Data.Speed)) return;
 
-        for(int i = 0; i < _bulletHandleController[bullet.Data].BulletContainer.length; i++)
+        for(int i = 0; i < _bulletHandleController[bullet.Data.Speed].BulletContainer.length; i++)
         {
 
-            if (_bulletHandleController[bullet.Data].BulletContainer[i] == bullet.transform)
+            if (_bulletHandleController[bullet.Data.Speed].BulletContainer[i] == bullet.transform)
             {
 
-                _bulletHandleController[bullet.Data].BulletContainer.RemoveAtSwapBack(i);
+                _bulletHandleController[bullet.Data.Speed].BulletContainer.RemoveAtSwapBack(i);
                 break;
 
             }

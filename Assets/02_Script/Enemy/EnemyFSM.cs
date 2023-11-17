@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -135,21 +136,30 @@ public class EnemyMoveState<T> : EnemyState<T> where T : System.Enum
 public class EnemyTargetRangeTransition<T> : Transition<T> where T : System.Enum
 {
 
-    public EnemyTargetRangeTransition(Transform transform,float range, LayerMask targetLayer, T nextState) : base(nextState)
+    public EnemyTargetRangeTransition(Transform transform,float range, LayerMask targetLayer, T nextState, Func<bool> subCondition = null) : base(nextState)
     {
 
         _range = range;
         _targetLayer = targetLayer;
         _transform = transform;
+        _subCondition = subCondition;
 
     }
 
     private Transform _transform;
     private float _range;
     private LayerMask _targetLayer;
+    private Func<bool> _subCondition;
 
     public override bool ChackTransition()
     {
+
+        if(_subCondition != null)
+        {
+
+            return _subCondition() && Physics2D.OverlapCircle(_transform.position, _range, _targetLayer);
+
+        }
 
         return Physics2D.OverlapCircle(_transform.position, _range, _targetLayer);
 

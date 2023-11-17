@@ -19,4 +19,7 @@ MonoBehaviour:
   - poolingKey: ShootParticle
     poolingObject: {fileID: 1340822602401865627, guid: fa2cb6ac3df29ca4791ac5b81d3d520b, type: 3}
     poolCount: 30
+  - poolingKey: FroggyBullet
+    poolingObject: {fileID: 5343971438829051424, guid: cd77558cea0c4594aaaf9954dc210810, type: 3}
+    poolCount: 30
   scenePoolingObjects: []
