@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BigFroggyState
+public enum EnumBigFroggyState
 {
 
     Idle,
@@ -12,7 +12,7 @@ public enum BigFroggyState
 
 }
 
-public class BigFroggyController : StateController<BigFroggyState>
+public class BigFroggyController : StateController<EnumBigFroggyState>
 {
 
     [SerializeField] private BigFroggyDataSO _data;
@@ -20,7 +20,7 @@ public class BigFroggyController : StateController<BigFroggyState>
     private void Awake()
     {
         
-        var idleState = new EnemyIdleState<BigFroggyState>(this, _data);
+        var idleState = new EnemyIdleState<EnumBigFroggyState>(this, _data);
 
     }
 
