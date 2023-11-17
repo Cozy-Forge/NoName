@@ -68,7 +68,19 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
 
     }
 
+    public Coroutine AddCoroutine(IEnumerator coroutine)
+    {
 
+        return StartCoroutine(coroutine);
+
+    }
+
+    public void RemoveCoroutine(Coroutine coroutine)
+    {
+
+        StopCoroutine(coroutine);
+
+    }
 
 }
 

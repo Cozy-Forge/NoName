@@ -15,8 +15,14 @@ public class BigFroggyDataSO : EnemyDataSO
     [field: SerializeField] public float JumpCoolDown { get; private set; }
     [field: SerializeField] public float LandBulletCount { get; private set; }
 
+    [field: Space]
+    [field: Header("ÃÑ¾Ë")]
+    [field: SerializeField] public float FireCoolDown { get; private set; }
+    [field: SerializeField] public float FireRange { get; private set; }
+
 
     public bool IsJumpCoolDown { get; private set; }
+    public bool IsFireCoolDown { get; private set; }
 
     public void SetJumpCoolDown()
     {
@@ -30,6 +36,21 @@ public class BigFroggyDataSO : EnemyDataSO
             IsJumpCoolDown = false;
 
         }, JumpCoolDown);
+
+    }
+
+    public void SetFireCoolDown()
+    {
+
+        if (IsFireCoolDown) return;
+        IsFireCoolDown = true;
+
+        FAED.InvokeDelay(() =>
+        {
+
+            IsFireCoolDown = false;
+
+        }, FireCoolDown);
 
     }
 

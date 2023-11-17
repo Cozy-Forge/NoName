@@ -8,7 +8,6 @@ public enum EnumBigFroggyState
     Idle,
     Skill_Jump,
     Skill_Fire,
-    Skill_Cyclorrhapha
 
 }
 
@@ -25,7 +24,11 @@ public class BigFroggyController : StateController<EnumBigFroggyState>
         #region Idle
 
         var idleState = new EnemyIdleState<EnumBigFroggyState>(this, _data);
+
         var idleToJump = new EnemyTargetRangeTransition<EnumBigFroggyState>
+            (transform, _data.JumpRange, _data.TargetAbleLayer, EnumBigFroggyState.Skill_Jump, () => !_data.IsJumpCoolDown);
+
+        var idleToFire = new EnemyTargetRangeTransition<EnumBigFroggyState>
             (transform, _data.JumpRange, _data.TargetAbleLayer, EnumBigFroggyState.Skill_Jump, () => !_data.IsJumpCoolDown);
 
         idleState.AddTransition(idleToJump);
