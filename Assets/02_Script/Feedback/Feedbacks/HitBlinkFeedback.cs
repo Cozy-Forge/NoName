@@ -33,7 +33,7 @@ public class HitBlinkFeedback : Feedback
         else
         {
 
-            _data.blinkTime = 0.15f;
+            _data.blinkTime = 0.03f;
 
         }
 

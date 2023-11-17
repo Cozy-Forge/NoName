@@ -60,12 +60,6 @@ public class Bullet : MonoBehaviour
 
                 }
 
-                if(collision.TryGetComponent<FeedbackPlayer>(out var feedback))
-                {
-
-                    feedback.PlayFeedback(_data.Damage);
-
-                }
 
                 HitOther();
                 Release();

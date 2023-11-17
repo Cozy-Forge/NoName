@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BulletHeadData
   m_EditorClassIdentifier: 
   Speed: 15
-  Damage: 4
+  Damage: 1
   HitAbleTag:
   - Hit

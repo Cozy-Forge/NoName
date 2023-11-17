@@ -10,6 +10,7 @@ public class HPObject : MonoBehaviour
 
     protected float _currentHP;
     protected bool _isDie;
+    protected FeedbackPlayer _feedbackPlayer;
 
     public event Action<float> OnTakeDamageEvent, OnHealEvent;
     public event Action OnDieEvent;
@@ -18,6 +19,7 @@ public class HPObject : MonoBehaviour
     {
 
         _currentHP = _maxHP;
+        _feedbackPlayer = GetComponent<FeedbackPlayer>();
 
     }
 
@@ -38,6 +40,7 @@ public class HPObject : MonoBehaviour
 
         }
 
+        _feedbackPlayer?.PlayFeedback(damage);
         OnTakeDamageEvent?.Invoke(damage);
 
     }
