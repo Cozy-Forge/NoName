@@ -48,12 +48,14 @@ public class BigFroggyJumpState : BigFroggyState
     }
 
     private CinemachineImpulseSource _impulseSource;
+    private SpriteRenderer _spriteRenderer;
 
     public override void Create()
     {
 
         _animater.OnJumpStartEvent += HandleJumpStart;
         _impulseSource = _transform.GetComponent<CinemachineImpulseSource>();
+        _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
 
     }
 
@@ -69,14 +71,23 @@ public class BigFroggyJumpState : BigFroggyState
 
         SetTarget(_data.JumpRange);
 
+        
+
         if (_target != null)
         {
-
+            _spriteRenderer.flipX = _transform.transform.position.x < _transform.localPosition.x;
             FAED.TakePool("BigFroggyJumpParticle", _transform.position + Vector3.down * 2, Quaternion.identity);
+            var obj = FAED.TakePool("BigFroggyWarning", _target.position + Vector3.down * 2, Quaternion.identity);
 
             _transform.DOJump(_target.position, _data.JumpPower, 1, _data.JumpDuration)
                 .SetEase(Ease.InSine)
-                .OnComplete(() => JumpEndEvent());
+                .OnComplete(() =>
+                {
+
+                    JumpEndEvent();
+                    FAED.InsertPool(obj);
+
+                });
 
             _impulseSource.GenerateImpulse(0.7f);
 

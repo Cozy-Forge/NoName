@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 {
 
     [SerializeField] private BulletDataSO _data;
+    [SerializeField] private string _bulletDestroyParticle;
 
     private bool _isAdd;
 
@@ -58,7 +59,13 @@ public class Bullet : MonoBehaviour
 
     }
 
-    protected virtual void HitOther() { }
+    protected virtual void HitOther() 
+    {
+
+        if (_bulletDestroyParticle == string.Empty) return;
+        FAED.TakePool(_bulletDestroyParticle, transform.position, Quaternion.identity);
+    
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
@@ -77,7 +84,12 @@ public class Bullet : MonoBehaviour
                     hp.TakeDamage(Data.Damage);
 
                 }
+                else if(collision.TryGetComponent<Hitbox>(out var box))
+                {
 
+                    box.Casting(Data.Damage);
+
+                }
 
                 HitOther();
                 Release();
