@@ -15,6 +15,9 @@ public class HPObject : MonoBehaviour
     public event Action<float> OnTakeDamageEvent, OnHealEvent;
     public event Action OnDieEvent;
 
+    public float MaxHP => _maxHP;
+    public float CurrentHP => _currentHP;
+
     protected virtual void Awake()
     {
 
