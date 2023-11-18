@@ -450,7 +450,7 @@ Material:
     - _WindXPosition: 0
     - _WorldTilingPixelsPerUnit: 100
     m_Colors:
-    - _AddColorColor: {r: 3.9999998, g: 3.9999998, b: 3.9999998, a: 0}
+    - _AddColorColor: {r: 1.0592737, g: 1.0592737, b: 1.0592737, a: 0}
     - _AlphaTintColor: {r: 95.87451, g: 5.019608, b: 95.87451, a: 0}
     - _BlackTintColor: {r: 0, g: 0, b: 1, a: 0}
     - _BurnEdgeColor: {r: 11.98431, g: 1.129412, b: 0.1254902, a: 0}

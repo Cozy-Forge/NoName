@@ -6,6 +6,7 @@ public class PlayerWeaponContainer : MonoBehaviour
 {
 
     [SerializeField] private Weapon debugWeapon;
+    [SerializeField] private int _maxWeapon = 6;
 
     private HashSet<Weapon> _weapons = new();
 
@@ -25,7 +26,7 @@ public class PlayerWeaponContainer : MonoBehaviour
     {
 
         _weapons.Add(weapon);
-        var pos = Quaternion.AngleAxis(_weapons.Count * 30, Vector3.forward) * Vector2.right;
+        var pos = Quaternion.AngleAxis(360 / _maxWeapon * _weapons.Count, Vector3.forward) * Vector2.right;
 
         weapon.transform.position = pos + transform.position;
         weapon.transform.SetParent(transform);

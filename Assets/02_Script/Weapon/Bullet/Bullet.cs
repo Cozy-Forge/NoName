@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] private BulletDataSO _data;
 
+    private bool _isAdd;
+
     public BulletData Data;
 
     private void Awake()
@@ -21,7 +23,7 @@ public class Bullet : MonoBehaviour
     {
 
         BulletJobManager.Instance.AddBullet(this);
-
+        _isAdd = true;
         StartCoroutine(ReleaseBullet());
 
     }
@@ -29,8 +31,22 @@ public class Bullet : MonoBehaviour
     public void Release()
     {
 
-        BulletJobManager.Instance.RemoveBullet(this);
-        FAED.InsertPool(gameObject);
+        if (BulletJobManager.Instance.RemoveBullet(this))
+        {
+
+            FAED.InsertPool(gameObject);
+
+        }
+        else
+        {
+
+            Destroy(gameObject);
+
+        }
+
+        _isAdd = false;
+
+        StopAllCoroutines();
 
     }
 
@@ -46,7 +62,9 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        
+
+        if (!_isAdd) return;
+
         foreach(var item in Data.HitAbleTag)
         {
 

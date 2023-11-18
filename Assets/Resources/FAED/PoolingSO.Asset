@@ -22,4 +22,7 @@ MonoBehaviour:
   - poolingKey: FroggyBullet
     poolingObject: {fileID: 5343971438829051424, guid: cd77558cea0c4594aaaf9954dc210810, type: 3}
     poolCount: 30
+  - poolingKey: BigFroggyJumpParticle
+    poolingObject: {fileID: 2010262399580016421, guid: 43d80b6f7a654274eaedd3637dfd7865, type: 3}
+    poolCount: 30
   scenePoolingObjects: []

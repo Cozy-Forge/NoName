@@ -20,10 +20,10 @@ MonoBehaviour:
   <TargetAbleLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
-  <JumpRange>k__BackingField: 15
+  <JumpRange>k__BackingField: 100
   <JumpPower>k__BackingField: 4
   <JumpDuration>k__BackingField: 1
   <JumpCoolDown>k__BackingField: 3
-  <LandBulletCount>k__BackingField: 10
-  <FireCoolDown>k__BackingField: 3
-  <FireRange>k__BackingField: 7
+  <LandBulletCount>k__BackingField: 36
+  <FireCoolDown>k__BackingField: 1
+  <FireRange>k__BackingField: 9

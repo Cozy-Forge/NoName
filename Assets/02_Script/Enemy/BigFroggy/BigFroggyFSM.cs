@@ -1,3 +1,4 @@
+using Cinemachine;
 using DG.Tweening;
 using FD.Dev;
 using System.Collections;
@@ -46,10 +47,13 @@ public class BigFroggyJumpState : BigFroggyState
     {
     }
 
+    private CinemachineImpulseSource _impulseSource;
+
     public override void Create()
     {
 
         _animater.OnJumpStartEvent += HandleJumpStart;
+        _impulseSource = _transform.GetComponent<CinemachineImpulseSource>();
 
     }
 
@@ -68,9 +72,13 @@ public class BigFroggyJumpState : BigFroggyState
         if (_target != null)
         {
 
+            FAED.TakePool("BigFroggyJumpParticle", _transform.position + Vector3.down * 2, Quaternion.identity);
+
             _transform.DOJump(_target.position, _data.JumpPower, 1, _data.JumpDuration)
                 .SetEase(Ease.InSine)
                 .OnComplete(() => JumpEndEvent());
+
+            _impulseSource.GenerateImpulse(0.7f);
 
         }
 
@@ -86,24 +94,40 @@ public class BigFroggyJumpState : BigFroggyState
     private void JumpEndEvent()
     {
 
-        for(int i = 0; i <= _data.LandBulletCount; i++)
+        _controller.AddCoroutine(LandBltCo());
+
+    }
+
+    private IEnumerator LandBltCo()
+    {
+
+
+        _animater.SetJumpEnd();
+        _impulseSource.GenerateImpulse(1.5f);
+        FAED.TakePool("BigFroggyJumpParticle", _transform.position + Vector3.down * 2, Quaternion.identity);
+
+        for(int i = 0; i < 3; i++)
         {
 
-            var bullet = FAED.TakePool<Bullet>("FroggyBullet", _transform.position, 
-                Quaternion.Euler(0, 0, (360 / _data.LandBulletCount) * i));
-            bullet.Shoot();
+            for (int j = 0; j <= _data.LandBulletCount; j++)
+            {
+
+                var bullet = FAED.TakePool<Bullet>("FroggyBullet", _transform.position,
+                    Quaternion.Euler(0, 0, ((360 / _data.LandBulletCount) * i) + j * 10));
+                bullet.Shoot();
+
+            }
+
+            yield return new WaitForSeconds(0.1f);
 
         }
 
-        _animater.SetJumpEnd();
 
-        FAED.InvokeDelay(() =>
-        {
 
-            _data.SetJumpCoolDown();
-            _controller.ChangeState(EnumBigFroggyState.Idle);
+        yield return new WaitForSeconds(0.5f);
 
-        }, 1f);
+        _data.SetJumpCoolDown();
+        _controller.ChangeState(EnumBigFroggyState.Idle);
 
     }
 
@@ -209,7 +233,7 @@ public class BigFroggyFireState : BigFroggyState
             {
 
                 var bullet = FAED.TakePool<Bullet>("FroggyBullet", _transform.position,
-                    Quaternion.Euler(0, 0, ((360 / 8) * j) +( i * 15)));
+                    Quaternion.Euler(0, 0, ((360 / 8) * j) + (i * 15)));
                 bullet.Shoot();
 
             }

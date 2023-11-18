@@ -22,9 +22,9 @@ public class GunWeapon : Weapon
     {
 
         var blt = FAED.TakePool<Bullet>("TestBullet", _shootPos.position, transform.rotation);
-        BulletJobManager.Instance.AddBullet(blt);
+        blt.Shoot();
 
-       FAED.TakePool<PoolingParticle>("ShootParticle", _shootPos.position, transform.rotation, transform);
+        FAED.TakePool<PoolingParticle>("ShootParticle", _shootPos.position, transform.rotation, transform);
 
         transform.DOShakePosition(0.1f, 0.25f);
 
