@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 1f5e5ad7de3dea04cb6e1589ec3718f0
+guid: feca6b0935f323a428270bf0482af798
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -63,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -116,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_0
+      name: SI_Dark_Castle_Door01_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f7ab5b19a4f1954fac751adfd0df634
-      internalID: -731538955
+      spriteID: 6c47b5a16040cdd4fb14c43bb1eefff6
+      internalID: -702756496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_1
+      name: SI_Dark_Castle_Door01_1
       rect:
         serializedVersion: 2
         x: 48
@@ -151,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ec3e7cdf51ff7c419b650812ad6e59c
-      internalID: -536729966
+      spriteID: bd90e36f7930b164aa87b83e491122c5
+      internalID: -1926864306
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_2
+      name: SI_Dark_Castle_Door01_2
       rect:
         serializedVersion: 2
         x: 96
@@ -172,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77774270c44ee324ebbac5eafac4ae99
-      internalID: -1215454770
+      spriteID: 786613500a32e7f42b76cd46f0413305
+      internalID: 1279831206
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_3
+      name: SI_Dark_Castle_Door01_3
       rect:
         serializedVersion: 2
         x: 144
@@ -193,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4970a36c7a9e3a41a5b1448a3e0ec08
-      internalID: -2047819977
+      spriteID: 6ef7aab03d1215a45bd1a62820ecd7b5
+      internalID: -595316866
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_4
+      name: SI_Dark_Castle_Door01_4
       rect:
         serializedVersion: 2
         x: 192
@@ -214,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb9f2715edd5c1d4e8e01f5632c02714
-      internalID: -593992476
+      spriteID: e071ec5fbee0c8742b0f50c86b2e6b59
+      internalID: 2146744121
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_5
+      name: SI_Dark_Castle_Door01_5
       rect:
         serializedVersion: 2
         x: 240
@@ -235,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a7e613eeb950a442b78ee92f838d40d
-      internalID: 1441125057
+      spriteID: aa346355465c0d04d94bc968409b935b
+      internalID: -41486093
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_6
+      name: SI_Dark_Castle_Door01_6
       rect:
         serializedVersion: 2
         x: 288
@@ -256,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db5638b4c7871814787fec52c86b56f9
-      internalID: -1532797598
+      spriteID: f71263f3db6679e44ab7590ac1d47ae7
+      internalID: 1751071286
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_7
+      name: SI_Dark_Castle_Door01_7
       rect:
         serializedVersion: 2
         x: 336
@@ -277,14 +278,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d199e9f10b7851418921da59fb77749
-      internalID: 1359821909
+      spriteID: 957333e5b4040f142a39b14d38fa83fb
+      internalID: 258505671
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_8
+      name: SI_Dark_Castle_Door01_8
       rect:
         serializedVersion: 2
         x: 0
@@ -298,14 +299,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d085cfb75d81cc7478dde60adf6dac93
-      internalID: -977270350
+      spriteID: bd8d9d2e37510bb4a8832feffc3ccb56
+      internalID: 1604519473
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_9
+      name: SI_Dark_Castle_Door01_9
       rect:
         serializedVersion: 2
         x: 48
@@ -319,14 +320,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a45d89e3b6f6a443acc6c9aa931cf6b
-      internalID: -350343754
+      spriteID: 7532c81ff33487948a908680d6767dc0
+      internalID: 1513313553
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_10
+      name: SI_Dark_Castle_Door01_10
       rect:
         serializedVersion: 2
         x: 96
@@ -340,14 +341,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22ce0bf0eaaacbe48b665995021c5119
-      internalID: -716075092
+      spriteID: 225ad714783d2aa4f98a0ffddffb3806
+      internalID: -137739597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_11
+      name: SI_Dark_Castle_Door01_11
       rect:
         serializedVersion: 2
         x: 144
@@ -361,14 +362,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07ed52f33dca62545a543d0812f17106
-      internalID: -1881123173
+      spriteID: 245fd5b8e0a5b734fa5f2f5a18a15e89
+      internalID: -649189138
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_12
+      name: SI_Dark_Castle_Door01_12
       rect:
         serializedVersion: 2
         x: 192
@@ -382,14 +383,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f169433677c18ab469cac8e03db0ccba
-      internalID: -1144777399
+      spriteID: 39c196625a4688e4ab7deabcf8ff85d7
+      internalID: -486933537
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_13
+      name: SI_Dark_Castle_Door01_13
       rect:
         serializedVersion: 2
         x: 240
@@ -403,14 +404,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5047b8a520fa15498e9e169723779e4
-      internalID: 286870700
+      spriteID: 637298e401100044b9f7d2a94f02ea9d
+      internalID: -1011303779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_14
+      name: SI_Dark_Castle_Door01_14
       rect:
         serializedVersion: 2
         x: 288
@@ -424,14 +425,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b72bd4caaa06a43409ba705a3696360a
-      internalID: 1137689070
+      spriteID: 8724eb63f8f86974a8a3023e7c94e39a
+      internalID: 2136807786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SI_Dark_Castle_Purple_Door01_15
+      name: SI_Dark_Castle_Door01_15
       rect:
         serializedVersion: 2
         x: 336
@@ -445,8 +446,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c66a5be0c0a29904aa34662d184be1d0
-      internalID: 833543123
+      spriteID: 6d17e4af3e1a95c47a5a429fdf7a36c0
+      internalID: 272636379
       vertices: []
       indices: 
       edges: []
@@ -462,22 +463,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SI_Dark_Castle_Purple_Door01_4: -593992476
-      SI_Dark_Castle_Purple_Door01_6: -1532797598
-      SI_Dark_Castle_Purple_Door01_7: 1359821909
-      SI_Dark_Castle_Purple_Door01_14: 1137689070
-      SI_Dark_Castle_Purple_Door01_1: -536729966
-      SI_Dark_Castle_Purple_Door01_5: 1441125057
-      SI_Dark_Castle_Purple_Door01_15: 833543123
-      SI_Dark_Castle_Purple_Door01_11: -1881123173
-      SI_Dark_Castle_Purple_Door01_2: -1215454770
-      SI_Dark_Castle_Purple_Door01_9: -350343754
-      SI_Dark_Castle_Purple_Door01_0: -731538955
-      SI_Dark_Castle_Purple_Door01_12: -1144777399
-      SI_Dark_Castle_Purple_Door01_13: 286870700
-      SI_Dark_Castle_Purple_Door01_8: -977270350
-      SI_Dark_Castle_Purple_Door01_10: -716075092
-      SI_Dark_Castle_Purple_Door01_3: -2047819977
+      SI_Dark_Castle_Door01_0: -702756496
+      SI_Dark_Castle_Door01_1: -1926864306
+      SI_Dark_Castle_Door01_10: -137739597
+      SI_Dark_Castle_Door01_11: -649189138
+      SI_Dark_Castle_Door01_12: -486933537
+      SI_Dark_Castle_Door01_13: -1011303779
+      SI_Dark_Castle_Door01_14: 2136807786
+      SI_Dark_Castle_Door01_15: 272636379
+      SI_Dark_Castle_Door01_2: 1279831206
+      SI_Dark_Castle_Door01_3: -595316866
+      SI_Dark_Castle_Door01_4: 2146744121
+      SI_Dark_Castle_Door01_5: -41486093
+      SI_Dark_Castle_Door01_6: 1751071286
+      SI_Dark_Castle_Door01_7: 258505671
+      SI_Dark_Castle_Door01_8: 1604519473
+      SI_Dark_Castle_Door01_9: 1513313553
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

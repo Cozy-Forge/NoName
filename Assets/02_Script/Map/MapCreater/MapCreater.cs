@@ -10,6 +10,7 @@ public class MapCreater : MonoBehaviour
     [SerializeField] private int _minRoad, _maxRoad;
     [SerializeField] private Tilemap _roadTilemap, _wallTilemap;
     [SerializeField] private TileBase _baseTile, _wallTile, _wallSideXTile, _wallSideYTile_T1, _wallSideYTile_T2;
+    [SerializeField] private List<RoomData> _constRoom;
     private List<RoomData> _rooms = new List<RoomData>();
     private List<RoomBindData> _roomBind = new();
 
@@ -198,11 +199,12 @@ public class MapCreater : MonoBehaviour
     {
 
         Queue<(RoomData room, Vector2Int oldDir)> notVistidData = new();
+        Queue<RoomData> constQ = new Queue<RoomData>(_constRoom);
         notVistidData.Enqueue((Instantiate(_rooms[0]), Vector2Int.zero));
 
         float percent = 100;
 
-        while(notVistidData.Count > 0)
+        while(notVistidData.Count > 0 || constQ.Count > 0)
         {
 
             var room = notVistidData.Dequeue();
@@ -220,7 +222,22 @@ public class MapCreater : MonoBehaviour
 
                 var idx = Random.Range(0, _rooms.Count);
 
-                var obj = Instantiate(_rooms[idx]);
+                RoomData obj;
+                bool isConst = false;
+
+                if(Random.value > 0.3f && constQ.Count > 0)
+                {
+
+                    obj = Instantiate(constQ.Peek());
+                    isConst = true;
+
+                }
+                else
+                {
+
+                    obj = Instantiate(_rooms[idx]);
+
+                }
 
                 var point =  dir * (roadLen + (room.room.Width / 2 + obj.Width / 2));
                 var pointEv = dir * (roadLen + (room.room.Width / 2));
@@ -262,6 +279,13 @@ public class MapCreater : MonoBehaviour
                 }
                 else
                 {
+
+                    if (isConst)
+                    {
+
+                        constQ.Dequeue();
+
+                    }
 
                     points.Add((pointEv, dir));//
                     notVistidData.Enqueue((obj, dir));
