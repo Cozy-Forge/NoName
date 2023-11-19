@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73e772ce91332814896c1c806a2239b2
+guid: b3a94e09dc2cc614ea04d99e7db14a90
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,127 +129,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EyeBat-Sheet_0
+      name: miniGlowter-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
+        width: 32
         height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51ca222f17c6a054b9eff7e12f838dd1
-      internalID: -1577251123
+      spriteID: bebfbcfc17a38d34cba5f5497a0c70d3
+      internalID: -590793131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EyeBat-Sheet_1
+      name: miniGlowter-Sheet_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 32
         y: 0
-        width: 48
+        width: 32
         height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6d905382bd347048a81575e761988f9
-      internalID: -1498385734
+      spriteID: 880f21d3788e97843bc0853619a8cfc8
+      internalID: 1135342529
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EyeBat-Sheet_2
+      name: miniGlowter-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 48
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f14d2bd8fcacce7498c91753cf41c2ff
+      internalID: -1572262371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: miniGlowter-Sheet_3
       rect:
         serializedVersion: 2
         x: 96
         y: 0
-        width: 48
+        width: 32
         height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3576efbd3fc3738498df47f747cf5a2c
-      internalID: 1162449197
+      spriteID: 542d7d1348a5ffa4eadf7b479d4b2860
+      internalID: -124216710
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EyeBat-Sheet_3
+      name: miniGlowter-Sheet_4
       rect:
         serializedVersion: 2
-        x: 144
+        x: 128
         y: 0
-        width: 48
+        width: 32
         height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 462f2864025b0c949adedc080d9a9bbf
-      internalID: -56158983
+      spriteID: 383b619306396be4d9695af563cc654f
+      internalID: 327165176
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EyeBat-Sheet_4
+      name: miniGlowter-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 48
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f926a738685b0d040a59be04dede8ac2
+      internalID: -1092779504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: miniGlowter-Sheet_6
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 48
+        width: 32
         height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 427e6037e1d30354e9d52963fd333da0
-      internalID: 1537503731
+      spriteID: 16903dfad29b41348b3d137f16c50bbe
+      internalID: 1588656889
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EyeBat-Sheet_5
+      name: miniGlowter-Sheet_7
       rect:
         serializedVersion: 2
-        x: 240
+        x: 224
         y: 0
-        width: 48
+        width: 32
         height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e1322fb60cd5434abbedb912106fb66
-      internalID: 1548293721
+      spriteID: d6bf481c6563e784592b025fa79a410f
+      internalID: 1212844916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: miniGlowter-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 48
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd956e7b910a6304cafa31cabebde58c
+      internalID: -1785661038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: miniGlowter-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 48
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5b9f46ccacb857498c1d20c9f13c481
+      internalID: -1441306218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: miniGlowter-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 48
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db030301f3bef2943aec25a4f6fa3308
+      internalID: 202351110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: miniGlowter-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 48
+      alignment: 9
+      pivot: {x: 0.515, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12c26bdca71420544b1c9bfa00f05ef1
+      internalID: 494306131
       vertices: []
       indices: 
       edges: []
@@ -265,12 +391,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      EyeBat-Sheet_0: -1577251123
-      EyeBat-Sheet_1: -1498385734
-      EyeBat-Sheet_2: 1162449197
-      EyeBat-Sheet_3: -56158983
-      EyeBat-Sheet_4: 1537503731
-      EyeBat-Sheet_5: 1548293721
+      miniGlowter-Sheet_0: -590793131
+      miniGlowter-Sheet_1: 1135342529
+      miniGlowter-Sheet_10: 202351110
+      miniGlowter-Sheet_11: 494306131
+      miniGlowter-Sheet_2: -1572262371
+      miniGlowter-Sheet_3: -124216710
+      miniGlowter-Sheet_4: 327165176
+      miniGlowter-Sheet_5: -1092779504
+      miniGlowter-Sheet_6: 1588656889
+      miniGlowter-Sheet_7: 1212844916
+      miniGlowter-Sheet_8: -1785661038
+      miniGlowter-Sheet_9: -1441306218
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
