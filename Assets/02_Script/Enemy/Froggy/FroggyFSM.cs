@@ -50,6 +50,7 @@ public class FroggyJumpState : FroggyState
 
     private CinemachineImpulseSource _impulseSource;
     private SpriteRenderer _spriteRenderer;
+    private Transform _shadowTrm;
 
     public override void Create()
     {
@@ -57,6 +58,7 @@ public class FroggyJumpState : FroggyState
         _animater.OnJumpStartEvent += HandleJumpStart;
         _impulseSource = _transform.GetComponent<CinemachineImpulseSource>();
         _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
+        _shadowTrm = _transform.Find("Shadow");
 
     }
 
@@ -77,7 +79,9 @@ public class FroggyJumpState : FroggyState
             _spriteRenderer.flipX = _target.position.x > _transform.position.x;
             FAED.TakePool("FroggyJumpParticle", _transform.position + Vector3.down, Quaternion.identity);
 
-            _transform.DOJump(_target.position + (Vector3)Random.insideUnitCircle, _data.JumpPower, 1, _data.JumpDuration)
+            var pos = _target.position + (Vector3)Random.insideUnitCircle;
+
+            _transform.DOJump(pos, _data.JumpPower, 1, _data.JumpDuration)
                 .SetEase(Ease.InSine)
                 .OnComplete(() =>
                 {
@@ -85,6 +89,9 @@ public class FroggyJumpState : FroggyState
                     JumpEndEvent();
 
                 });
+
+            _shadowTrm.DOMove(pos - new Vector3(0f, 1, 0f), 1)
+                .SetEase(Ease.InSine);
 
             _impulseSource.GenerateImpulse(0.3f);
 

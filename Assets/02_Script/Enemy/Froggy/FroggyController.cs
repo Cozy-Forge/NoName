@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FroggyController : StateController<EnumBigFroggyState>
+public class FroggyController : StateController<EnumBigFroggyState>, IEnemyDataGetAble
 {
 
     [SerializeField] private BigFroggyDataSO _data;
+
+    public EnemyDataSO GetData()
+    {
+
+        return _data;
+
+    }
 
     private void Awake()
     {

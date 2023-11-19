@@ -49,6 +49,7 @@ public class BigFroggyJumpState : BigFroggyState
 
     private CinemachineImpulseSource _impulseSource;
     private SpriteRenderer _spriteRenderer;
+    private Transform _shadowTrm;
 
     public override void Create()
     {
@@ -56,6 +57,7 @@ public class BigFroggyJumpState : BigFroggyState
         _animater.OnJumpStartEvent += HandleJumpStart;
         _impulseSource = _transform.GetComponent<CinemachineImpulseSource>();
         _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
+        _shadowTrm = _transform.Find("Shadow");
 
     }
 
@@ -87,6 +89,9 @@ public class BigFroggyJumpState : BigFroggyState
 
                 });
 
+            _shadowTrm.DOMove(_target.position - new Vector3(0f, 4, 0f), 1)
+                .SetEase(Ease.InSine);
+
             _impulseSource.GenerateImpulse(0.7f);
 
         }
@@ -94,6 +99,7 @@ public class BigFroggyJumpState : BigFroggyState
         {
 
             _animater.SetJumpEnd();
+            _data.SetJumpCoolDown();
             _controller.ChangeState(EnumBigFroggyState.Idle);
 
         }
@@ -137,8 +143,6 @@ public class BigFroggyJumpState : BigFroggyState
             yield return new WaitForSeconds(0.1f);
 
         }
-
-
 
         yield return new WaitForSeconds(0.5f);
 

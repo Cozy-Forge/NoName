@@ -3,8 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IEnemyDataGetAble
+{
 
+    public EnemyDataSO GetData();
 
+}
 
 public abstract class EnemyState<T> : State<T> where T : System.Enum
 {

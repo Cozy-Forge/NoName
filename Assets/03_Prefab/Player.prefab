@@ -10395,6 +10395,8 @@ GameObject:
   - component: {fileID: 7291449487752728230}
   - component: {fileID: 7291449487752728231}
   - component: {fileID: 7291449487752728224}
+  - component: {fileID: 2104546369}
+  - component: {fileID: 2104546370}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -10623,6 +10625,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHP: 1000
+--- !u!114 &2104546369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291449487752728253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca5ec16460e3dd4b8f36fc2e98d8050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onDissolveEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2104546370}
+        m_TargetAssemblyTypeName: DoSceneChangeEvent, Assembly-CSharp
+        m_MethodName: SceneChange
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 00_IntroScene
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2104546370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291449487752728253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e5c9ca74777ed458ffe122e60e05b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7291449488084185125
 GameObject:
   m_ObjectHideFlags: 0
