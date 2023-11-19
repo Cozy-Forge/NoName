@@ -71,11 +71,9 @@ public class BigFroggyJumpState : BigFroggyState
 
         SetTarget(_data.JumpRange);
 
-        
-
         if (_target != null)
         {
-            _spriteRenderer.flipX = _transform.transform.position.x < _transform.localPosition.x;
+            _spriteRenderer.flipX = _target.position.x > _transform.position.x;
             FAED.TakePool("BigFroggyJumpParticle", _transform.position + Vector3.down * 2, Quaternion.identity);
             var obj = FAED.TakePool("BigFroggyWarning", _target.position + Vector3.down * 2, Quaternion.identity);
 
@@ -90,6 +88,13 @@ public class BigFroggyJumpState : BigFroggyState
                 });
 
             _impulseSource.GenerateImpulse(0.7f);
+
+        }
+        else
+        {
+
+            _animater.SetJumpEnd();
+            _controller.ChangeState(EnumBigFroggyState.Idle);
 
         }
 

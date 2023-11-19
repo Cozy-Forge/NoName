@@ -25,6 +25,8 @@ public class PlayerWeaponContainer : MonoBehaviour
     public void AddWeapon(Weapon weapon)
     {
 
+        if (_weapons.Count == _maxWeapon) return;
+
         _weapons.Add(weapon);
         var pos = Quaternion.AngleAxis(360 / _maxWeapon * _weapons.Count, Vector3.forward) * Vector2.right;
 
@@ -36,6 +38,8 @@ public class PlayerWeaponContainer : MonoBehaviour
 
     public void RemoveWeapon(Weapon weapon)
     {
+
+        if (_weapons.Count <= 0) return;
 
         _weapons.Remove(weapon);
 

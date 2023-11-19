@@ -104,7 +104,7 @@ public class MapCreater : MonoBehaviour
         CreateRoom();
         DrawRoad();
         CloseMap();
-        _root.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        _root.transform.localScale = Vector3.one * 2;
 
     }
 

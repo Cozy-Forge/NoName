@@ -16,3 +16,4 @@ MonoBehaviour:
   Damage: 1
   HitAbleTag:
   - Hit
+  - Enemy

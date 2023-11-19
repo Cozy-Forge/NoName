@@ -163,6 +163,7 @@ public class DashState : PlayerState
 
     private DashTransition _dashTransition;
     private Rigidbody2D _rigid;
+    private Vector2 _dashEndPos;
     public event Action<Vector2> OnDashEvent;
     public event Action OnDashEndEvent;
 
@@ -227,13 +228,26 @@ public class DashState : PlayerState
         if (hit.collider != null)
         {
 
-            _dashTransition.Set(hit.point);
+            if(Vector2.Distance(hit.point, _transform.position) <= 0.5f)
+            {
+
+                OnDashEvent?.Invoke(dir);
+                _dashEndPos = _transform.position;
+                _controller.ChangeState(EnumPlayerState.Move);
+                return;
+
+            }
+
+            _dashTransition.Set(hit.point - dir);
+            _dashEndPos = hit.point - dir;
+
 
         }
         else
         {
 
             _dashTransition.Set((dir * _data.DashLength) + (Vector2)_transform.position);
+            _dashEndPos = (dir * _data.DashLength) + (Vector2)_transform.position;
 
         }
 
@@ -248,6 +262,7 @@ public class DashState : PlayerState
     {
 
         _animator.SetDash(false);
+        _transform.position = _dashEndPos;
         OnDashEndEvent?.Invoke();
 
     }
