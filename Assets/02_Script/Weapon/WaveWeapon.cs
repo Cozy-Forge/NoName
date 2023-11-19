@@ -54,15 +54,7 @@ public class WaveWeapon : Weapon
     {
         if (other.CompareTag("Enemy"))
         {
-            TestEnemyController enemyController = other.GetComponent<TestEnemyController>();
-            if (enemyController != null && enemyController.Data.Speed > 2)
-            {
-                enemyController.Data.Speed -= 2;
-            }
-            else
-            {
-                Debug.Log("null");
-            }
+
         }
     }
 

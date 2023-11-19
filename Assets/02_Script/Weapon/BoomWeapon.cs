@@ -53,17 +53,10 @@ public class BoomWeapon : Weapon
     {
         if (other.CompareTag("Enemy"))
         {
-            TestEnemyController enemyController = other.GetComponent<TestEnemyController>();
-            if (enemyController != null)
-            {
-                //나중에 체력으로 바꾸기
-                enemyController.Data.Speed -= 2;
-            }
-            else
-            {
-                Debug.Log("null");
-            }
+                other.GetComponent<HPObject>().TakeDamage(20);
         }
+        else
+            Debug.Log("null");
     }
 
 

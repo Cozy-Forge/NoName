@@ -42,6 +42,18 @@ public class EWaveWeapon : Weapon
         objTransform.localScale = targetScale;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            collision.GetComponent<HPObject>().TakeDamage(30);
+        }
+        else
+        {
+            Debug.Log("null");
+        }
+    }
+
     protected override void DoAttack(Transform trm)
     {
         SpawnWave();
