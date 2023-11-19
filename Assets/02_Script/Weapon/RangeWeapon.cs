@@ -16,4 +16,12 @@ public class RangeWeapon : Weapon
         ///
     }
 
+    protected override void RotateWeapon(Transform target)
+    {
+        var dir = target.position - transform.position;
+
+        transform.right = dir.normalized;
+
+    }
+
 }
