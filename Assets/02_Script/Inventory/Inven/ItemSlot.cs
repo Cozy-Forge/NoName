@@ -37,7 +37,7 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         CraftingTable.Instance.AddItemToList(currentItem);
-
+        RemoveItem();
     }
 
     public void RemoveItem()
@@ -49,8 +49,8 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
 
             if (currentStackCount <= 0)
             {
-                currentItem = Inventory.instance.NoneItem;
-                image.sprite = currentItem.ItemData.ItemImage;
+                Item noneItem = Inventory.instance.NoneItem;
+                SetItem(noneItem, noneItem.ItemData.StackCount);
             }
         }
         stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
@@ -66,7 +66,6 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
     {
         currentItem = item;
         currentStackCount = count;
-        Debug.Log(1);
         image.sprite = currentItem.ItemData.ItemImage; // 이미지
         itemName.text = currentItem.ItemData.ItemName; // 이름
         itemDescription.text = currentItem.ItemData.ItemDescription; // 설명

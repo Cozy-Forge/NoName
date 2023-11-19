@@ -7,4 +7,3 @@ public class Item : MonoBehaviour
     [SerializeField] ItemSO itemData;
     public ItemSO ItemData => itemData;
 }
-

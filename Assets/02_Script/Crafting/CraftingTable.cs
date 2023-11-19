@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CraftingTable : MonoBehaviour
@@ -36,7 +37,7 @@ public class CraftingTable : MonoBehaviour
     /// 아이템 뱉는 애
     /// </summary>
     /// <returns></returns>
-    public Item Crafting()
+    public void Crafting()
     {
         Vector3 curPos = Vector3.zero;
 
@@ -44,7 +45,14 @@ public class CraftingTable : MonoBehaviour
         {
             curPos += mat.ItemData.Weight;
         }
+        Item result = itemBoard.GetNearItem(curPos);
+        materials.Clear();
+        OpenTetris(result);
+    }
 
-        return itemBoard.GetNearItem(curPos);
+    private void OpenTetris(Item result)
+    {
+        // 보드판 열고
+        // 아이템 생성깔쥐
     }
 }
