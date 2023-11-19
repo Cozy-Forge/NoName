@@ -46,6 +46,8 @@ public class PlayerFlipSubState : ISubState
 
         };
 
+
+
     }
 
 }
@@ -161,6 +163,7 @@ public class DashState : PlayerState
 
     private DashTransition _dashTransition;
     private Rigidbody2D _rigid;
+    private Vector2 _dashEndPos;
     public event Action<Vector2> OnDashEvent;
     public event Action OnDashEndEvent;
 
@@ -171,7 +174,7 @@ public class DashState : PlayerState
         private Vector3 _endPos;
         private float _oldDest;
 
-        public DashTransition(Transform transform,EnumPlayerState nextState) : base(nextState)
+        public DashTransition(Transform transform, EnumPlayerState nextState) : base(nextState)
         {
 
             _transform = transform;
@@ -191,6 +194,7 @@ public class DashState : PlayerState
             var vec = _endPos - _transform.position;
 
             var dist = vec.sqrMagnitude;
+
             if (_oldDest - dist < 0)
             {
 
@@ -207,6 +211,7 @@ public class DashState : PlayerState
 
     public override void Create()
     {
+
         _dashTransition = new DashTransition(_transform, EnumPlayerState.Move);
         _transitions.Add(_dashTransition);
         _rigid = _transform.GetComponent<Rigidbody2D>();
@@ -216,24 +221,38 @@ public class DashState : PlayerState
     protected override void OnEnter()
     {
 
-        var dir = _inputReader.MoveInputDir == Vector2.zero ? Vector2.right : _inputReader.MoveInputDir;
+        var dir = _inputReader.OldMoveInputDir;
 
         var hit = Physics2D.Raycast(_transform.position, dir, _data.DashLength, _data.DashObstacleLayer);
 
         if (hit.collider != null)
         {
 
-            _dashTransition.Set(hit.point);
+            if(Vector2.Distance(hit.point, _transform.position) <= 0.5f)
+            {
+
+                OnDashEvent?.Invoke(dir);
+                _dashEndPos = _transform.position;
+                _controller.ChangeState(EnumPlayerState.Move);
+                return;
+
+            }
+
+            _dashTransition.Set(hit.point - dir);
+            _dashEndPos = hit.point - dir;
+
 
         }
         else
         {
 
             _dashTransition.Set((dir * _data.DashLength) + (Vector2)_transform.position);
+            _dashEndPos = (dir * _data.DashLength) + (Vector2)_transform.position;
 
         }
 
         _rigid.velocity = dir * _data.DashPower;
+
         OnDashEvent?.Invoke(dir);
         _animator.SetDash(true);
 
@@ -243,6 +262,7 @@ public class DashState : PlayerState
     {
 
         _animator.SetDash(false);
+        _transform.position = _dashEndPos;
         OnDashEndEvent?.Invoke();
 
     }

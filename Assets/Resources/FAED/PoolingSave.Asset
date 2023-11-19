@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a87865d090e2b41a4425fdde434ffb, type: 3}
+  m_Name: PoolingSave
+  m_EditorClassIdentifier: 
+  alwaysPoolingObjects:
+  - poolingKey: TestBullet
+    poolingObject: {fileID: 4788451372852981063, guid: 863ea10f74060434dad84c5e73e647eb, type: 3}
+    poolCount: 30
+  - poolingKey: ShootParticle
+    poolingObject: {fileID: 1340822602401865627, guid: fa2cb6ac3df29ca4791ac5b81d3d520b, type: 3}
+    poolCount: 30
+  - poolingKey: FroggyBullet
+    poolingObject: {fileID: 5343971438829051424, guid: cd77558cea0c4594aaaf9954dc210810, type: 3}
+    poolCount: 30
+  - poolingKey: BigFroggyJumpParticle
+    poolingObject: {fileID: 2010262399580016421, guid: 43d80b6f7a654274eaedd3637dfd7865, type: 3}
+    poolCount: 30
+  - poolingKey: BigFroggyWarning
+    poolingObject: {fileID: 3934934548962092306, guid: 758e825cad133ce41880062fe5b8c625, type: 3}
+    poolCount: 10
+  - poolingKey: DamageText
+    poolingObject: {fileID: 745058183559864352, guid: 7e7b0b2e4ae5cbc45bd36605e96a98f8, type: 3}
+    poolCount: 10
+  - poolingKey: BigFroggyBltFX
+    poolingObject: {fileID: 7874890826020260809, guid: c56c62fed8db5fa47b724088d3fe532a, type: 3}
+    poolCount: 10
+  - poolingKey: PlayerBltFX
+    poolingObject: {fileID: 7813956331451658950, guid: aef121aec6053444d8dd7dacfc4d571b, type: 3}
+    poolCount: 10
+  - poolingKey: FroggyJumpParticle
+    poolingObject: {fileID: 2010262399580016421, guid: dd27af0ff3ef72c41b36cea4c9991622, type: 3}
+    poolCount: 10
+  scenePoolingObjects: []

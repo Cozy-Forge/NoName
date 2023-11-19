@@ -12,9 +12,8 @@ public class RangeWeapon : Weapon
 
         var blt = FAED.TakePool<Bullet>(bulletPoolingKey, transform.position, Quaternion.identity);
         blt.transform.right = transform.up;
-
-        BulletJobManager.Instance.AddBullet(blt);
-
+        blt.Shoot();
+        ///
     }
 
 }

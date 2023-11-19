@@ -62,7 +62,8 @@ public class BulletJobManager : MonoBehaviour
     
     public static BulletJobManager Instance { get; private set; }
 
-    private Dictionary<BulletData, HandleBulletController> _bulletHandleController = new();
+    private Dictionary<float, HandleBulletController> _bulletHandleController = new();
+
 
     private void Awake()
     {
@@ -84,7 +85,7 @@ public class BulletJobManager : MonoBehaviour
                 {
 
                     Dt = Time.deltaTime,
-                    Speed = item.Key.Speed
+                    Speed = item.Key
 
                 }.Schedule(item.Value.BulletContainer);
 
@@ -97,34 +98,47 @@ public class BulletJobManager : MonoBehaviour
     public void AddBullet(Bullet bullet)
     {
 
-        if (!_bulletHandleController.ContainsKey(bullet.Data))
+        if (!_bulletHandleController.ContainsKey(bullet.Data.Speed))
         {
 
-            _bulletHandleController.Add(bullet.Data, new HandleBulletController());
+            _bulletHandleController.Add(bullet.Data.Speed, new HandleBulletController());
 
         }
 
-        _bulletHandleController[bullet.Data].BulletContainer.Add(bullet.transform);
+        _bulletHandleController[bullet.Data.Speed].HandleJob.Complete();
+
+        _bulletHandleController[bullet.Data.Speed].BulletContainer.Add(bullet.transform);
 
     }
 
-    public void RemoveBullet(Bullet bullet)
+    public bool RemoveBullet(Bullet bullet)
     {
 
-        if (!_bulletHandleController.ContainsKey(bullet.Data)) return;
+        if (!_bulletHandleController.ContainsKey(bullet.Data.Speed)) return true;
 
-        for(int i = 0; i < _bulletHandleController[bullet.Data].BulletContainer.length; i++)
+        _bulletHandleController[bullet.Data.Speed].HandleJob.Complete();
+
+
+        for (int i = 0; i < _bulletHandleController[bullet.Data.Speed].BulletContainer.length; i++)
         {
 
-            if (_bulletHandleController[bullet.Data].BulletContainer[i] == bullet.transform)
+            if (_bulletHandleController[bullet.Data.Speed].BulletContainer[i] == bullet.transform)
             {
 
-                _bulletHandleController[bullet.Data].BulletContainer.RemoveAtSwapBack(i);
-                break;
+                _bulletHandleController[bullet.Data.Speed].BulletContainer.RemoveAtSwapBack(i);
+                return true;
 
             }
 
         }
+
+        //JobSystem이 프레임 관련해서 무언가 문제가 있음 자세히는 파악 못함
+        //일반 리스트와 NativeArray간 비교 차이 발생
+        //NativeContainer문제일 가능성?
+        //지금은 안되는거 확인 했지만 나중에 그 원인이 확실했는지 파악해서 고칠것
+        Debug.Log("BulletNotRemoved");
+        Debug.Log(_bulletHandleController[bullet.Data.Speed].BulletContainer.length);
+        return false;
 
     }
 

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1cb9eec971a1b4193c419eb2669320, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  <MoveSpeed>k__BackingField: 5
+  <MoveSpeed>k__BackingField: 7
   <TargetLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 8
   <DashObstacleLayer>k__BackingField:
     serializedVersion: 2
-    m_Bits: 8
-  <DashLength>k__BackingField: 3
-  <DashPower>k__BackingField: 20
+    m_Bits: 136
+  <DashLength>k__BackingField: 4
+  <DashPower>k__BackingField: 50
   _dashCoolDown: 0.5

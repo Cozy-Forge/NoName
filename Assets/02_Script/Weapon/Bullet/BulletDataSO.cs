@@ -7,6 +7,7 @@ public struct BulletData
 
     public float Speed;
     public float Damage;
+    public string[] HitAbleTag;
 
 }
 
@@ -16,6 +17,7 @@ public class BulletDataSO : ScriptableObject
 
     public float Speed;
     public float Damage;
+    public string[] HitAbleTag;
 
     public BulletData CreateBulletData()
     {
@@ -24,7 +26,8 @@ public class BulletDataSO : ScriptableObject
         {
 
             Speed = Speed,
-            Damage = Damage
+            Damage = Damage,
+            HitAbleTag = HitAbleTag
 
         };
 

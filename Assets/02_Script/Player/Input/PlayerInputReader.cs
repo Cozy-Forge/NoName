@@ -10,6 +10,8 @@ public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayer
     private PlayerInputController _input;
 
     public Vector2 MoveInputDir { get; private set; }
+    public Vector2 OldMoveInputDir { get; private set; } = Vector2.left;
+
     public event Action<Vector2> OnMoveEvent;
     public event Action OnDashKeyPressEvent;
 
@@ -34,6 +36,13 @@ public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayer
         var value = context.ReadValue<Vector2>();
         MoveInputDir = value;
         OnMoveEvent?.Invoke(value);
+
+        if(value != Vector2.zero)
+        {
+
+            OldMoveInputDir = value;
+
+        }
 
     }
     
