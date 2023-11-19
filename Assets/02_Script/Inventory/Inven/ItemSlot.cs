@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IPointerUpHandler
 {
+    [Header("프리팹으로 None넣어놓기")]
     [SerializeField] Item currentItem = null;
 
     public Item CurrentItem => currentItem;
@@ -14,16 +15,19 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
     private int currentStackCount = 0;
     public int CurrentStackCount => currentStackCount;
 
-    private TextMeshProUGUI stackText = null;
+    private Image image = null;
     private TextMeshProUGUI itemName = null;
     private TextMeshProUGUI itemDescription = null;
-    private Image image = null;
+    private TextMeshProUGUI stackText = null;
 
     private void Awake()
     {
-        stackText = GetComponentInChildren<TextMeshProUGUI>();
-        image = transform.GetChild(0).GetComponent<Image>();
-        image.sprite = currentItem.ItemData.ItemImage;
+        image = transform.GetChild(0).GetChild(0).GetComponent<Image>();
+        itemName = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        itemDescription = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        stackText = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+
+        SetItem(currentItem, currentStackCount);
     }
 
     /// <summary>
@@ -32,10 +36,27 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
     /// <param name="eventData"></param>
     public void OnPointerUp(PointerEventData eventData)
     {
-
+        CraftingTable.Instance.AddItemToList(currentItem);
+        RemoveItem();
     }
 
-    public void AddItem()
+    public void RemoveItem()
+    {
+        if (currentStackCount > 0)
+        {
+            currentStackCount--;
+            Inventory.instance.ItemList.Remove(currentItem);
+
+            if (currentStackCount <= 0)
+            {
+                Item noneItem = Inventory.instance.NoneItem;
+                SetItem(noneItem, noneItem.ItemData.StackCount);
+            }
+        }
+        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
+    }
+
+    public void IncreaseItem()
     {
         currentStackCount++;
         stackText.text = $"{currentStackCount}";
@@ -45,9 +66,9 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
     {
         currentItem = item;
         currentStackCount = count;
-
-        image.sprite = currentItem.ItemData.ItemImage;
-
-        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
+        image.sprite = currentItem.ItemData.ItemImage; // 이미지
+        itemName.text = currentItem.ItemData.ItemName; // 이름
+        itemDescription.text = currentItem.ItemData.ItemDescription; // 설명
+        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}"; // 스택 카운트
     }
 }
