@@ -18,12 +18,25 @@ public class MeleeWeapon : Weapon
 
     private IEnumerator Sting(Transform trm)
     {
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = trm.position;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < _stingBackTime)
+        {
+            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / _stingBackTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = endPosition;
+
         
-        transform.up = trm.position;
-        transform.position = trm.position;
-        yield return new WaitForSeconds(_stingBackTime);
+
         transform.localPosition = startLocalPosition;
     }
+
 
     private PlayerController _playerController;
 
@@ -43,9 +56,8 @@ public class MeleeWeapon : Weapon
 
     private void DashSting(Vector2 pos)
     {
-        //돌진긴
+        //돌진기
         transform.up = pos;
-
     }
 
     private void OnDestroy()
