@@ -11,6 +11,7 @@ public class MapCreater : MonoBehaviour
     [SerializeField] private Tilemap _roadTilemap, _wallTilemap;
     [SerializeField] private TileBase _baseTile, _wallTile, _wallSideXTile, _wallSideYTile_T1, _wallSideYTile_T2;
     [SerializeField] private List<RoomData> _constRoom;
+    [SerializeField] private Transform _root;
     private List<RoomData> _rooms = new List<RoomData>();
     private List<RoomBindData> _roomBind = new();
 
@@ -103,6 +104,7 @@ public class MapCreater : MonoBehaviour
         CreateRoom();
         DrawRoad();
         CloseMap();
+        _root.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
     }
 
@@ -200,7 +202,7 @@ public class MapCreater : MonoBehaviour
 
         Queue<(RoomData room, Vector2Int oldDir)> notVistidData = new();
         Queue<RoomData> constQ = new Queue<RoomData>(_constRoom);
-        notVistidData.Enqueue((Instantiate(_rooms[0]), Vector2Int.zero));
+        notVistidData.Enqueue((Instantiate(_rooms[0], _root), Vector2Int.zero));
 
         float percent = 100;
 
@@ -228,14 +230,14 @@ public class MapCreater : MonoBehaviour
                 if(Random.value > 0.3f && constQ.Count > 0)
                 {
 
-                    obj = Instantiate(constQ.Peek());
+                    obj = Instantiate(constQ.Peek(), _root);
                     isConst = true;
 
                 }
                 else
                 {
 
-                    obj = Instantiate(_rooms[idx]);
+                    obj = Instantiate(_rooms[idx], _root);
 
                 }
 
