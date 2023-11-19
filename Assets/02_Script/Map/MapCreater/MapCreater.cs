@@ -227,7 +227,7 @@ public class MapCreater : MonoBehaviour
                 RoomData obj;
                 bool isConst = false;
 
-                if(Random.value > 0.3f && constQ.Count > 0)
+                if(Random.value > 0.9f && constQ.Count > 0)
                 {
 
                     obj = Instantiate(constQ.Peek(), _root);

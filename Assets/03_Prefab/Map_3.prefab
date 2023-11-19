@@ -3380,6 +3380,7 @@ GameObject:
   - component: {fileID: 1135195004703758941}
   - component: {fileID: 1135195004703758942}
   - component: {fileID: 1135195004703758943}
+  - component: {fileID: 7513266653459575222}
   m_Layer: 3
   m_Name: BigFroggy
   m_TagString: Enemy
@@ -3630,6 +3631,21 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 1, y: -1, z: -1}
+--- !u!114 &7513266653459575222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135195004703758945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca5ec16460e3dd4b8f36fc2e98d8050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onDissolveEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1135195004783275729
 GameObject:
   m_ObjectHideFlags: 0

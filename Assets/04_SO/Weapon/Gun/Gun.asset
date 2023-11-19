@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Gun
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    Range: 10
+    Range: 20
     AttackPower: 0
-    AttackCoolDown: 0.3
+    AttackCoolDown: 0.8

@@ -77,7 +77,7 @@ public class FroggyJumpState : FroggyState
             _spriteRenderer.flipX = _target.position.x > _transform.position.x;
             FAED.TakePool("FroggyJumpParticle", _transform.position + Vector3.down, Quaternion.identity);
 
-            _transform.DOJump(_target.position, _data.JumpPower, 1, _data.JumpDuration)
+            _transform.DOJump(_target.position + (Vector3)Random.insideUnitCircle, _data.JumpPower, 1, _data.JumpDuration)
                 .SetEase(Ease.InSine)
                 .OnComplete(() =>
                 {

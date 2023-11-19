@@ -31,4 +31,13 @@ MonoBehaviour:
   - poolingKey: DamageText
     poolingObject: {fileID: 745058183559864352, guid: 7e7b0b2e4ae5cbc45bd36605e96a98f8, type: 3}
     poolCount: 10
+  - poolingKey: BigFroggyBltFX
+    poolingObject: {fileID: 7874890826020260809, guid: c56c62fed8db5fa47b724088d3fe532a, type: 3}
+    poolCount: 10
+  - poolingKey: PlayerBltFX
+    poolingObject: {fileID: 7813956331451658950, guid: aef121aec6053444d8dd7dacfc4d571b, type: 3}
+    poolCount: 10
+  - poolingKey: FroggyJumpParticle
+    poolingObject: {fileID: 2010262399580016421, guid: dd27af0ff3ef72c41b36cea4c9991622, type: 3}
+    poolCount: 10
   scenePoolingObjects: []

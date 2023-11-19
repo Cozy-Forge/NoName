@@ -15,6 +15,7 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
 {
 
     protected Dictionary<T, State<T>> _stateContainer = new();
+    protected HPObject _hpObject;
 
     public event StateChangeEvent<T> OnStateChangeEvent;
 
@@ -23,6 +24,15 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
     protected virtual void Start()
     {
         
+        _hpObject = GetComponent<HPObject>();
+
+        if( _hpObject != null)
+        {
+
+            _hpObject.OnDieEvent += HandleDieEvent; 
+
+        }
+
         foreach (var state in _stateContainer.Values)
         {
 
@@ -31,6 +41,13 @@ public class StateController<T> : MonoBehaviour where T : System.Enum
         }
 
         ChangeState(CurrentState);
+
+    }
+
+    protected virtual void HandleDieEvent()
+    {
+
+        enabled = false;
 
     }
 

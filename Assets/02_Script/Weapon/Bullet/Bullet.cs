@@ -78,16 +78,20 @@ public class Bullet : MonoBehaviour
             if (collision.CompareTag(item))
             {
 
+                float damage = Random.Range((int)Data.Damage - 5, (int)Data.Damage + 5);
+
+                damage = Mathf.Clamp(damage, 1, int.MaxValue);
+
                 if(collision.TryGetComponent<HPObject>(out var hp))
                 {
 
-                    hp.TakeDamage(Data.Damage);
+                    hp.TakeDamage(damage);
 
                 }
                 else if(collision.TryGetComponent<Hitbox>(out var box))
                 {
 
-                    box.Casting(Data.Damage);
+                    box.Casting(damage);
 
                 }
 
