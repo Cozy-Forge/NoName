@@ -37,4 +37,7 @@ MonoBehaviour:
   - poolingKey: PlayerBltFX
     poolingObject: {fileID: 7813956331451658950, guid: aef121aec6053444d8dd7dacfc4d571b, type: 3}
     poolCount: 10
+  - poolingKey: FroggyJumpParticle
+    poolingObject: {fileID: 2010262399580016421, guid: dd27af0ff3ef72c41b36cea4c9991622, type: 3}
+    poolCount: 10
   scenePoolingObjects: []
