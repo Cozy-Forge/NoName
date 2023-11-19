@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public enum ItemType
 {
@@ -26,8 +23,8 @@ public class ItemSO : ScriptableObject
     [SerializeField] int stackCount;
     public int StackCount => stackCount;
 
-    [SerializeField] Vector2 weight;
-    public Vector2 Weight => weight;
+    [SerializeField] Vector3 weight;
+    public Vector3 Weight => weight;
 
     [SerializeField] ItemType itemType;
     public ItemType ItemType => itemType;

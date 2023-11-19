@@ -23,11 +23,8 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
     private void Awake()
     {
         image = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-
         itemName = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-
         itemDescription = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-
         stackText = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
 
         SetItem(currentItem, currentStackCount);
@@ -39,10 +36,27 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
     /// <param name="eventData"></param>
     public void OnPointerUp(PointerEventData eventData)
     {
+        CraftingTable.Instance.AddItemToList(currentItem);
 
     }
 
-    public void AddItem()
+    public void RemoveItem()
+    {
+        if (currentStackCount > 0)
+        {
+            currentStackCount--;
+            Inventory.instance.ItemList.Remove(currentItem);
+
+            if (currentStackCount <= 0)
+            {
+                currentItem = Inventory.instance.NoneItem;
+                image.sprite = currentItem.ItemData.ItemImage;
+            }
+        }
+        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
+    }
+
+    public void IncreaseItem()
     {
         currentStackCount++;
         stackText.text = $"{currentStackCount}";

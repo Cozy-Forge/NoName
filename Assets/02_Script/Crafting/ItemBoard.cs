@@ -7,7 +7,7 @@ using UnityEngine;
 [Serializable]
 public class MyClass
 {
-    public Vector2 position;
+    public Vector3 position;
     public Item resultItem;
 }
 
@@ -15,12 +15,11 @@ public class ItemBoard : MonoBehaviour
 {
     [SerializeField] private List<MyClass> board = new List<MyClass>();
 
-
-
-    public Item GetNearItem(Vector2 pos)
+    public Item GetNearItem(Vector3 pos)
     {
         int idx = 0;
         float minDistance = float.MaxValue;
+
         for (int i = 0; i < board.Count; ++i)
         {
             float currentDistance = Vector2.Distance(pos, board[i].position);
