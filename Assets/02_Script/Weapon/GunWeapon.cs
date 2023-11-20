@@ -8,13 +8,16 @@ public class GunWeapon : Weapon
 {
 
     [SerializeField] private Transform _shootPos;
+
     private SpriteRenderer _spriteRenderer;
+    private AudioSource _audioSource;
 
     protected override void Awake()
     {
 
         base.Awake();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -25,6 +28,7 @@ public class GunWeapon : Weapon
         blt.Shoot();
 
         FAED.TakePool<PoolingParticle>("ShootParticle", _shootPos.position, transform.rotation, transform);
+        _audioSource.Play();
 
         transform.DOShakePosition(0.1f, 0.25f);
 
