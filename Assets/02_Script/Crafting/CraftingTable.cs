@@ -52,7 +52,7 @@ public class CraftingTable : MonoBehaviour
 
     private void OpenTetris(Item result)
     {
-        // 보드판 열고
-        // 아이템 생성깔쥐
+        InventoryButtonManager.Instance.CompulsionOpenTetris();
+        BlockManager.Instance.CreateBlock(result.tetrisImg);
     }
 }

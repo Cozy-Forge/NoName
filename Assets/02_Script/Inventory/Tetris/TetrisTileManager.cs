@@ -55,19 +55,6 @@ public class TetrisTileManager : MonoBehaviour
         SettingBoard(); // 처음 보드 생성
     }
 
-    //여긴 지울 예정
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            IncreaseBoardSizeX();
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            IncreaseBoardSizeY();
-        }
-    }
-
     /// <summary>
     /// 보드 사이즈에 맞춰 보드 세팅
     /// </summary>

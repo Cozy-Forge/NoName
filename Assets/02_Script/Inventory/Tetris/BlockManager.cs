@@ -43,20 +43,8 @@ public class BlockManager : MonoBehaviour
         StartCoroutine(MoveCo());
     }
 
-    //여긴 테스트용 나중에 지워야댐
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _selectBlock == null)
-        {
-            CreateBlock(test[Random.Range(0,test.Length - 1)]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-            _selectBlock.DebugArr();
-
-        if (Input.GetKeyDown(KeyCode.Z))
-            DebugBoard();
-
         MoveBlock();
     }
 

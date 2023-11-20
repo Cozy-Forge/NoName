@@ -6245,6 +6245,10 @@ MonoBehaviour:
     resultItem: {fileID: 5251647889431473665, guid: 2c64330b260f2d847942797340bffc3e, type: 3}
   - position: {x: -1, y: -1, z: -1}
     resultItem: {fileID: 6250064136155255206, guid: 4fe1ddb70233ca44f96a5bd80f778de3, type: 3}
+  - position: {x: -1, y: -1, z: -1}
+    resultItem: {fileID: 6250064136155255206, guid: 4fe1ddb70233ca44f96a5bd80f778de3, type: 3}
+  - position: {x: -1, y: -1, z: -1}
+    resultItem: {fileID: 6250064136155255206, guid: 4fe1ddb70233ca44f96a5bd80f778de3, type: 3}
 --- !u!1 &1177441560
 GameObject:
   m_ObjectHideFlags: 0
@@ -7169,6 +7173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: d38f44df5c6a61e43981164e6c8d7b49, type: 2}
+  _tetrisImg: {fileID: 0}
 --- !u!1 &1686911590
 GameObject:
   m_ObjectHideFlags: 0
