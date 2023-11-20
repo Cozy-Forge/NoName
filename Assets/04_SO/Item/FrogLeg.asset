@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac721aee05896a42b95a7418f7854ec, type: 3}
+  m_Name: FrogLeg
+  m_EditorClassIdentifier: 
+  itemName: Frog Leg
+  itemDescription: "\uAC1C\uAD6C\uB9AC\uB4B7\uB2E4\uB9AC"
+  itemImage: {fileID: -1549018963, guid: 302ee54186e90dc4085722034bab842c, type: 3}
+  stackCount: 5
+  weight: {x: 3, y: -1, z: 0}
+  itemType: 0
