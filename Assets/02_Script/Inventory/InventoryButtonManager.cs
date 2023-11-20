@@ -39,7 +39,13 @@ public class InventoryButtonManager : MonoBehaviour
         wft = new WaitForSeconds(_durationSpeed);
     }
 
-    private void Update() //여기있는 코드 나중에 인풋시스템으로 옮겨야 댐
+    //여기있는 코드 나중에 인풋시스템으로 옮겨야 댐
+    private void Update() 
+    {
+        InputKey();
+    }
+
+    public void InputKey()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -64,6 +70,7 @@ public class InventoryButtonManager : MonoBehaviour
         }
     }
 
+    //강제로 인벤 열기
     public void CompulsionOpenTetris()
     {
         transform.DOKill();
