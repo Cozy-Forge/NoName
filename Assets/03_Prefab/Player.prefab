@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Intensity: 0.35
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 3d4e67659d22e7d500000000
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -579,6 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b7ac0f9cffa7af419a4f4c0cd2f77c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rootHP: {fileID: 0}
 --- !u!1 &7291449486472871165
 GameObject:
   m_ObjectHideFlags: 0
@@ -10736,6 +10737,7 @@ MonoBehaviour:
           m_StringArgument: 00_IntroScene
           m_BoolArgument: 0
         m_CallState: 2
+  _spriteRenderer: {fileID: 0}
 --- !u!114 &2104546370
 MonoBehaviour:
   m_ObjectHideFlags: 0

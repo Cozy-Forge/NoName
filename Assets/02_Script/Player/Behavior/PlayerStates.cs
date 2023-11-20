@@ -124,6 +124,13 @@ public class MoveState : PlayerState
 
     }
 
+    public override void Destroy()
+    {
+
+        _inputReader.OnDashKeyPressEvent -= HandleDash;
+
+    }
+
     protected override void Run()
     {
 

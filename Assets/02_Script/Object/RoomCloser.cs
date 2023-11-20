@@ -1,3 +1,4 @@
+using FD.Dev;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,13 +51,40 @@ public class RoomCloser : MonoBehaviour
 
         }
 
+        var anime = _closeRoot.GetComponentsInChildren<Animator>();
+
+        foreach(var ani in anime)
+        {
+
+            ani.SetTrigger("Close");
+
+        }
+
     }
 
     public void Open()
     {
 
-        _closeRoot.SetActive(false);
 
+        var anime = _closeRoot.GetComponentsInChildren<Animator>();
+
+        foreach (var ani in anime)
+        {
+
+            ani.SetTrigger("Open");
+
+        }
+
+        StartCoroutine(CO());
+
+    }
+
+    private IEnumerator CO()
+    {
+
+        yield return new WaitForSeconds(0.5f);
+
+        _closeRoot.SetActive(false);
     }
 
 }
