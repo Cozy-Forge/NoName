@@ -13,4 +13,9 @@ public class BombWeapon : MonoBehaviour
         else
             Debug.Log("null");
     }
+
+    public void DestroyObj()
+    {
+        Destroy(gameObject);
+    }
 }

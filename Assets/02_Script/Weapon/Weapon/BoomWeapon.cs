@@ -23,13 +23,6 @@ public class BoomWeapon : Weapon
         var obj = Instantiate(_bombObj, _playerController.transform.position, Quaternion.identity);
         _data.Range = transform.localScale.x;
 
-        FAED.InvokeDelay(() =>
-        {
-            if (obj != null)
-            {
-                Destroy(obj);
-            }
-        }, 0.5f);
 
        StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(8f, 8f, 1f), 0.3f));
     }
