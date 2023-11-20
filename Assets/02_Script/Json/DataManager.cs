@@ -51,10 +51,11 @@ public class DataManager : MonoBehaviour
         if (!GetDir())
         {
             Directory.CreateDirectory(_path);
+            soundData.MasterSoundVal = 0.5f;            
             soundData.BGMSoundVal = 0.5f;
-            soundData.EffSoundVal = 0.5f;
+            soundData.EffSoundVal = 0.5f;            
+            soundData.UISoundVal = 0.5f;            
             SaveOption();
-
         }
         #endregion
         #region 파일이 있으면 데이터 로드

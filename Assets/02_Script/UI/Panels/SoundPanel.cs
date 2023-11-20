@@ -33,7 +33,10 @@ public class SoundPanel : Panel
     protected override void Awake()
     {
         base.Awake();
+    }
 
+    private void Start()
+    {
         InitValue();
     }
 
@@ -70,6 +73,10 @@ public class SoundPanel : Panel
     public override void ShowOff()
     {
         base.ShowOff();
+        DataManager.Instance.soundData.MasterSoundVal = _masterSoundSlider.value;
+        DataManager.Instance.soundData.BGMSoundVal = _bgmSoundSlider.value;
+        DataManager.Instance.soundData.EffSoundVal = _sfxSoundSlider.value;
+        DataManager.Instance.soundData.UISoundVal = _uiSoundSlider.value;
         DataManager.Instance.SaveOption();
     }
 }
