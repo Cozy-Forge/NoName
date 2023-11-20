@@ -1,10 +1,9 @@
 using FD.Dev;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
-public class PriortyQueueBlock 
+public class PriortyQueueBlock
 {
     public static PriortyQueueBlock Instance = null;
 
@@ -41,14 +40,18 @@ public class PriortyQueueBlock
     /// 매개변수 cnt만큼 리스트에서 값을 뺀다.
     /// </summary>
     /// <param name="cnt"></param>
-    public void RandomPop(int cnt)
+    public void RandomPop(int cnt = 3)
     {
-        int tempIdx;
+        int tempIdx = 0;
         for (int i = 0; i < cnt; i++)
         {
-            tempIdx = Random.Range(0, size - 1);
-            Pop(tempIdx);
+            if (size > 0)
+            {
+                tempIdx = Random.Range(0, size);
+                Pop(tempIdx);
+            }
         }
+        AllDownBlock();
     }
 
     /// <summary>
@@ -57,6 +60,7 @@ public class PriortyQueueBlock
     /// <param name="idx"></param>
     public void Pop(int idx)
     {
+        _tetrisImgList[idx].ClearBoard();
         FAED.InsertPool(_tetrisImgList[idx].gameObject);
         _tetrisImgList.RemoveAt(idx);
     }
@@ -75,12 +79,26 @@ public class PriortyQueueBlock
     /// </summary>
     public void AllDownBlock()
     {
-        List<TetrisImg> temptetrisImgList = new List<TetrisImg>(); // 템프에 옮기고
-        while(size > 0)
-        {
-            temptetrisImgList.Add(_tetrisImgList[0]);
-            Pop(0);
-        }
+        bool isAllDown = false;
 
+        while (!isAllDown)
+        {
+            isAllDown = true;
+            for (int i = 0; i < size; i++)
+            {
+                _tetrisImgList[i].ClearBoard();
+                while (_tetrisImgList[i].CanGo(BLOCKMOVEDIR.DOWN, false))
+                {
+                    if (!_tetrisImgList[i].CollisionOtherBlock(BLOCKMOVEDIR.DOWN))
+                    {
+                        _tetrisImgList[i].FillBoard(false);
+                        break;
+                    }
+                    _tetrisImgList[i].Move(BLOCKMOVEDIR.DOWN);
+                    _tetrisImgList[i].SetPos();
+                    isAllDown = false;
+                }
+            }
+        }
     }
 }

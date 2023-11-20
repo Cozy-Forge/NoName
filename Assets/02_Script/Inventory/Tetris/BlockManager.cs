@@ -11,7 +11,7 @@ public class BlockManager : MonoBehaviour
     private TetrisImg _selectBlock;             //현재 선택된 블록
     private WaitForSeconds _wfs;                 //MoveCo 코루틴 딜레이
 
-    public int[,] board = new int[16,26];     //테트리스 보드 --> +3씩 예외처리
+    public int[,] board = new int[26, 26];     //테트리스 보드 --> +3씩 예외처리
 
     public static int empty_place_size = 3;
 
@@ -20,7 +20,7 @@ public class BlockManager : MonoBehaviour
     private void Awake()
     {
         #region 싱글톤
-        if(Instance == null)
+        if (Instance == null)
             Instance = this;
         else
         {
@@ -28,7 +28,7 @@ public class BlockManager : MonoBehaviour
             Debug.LogError($"{transform} : BlockManager is Multiple running!");
         }
 
-        if(PriortyQueueBlock.Instance == null)
+        if (PriortyQueueBlock.Instance == null)
             PriortyQueueBlock.Instance = new PriortyQueueBlock();
         else
         {
@@ -46,14 +46,16 @@ public class BlockManager : MonoBehaviour
     //여긴 테스트용 나중에 지워야댐
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && _selectBlock == null)
+        if (Input.GetKeyDown(KeyCode.Space) && _selectBlock == null)
         {
-            //CreateBlock(test[Random.Range(0,test.Length - 1)]);
-            CreateBlock(test[0]);
+            CreateBlock(test[Random.Range(0,test.Length - 1)]);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
             _selectBlock.DebugArr();
+
+        if (Input.GetKeyDown(KeyCode.Z))
+            DebugBoard();
 
         MoveBlock();
     }
@@ -61,17 +63,17 @@ public class BlockManager : MonoBehaviour
     //블록 이동 => 이넘으로 정리
     public void MoveBlock()
     {
-        if(_selectBlock != null)
+        if (_selectBlock != null)
         {
-            if(Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 _selectBlock.Move(BLOCKMOVEDIR.LEFT);
             }
-            if(Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 _selectBlock.Move(BLOCKMOVEDIR.RIGHT);
             }
-            if(Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 _selectBlock.RotateImage();
             }
@@ -81,20 +83,20 @@ public class BlockManager : MonoBehaviour
     //블록 생성
     public void CreateBlock(TetrisImg tetrisImg)
     {
-        _selectBlock = FAED.TakePool<TetrisImg>($"{tetrisImg.name}",new Vector3(0,0),Quaternion.identity,transform);
-        _selectBlock.transform.localPosition = new Vector3(0, 0, 0);
+        _selectBlock = FAED.TakePool<TetrisImg>($"{tetrisImg.name}", new Vector3(0, 0), Quaternion.identity, transform);
         _selectBlock.Init();
     }
 
     //아래로 내려가게 하는 코루틴
     IEnumerator MoveCo()
     {
-        while(true)
+        while (true)
         {
             if (_selectBlock != null)
             {
                 yield return _wfs;
-                _selectBlock.Move(BLOCKMOVEDIR.DOWN);
+                if (_selectBlock != null)
+                    _selectBlock.Move(BLOCKMOVEDIR.DOWN);
             }
             else
                 yield return null;
@@ -109,11 +111,11 @@ public class BlockManager : MonoBehaviour
     /// <returns>이동할 수 있으면 true 아니면 false를 리턴</returns>
     public bool CheckTile(XY pos, int[,] fill)
     {
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                if ((fill[i,j] == 1 && board[pos.x + i + empty_place_size, pos.y + j + empty_place_size] == 1) 
+                if ((fill[i, j] == 1 && board[pos.x + i + empty_place_size, pos.y + j + empty_place_size] == 1)
                     || !CheckCanGo(pos))
                 {
                     return false;
@@ -130,7 +132,7 @@ public class BlockManager : MonoBehaviour
     /// <returns>갈 수 있으면 true, 아니면 false 리턴</returns>
     public bool CheckCanGo(XY pos)
     {
-        if (pos.x < empty_place_size || pos.x >= 13 || pos.y < empty_place_size || pos.y >= 23 )
+        if (pos.x < empty_place_size || pos.x >= 13 || pos.y < empty_place_size || pos.y >= 23)
             return false;
 
         return true;
@@ -139,16 +141,31 @@ public class BlockManager : MonoBehaviour
     //넘쳤을때 지워버리는 코드
     public void EraseBoard(TetrisImg tetrisImg = null, int cnt = 3)
     {
-        if(tetrisImg != null)
+        if (tetrisImg != null)
         {
             if (_selectBlock == tetrisImg)
                 SetSelectBlockNull();
 
+            tetrisImg.ClearBoard();
             FAED.InsertPool(tetrisImg.gameObject);
         }
 
-        PriortyQueueBlock.Instance.RandomPop(cnt);
+        PriortyQueueBlock.Instance.RandomPop(1);
     }
 
     public void SetSelectBlockNull() => _selectBlock = null;
+
+    public void DebugBoard()
+    {
+        string s = "";
+        for (int i = 3; i < TetrisTileManager.Instance.boardYSize + 3; i++)
+        {
+            for (int j = 3  ; j < TetrisTileManager.Instance.boardXSize + 3; j++)
+            {
+                s += board[i, j];
+            }
+            s += '\n';
+        }
+        Debug.Log(s);
+    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -123,7 +124,7 @@ public class TetrisTileManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"{transform} : 잘못된 접근 수치 - 보드X사이즈가 너무 커짐");
+            Debug.LogWarning($"{transform} : 잘못된 접근 수치 - 보드X사이즈가 너무 커짐");
         }
     }
 
@@ -136,13 +137,15 @@ public class TetrisTileManager : MonoBehaviour
             SettingBoard();
             foreach (TetrisImg tetrisImg in PriortyQueueBlock.Instance._tetrisImgList)
             {
+                tetrisImg.ClearBoard();
                 tetrisImg.IncreaseYPos();
                 tetrisImg.SetPos();
+                tetrisImg.FillBoard(false);
             }
         }
         else
         {
-            Debug.LogError($"{transform} : 잘못된 접근 수치 - 보드Y사이즈가 너무 커짐");
+            Debug.LogWarning($"{transform} : 잘못된 접근 수치 - 보드Y사이즈가 너무 커짐");
         }
     }
 }

@@ -1,3 +1,4 @@
+using FD.Dev;
 using SpriteShadersUltimate.Demo;
 using System.Collections;
 using System.Collections.Generic;
@@ -108,6 +109,13 @@ public class TetrisImg : MonoBehaviour
 
         CheckImage();
         SetPos();
+        if (!CollisionOtherBlock(BLOCKMOVEDIR.NONE))
+        {
+            BlockManager.Instance.SetSelectBlockNull();
+            FAED.InsertPool(gameObject);
+            PriortyQueueBlock.Instance.RandomPop();
+        }
+
     }
 
     public void IncreaseXPos() => _pos.x++;
@@ -116,11 +124,11 @@ public class TetrisImg : MonoBehaviour
     //이미지를 잘라서 칠해져 있으면 배열에 할당 <- 이거 문제 생기면 그냥 인스펙터에서 관리하자 준이야
     public void CheckImage()
     {
-        for(int x = 0; x < _col; x++)
+        for (int x = 0; x < _col; x++)
         {
-            for(int y = 0; y < _row; y++)
+            for (int y = 0; y < _row; y++)
             {
-                _board[x,y] = 0;
+                _board[x, y] = 0;
             }
         }
 
@@ -188,6 +196,10 @@ public class TetrisImg : MonoBehaviour
             {
                 _pos.y -= 3;
             }
+            else if (CollisionOtherBlock(BLOCKMOVEDIR.DOWN) && OverBlockAllSide(new XY() { x = _pos.x, y = _pos.y + 1 }))
+            {
+                _pos.y++;
+            }
             else
             {
                 //다 안되면 못돌려
@@ -207,28 +219,30 @@ public class TetrisImg : MonoBehaviour
     //인덱스 이동
     public void Move(BLOCKMOVEDIR dir)
     {
-        if (!CanGo(dir))
-            return;
-
         switch (dir)
         {
             case BLOCKMOVEDIR.LEFT:
-                if (!CollisionOtherBlock(dir))
+                if (!CollisionOtherBlock(dir) || !CanGo(dir))
                     return;
                 _pos.x--;
                 break;
             case BLOCKMOVEDIR.RIGHT:
-                if (!CollisionOtherBlock(dir))
+                if (!CollisionOtherBlock(dir) || !CanGo(dir))
                     return;
                 _pos.x++;
                 break;
             case BLOCKMOVEDIR.UP:
-                if (!CollisionOtherBlock(dir))
+                if (!CollisionOtherBlock(dir) || !CanGo(dir))
                     return;
                 _pos.y--;
                 break;
             case BLOCKMOVEDIR.DOWN:
-                if (!CollisionOtherBlock(dir))
+                if (!CanGo(dir))
+                {
+                    BlockManager.Instance.SetSelectBlockNull();
+                    return;
+                }
+                else if (!CollisionOtherBlock(dir))
                 {
                     BlockManager.Instance.SetSelectBlockNull();
                     FillBoard();
@@ -274,8 +288,9 @@ public class TetrisImg : MonoBehaviour
     /// </summary>
     /// <param name="dir">이동할 방향</param>
     /// <returns>이동이 가능하면 true 아니면 false를 리턴합니다.</returns>
-    public bool CanGo(BLOCKMOVEDIR dir)
+    public bool CanGo(BLOCKMOVEDIR dir, bool isAdd = true)
     {
+        
         XY tempPos = new XY { x = _pos.x, y = _pos.y };
 
         switch (dir)
@@ -284,8 +299,8 @@ public class TetrisImg : MonoBehaviour
                 tempPos.y++;
                 if (!OverBlockYDown(tempPos))
                 {
+                    FillBoard(isAdd);
                     BlockManager.Instance.SetSelectBlockNull();
-                    FillBoard();
                     return false;
                 }
                 break;
@@ -310,17 +325,6 @@ public class TetrisImg : MonoBehaviour
                     return false;
                 }
                 break;
-        }
-
-        for (int k = 0; k < _col; k++)
-        {
-            for (int l = 0; l < _row; l++)
-            {
-                if (_board[k, l] == 1 && BlockManager.Instance.board[tempPos.x, tempPos.y] == 1)
-                {
-                    return false;
-                }
-            }
         }
 
         return true;
@@ -458,7 +462,7 @@ public class TetrisImg : MonoBehaviour
     /// <summary>
     /// 이동 멈추면 1로 채우고 우선순위 리스트에 넣어줍니다. 만약 그 자리에 다른 블록이 있으면 제거하고 추가로 랜덤으로 3개의 블록을 제거합니다.
     /// </summary>
-    public void FillBoard()
+    public void FillBoard(bool isAdd = true)
     {
         for (int i = 0; i < _col; i++)
         {
@@ -485,7 +489,8 @@ public class TetrisImg : MonoBehaviour
                 }
             }
         }
-        PriortyQueueBlock.Instance.Push(this);
+        if(isAdd)
+            PriortyQueueBlock.Instance.Push(this);
     }
 
     public void DebugArr()
@@ -500,5 +505,19 @@ public class TetrisImg : MonoBehaviour
             s += '\n';
         }
         Debug.Log(s);
+    }
+
+    public void ClearBoard()
+    {
+        for (int i = 0; i < _col; i++)
+        {
+            for (int j = 0; j < _row; j++)
+            {
+                if (board[i, j] == 1)
+                {
+                    BlockManager.Instance.board[_pos.y + i, _pos.x + j] = 0;
+                }
+            }
+        }
     }
 }
