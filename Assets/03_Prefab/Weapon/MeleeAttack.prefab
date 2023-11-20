@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _so: {fileID: 11400000, guid: a04f35bed1045f644b48b6173d3b0bd6, type: 2}
   _stingBackTime: 0.2
-  _doAttack: 0
+  _doAttack: 1
 --- !u!70 &6755098878187783648
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -115,8 +115,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1176418, y: 0.019494077}
-  m_Size: {x: 0.23170315, y: 1.4794886}
+  m_Offset: {x: 0.0068038604, y: 0.5357923}
+  m_Size: {x: 0.20681371, y: 1.5785066}
   m_Direction: 0
 --- !u!95 &913337421
 Animator:
