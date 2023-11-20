@@ -15,4 +15,8 @@ public class LightBombWeapon : MonoBehaviour
             Debug.Log("null");
         }
     }
+    public void DestroyObj()
+    {
+        Destroy(gameObject);
+    }
 }
