@@ -1,3 +1,4 @@
+using FD.Dev;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,8 +22,6 @@ public class IntroUI : MonoBehaviour
 
     private void Awake()
     {
-        _introPlayerInputReader.InputData.Disable();
-
         foreach(var btn in _btnLists)
         {
             btn.Activate(false);
@@ -48,6 +47,11 @@ public class IntroUI : MonoBehaviour
 
         _introUIController.OnKeyDown += HandleSelectBtn;
         _introUIController.OnUISelect += HandleUISelect;
+    }
+
+    private void Start()
+    {
+        _introPlayerInputReader.SetEnable(false);
     }
 
     private void HandleUISelect()
@@ -76,7 +80,11 @@ public class IntroUI : MonoBehaviour
     public void StartBtn()
     {
         // 시작
-        _introPlayerInputReader.InputData.Enable();
+        FAED.InvokeDelay(() =>
+        {
+            _introPlayerInputReader.SetEnable(true);
+        }, 0.01f);
+        
 
         // 시작 애니메이션 넣기
 
