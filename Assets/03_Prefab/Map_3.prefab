@@ -3396,7 +3396,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135195004703758945}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2.04, z: 0}
   m_LocalScale: {x: 5.3333335, y: 5.3333335, z: 5.3333335}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3493,7 +3493,7 @@ BoxCollider2D:
   m_Offset: {x: 0.048458666, y: -0.23254311}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.2}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -13582,6 +13582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc3ab84178325e04781db028e565c733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _reader: {fileID: 11400000, guid: bbab8cf214587064794854ba84ff1e7f, type: 2}
 --- !u!1 &1135195005622467512
 GameObject:
   m_ObjectHideFlags: 0
@@ -13820,7 +13821,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135195005792719163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.44, z: 0}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -29,6 +29,7 @@ public class PlayerController : StateController<EnumPlayerState>
     {
 
         _data = Instantiate(_data);
+        _inputReader.InputData.Enable();
 
         var moveState = new MoveState(this, _inputReader, _data);
         var dashState = new DashState(this, _inputReader, _data);

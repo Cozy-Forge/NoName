@@ -90,7 +90,7 @@ public class FroggyJumpState : FroggyState
 
                 });
 
-            _shadowTrm.DOMove(pos - new Vector3(0f, 1, 0f), 1)
+            _shadowTrm.DOMove(pos - new Vector3(0f, 0.2f, 0f), 1)
                 .SetEase(Ease.InSine);
 
             _impulseSource.GenerateImpulse(0.3f);

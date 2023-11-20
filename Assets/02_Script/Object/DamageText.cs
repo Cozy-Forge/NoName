@@ -20,15 +20,13 @@ public class DamageText : MonoBehaviour
     public void Set(float damage)
     {
 
-        transform.localScale = new Vector3(1, 0, 1);
 
         _text.text = damage.ToString();
+        _text.color = Color.white;
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOScaleY(1, 0.3f).SetEase(Ease.OutBounce));
-        seq.Join(transform.DOMoveY(transform.position.y + 0.5f, 0.5f).SetEase(Ease.OutBounce));
-        seq.AppendInterval(0.1f);
-        seq.Append(transform.DOScaleY(0, 0.2f).SetEase(Ease.OutBounce));
+        seq.Append(transform.DOMoveY(transform.position.y + 1.5f, 0.4f).SetEase(Ease.OutQuad));
+        seq.Join(_text.DOColor(Color.red, 0.4f).SetEase(Ease.InSine));
         seq.AppendCallback(() =>
         {
 
