@@ -48,7 +48,7 @@ public class TetrisImg : MonoBehaviour
     {
         transform.name = transform.name.Replace("(Clone)", "");
 
-        _texture = Resources.Load<Texture2D>($"test/{transform.name}") as Texture2D;
+        _texture = Resources.Load<Texture2D>($"Tetris/{transform.name}") as Texture2D;
         _rectTransform = GetComponent<RectTransform>();
 
         #region 예외처리

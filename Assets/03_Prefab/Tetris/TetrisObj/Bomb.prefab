@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 649820166860820046}
   - component: {fileID: 649820166860820045}
   m_Layer: 5
-  m_Name: test1
+  m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 65c1262c6bd33d24fb4e66577e1e2c39, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 46eb79da58b2c744da1b054e817c2f14, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -89,4 +89,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753ec690f8be02f499800a9effcb93dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponPrefab: {fileID: 4076461126265029521, guid: 654cb593215069b49bd92da060c4cdd0, type: 3}
   _isDebug: 0
