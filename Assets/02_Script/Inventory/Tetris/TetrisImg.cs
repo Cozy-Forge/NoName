@@ -1,13 +1,5 @@
 using FD.Dev;
-using SpriteShadersUltimate.Demo;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public enum BLOCKMOVEDIR
 {
@@ -45,6 +37,9 @@ public class TetrisImg : MonoBehaviour
     const int _spriteSize = 200;
     const int _tileLength = 50;
 
+    [SerializeField] Weapon _weaponPrefab;
+    public Weapon weaponPrefab => _weaponPrefab;
+
     public bool _isDebug = false;
 
     private Color[] _tempPixels;
@@ -69,6 +64,10 @@ public class TetrisImg : MonoBehaviour
             Debug.LogWarning($"{transform} : This sprite's size is not 200!");
             _rectTransform.sizeDelta = new Vector2(_spriteSize, _spriteSize);
         }
+
+        if(weaponPrefab == null)
+            Debug.LogError($"{transform} : weaponPrefab is null!");
+
         #endregion
 
         CheckImage();
@@ -489,8 +488,11 @@ public class TetrisImg : MonoBehaviour
                 }
             }
         }
-        if(isAdd)
+        if (isAdd)
+        {
+            GameObject.Find("Player").GetComponent<PlayerWeaponContainer>().AddWeapon(Instantiate(_weaponPrefab));
             PriortyQueueBlock.Instance.Push(this);
+        }
     }
 
     public void DebugArr()

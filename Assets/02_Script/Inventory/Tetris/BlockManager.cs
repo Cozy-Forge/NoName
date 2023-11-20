@@ -9,6 +9,7 @@ public class BlockManager : MonoBehaviour
     public static BlockManager Instance;
 
     private TetrisImg _selectBlock;             //현재 선택된 블록
+    public TetrisImg selectBlock=>_selectBlock;
     private WaitForSeconds _wfs;                 //MoveCo 코루틴 딜레이
 
     public int[,] board = new int[26, 26];     //테트리스 보드 --> +3씩 예외처리

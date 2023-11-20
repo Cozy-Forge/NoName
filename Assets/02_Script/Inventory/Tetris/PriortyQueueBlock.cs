@@ -10,6 +10,7 @@ public class PriortyQueueBlock
     public List<TetrisImg> _tetrisImgList = new List<TetrisImg>(); // 우선순위 리스트
     private int size => _tetrisImgList.Count; // 리스트 사이즈
 
+    PlayerWeaponContainer _weaponContainer;
     /// <summary>
     /// 생성자 인스턴스 예외처리
     /// </summary>
@@ -17,6 +18,8 @@ public class PriortyQueueBlock
     {
         if (Instance != null)
             Debug.LogError($"PriortyQueueEquipment is multiply running!");
+
+        _weaponContainer = GameObject.Find("Player").GetComponent<PlayerWeaponContainer>();
     }
 
     /// <summary>
@@ -60,9 +63,11 @@ public class PriortyQueueBlock
     /// <param name="idx"></param>
     public void Pop(int idx)
     {
+        _weaponContainer.RemoveWeapon(_tetrisImgList[idx].weaponPrefab);
         _tetrisImgList[idx].ClearBoard();
         FAED.InsertPool(_tetrisImgList[idx].gameObject);
         _tetrisImgList.RemoveAt(idx);
+        
     }
 
     /// <summary>

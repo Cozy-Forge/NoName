@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerWeaponContainer : MonoBehaviour
 {
-
     [SerializeField] private Weapon debugWeapon;
     [SerializeField] private int _maxWeapon = 6;
 
