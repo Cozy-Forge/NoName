@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerUpHandler
+public class ItemSlot : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
     [Header("프리팹으로 None넣어놓기")]
     [SerializeField] Item currentItem = null;
@@ -38,6 +38,7 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
     {
         CraftingTable.Instance.AddItemToList(currentItem);
         RemoveItem();
+        Debug.Log("누름");
     }
 
     public void RemoveItem()
@@ -70,5 +71,12 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
         itemName.text = currentItem.ItemData.ItemName; // 이름
         itemDescription.text = currentItem.ItemData.ItemDescription; // 설명
         stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}"; // 스택 카운트
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        CraftingTable.Instance.AddItemToList(currentItem);
+        RemoveItem();
+        Debug.Log("누름");
     }
 }
