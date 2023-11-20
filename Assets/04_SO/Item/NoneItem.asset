@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: 
   itemDescription: 
   itemImage: {fileID: 1885534115, guid: 6a344a210db596243befb5781d6b63b3, type: 3}
-  stackCount: 1
-  weight: {x: 0, y: 0}
+  stackCount: 0
+  weight: {x: 0, y: 0, z: 0}
   itemType: 2

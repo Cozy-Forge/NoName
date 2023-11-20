@@ -9,6 +9,8 @@ public class CraftingTable : MonoBehaviour
 
     ItemBoard itemBoard = null;
 
+    public bool enable = false;
+
     public List<Item> materials = new List<Item>();
 
     private void Awake()
@@ -22,6 +24,7 @@ public class CraftingTable : MonoBehaviour
             Debug.LogError("Multiple Crafting Table Instance Running");
         }
         itemBoard = GetComponent<ItemBoard>();
+        enable = false;
     }
 
     /// <summary>
