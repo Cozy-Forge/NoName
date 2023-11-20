@@ -17,13 +17,7 @@ public class EWaveWeapon : Weapon
     {
         var obj = Instantiate(_lightBObj, _playerController.transform.position, Quaternion.identity);
 
-        FAED.InvokeDelay(() =>
-        {
-            if (obj != null)
-            {
-                Destroy(obj);
-            }
-        }, 0.7f);
+        
 
         StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(7f, 7f, 1f), 0.6f));
     }
