@@ -49,6 +49,8 @@ public class BigFroggyJumpState : BigFroggyState
 
     private CinemachineImpulseSource _impulseSource;
     private SpriteRenderer _spriteRenderer;
+    private Transform _shadowTrm;
+    private Rect _rect;
 
     public override void Create()
     {
@@ -56,6 +58,7 @@ public class BigFroggyJumpState : BigFroggyState
         _animater.OnJumpStartEvent += HandleJumpStart;
         _impulseSource = _transform.GetComponent<CinemachineImpulseSource>();
         _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
+        _shadowTrm = _transform.Find("Shadow");
 
     }
 
@@ -63,6 +66,16 @@ public class BigFroggyJumpState : BigFroggyState
     {
 
         _animater.SetJump();
+
+        Debug.Log(_transform.parent);
+        Debug.Log(_transform.parent.position);
+
+        _rect = new Rect(
+            _transform.parent.position.x - (50 / 2),
+            _transform.parent.position.y - (50 / 2),
+            50, 50); //나중에 사이즈로 바꿔
+
+        Debug.Log(_rect.center);
 
     }
 
@@ -73,11 +86,23 @@ public class BigFroggyJumpState : BigFroggyState
 
         if (_target != null)
         {
-            _spriteRenderer.flipX = _target.position.x > _transform.position.x;
-            FAED.TakePool("BigFroggyJumpParticle", _transform.position + Vector3.down * 2, Quaternion.identity);
-            var obj = FAED.TakePool("BigFroggyWarning", _target.position + Vector3.down * 2, Quaternion.identity);
 
-            _transform.DOJump(_target.position, _data.JumpPower, 1, _data.JumpDuration)
+            var dir = _target.position;
+
+            if (!_rect.Contains(dir))
+            {
+
+                dir = new Vector3(
+                    Mathf.Clamp(dir.x, _rect.xMin, _rect.xMax),
+                    Mathf.Clamp(dir.y, _rect.yMin, _rect.yMax));
+
+            }
+
+            _spriteRenderer.flipX = dir.x > _transform.position.x;
+            FAED.TakePool("BigFroggyJumpParticle", dir + Vector3.down * 2, Quaternion.identity);
+            var obj = FAED.TakePool("BigFroggyWarning", dir + Vector3.down * 2, Quaternion.identity);
+
+            _transform.DOJump(dir, _data.JumpPower, 1, _data.JumpDuration)
                 .SetEase(Ease.InSine)
                 .OnComplete(() =>
                 {
@@ -87,6 +112,9 @@ public class BigFroggyJumpState : BigFroggyState
 
                 });
 
+            _shadowTrm.DOMove(dir - new Vector3(0f, 1.5f, 0f), 1)
+                .SetEase(Ease.InSine);
+
             _impulseSource.GenerateImpulse(0.7f);
 
         }
@@ -94,6 +122,7 @@ public class BigFroggyJumpState : BigFroggyState
         {
 
             _animater.SetJumpEnd();
+            _data.SetJumpCoolDown();
             _controller.ChangeState(EnumBigFroggyState.Idle);
 
         }
@@ -137,8 +166,6 @@ public class BigFroggyJumpState : BigFroggyState
             yield return new WaitForSeconds(0.1f);
 
         }
-
-
 
         yield return new WaitForSeconds(0.5f);
 

@@ -14,6 +14,7 @@ public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayer
 
     public event Action<Vector2> OnMoveEvent;
     public event Action OnDashKeyPressEvent;
+    public PlayerInputController InputData => _input;
 
     private void OnEnable()
     {

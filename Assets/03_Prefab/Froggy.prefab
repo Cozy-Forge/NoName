@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 6012072717667045782}
   - component: {fileID: 6012072717667045783}
   - component: {fileID: 3525177565141142408}
+  - component: {fileID: 2101602148799820975}
   m_Layer: 3
   m_Name: Froggy
   m_TagString: Enemy
@@ -131,7 +132,7 @@ BoxCollider2D:
   m_Offset: {x: 0.048458666, y: -0.23254311}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.2}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -283,7 +284,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onDissolveEnd:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2101602148799820975}
+        m_TargetAssemblyTypeName: DropItem, Assembly-CSharp
+        m_MethodName: Drop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2101602148799820975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6012072717667045780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b52c7c90f611b345af9a6b567dcea00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropTable: {fileID: 11400000, guid: aa672f89b34ebf04cb216475a8e99ab4, type: 2}
 --- !u!1 &6012072717880760373
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6012072717880760373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.44, z: 0}
+  m_LocalPosition: {x: 0, y: -0.192, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

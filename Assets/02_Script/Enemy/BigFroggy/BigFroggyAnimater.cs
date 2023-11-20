@@ -12,6 +12,7 @@ public class BigFroggyAnimater : MonoBehaviour
     private readonly int HASN_JUMP = Animator.StringToHash("Jump");
     private readonly int HASN_JUMPEND = Animator.StringToHash("JumpEnd");
     private readonly int HASN_JUMPSTART = Animator.StringToHash("JumpStart");
+    private readonly int HASH_FIRESTART = Animator.StringToHash("FireStart");
 
     public event Action OnJumpStartEvent;
     public event Action OnFireStartEvent;
@@ -65,6 +66,13 @@ public class BigFroggyAnimater : MonoBehaviour
 
         _animator.SetTrigger(HASN_JUMPSTART);
         OnJumpStartEvent?.Invoke();
+
+    }
+
+    public void FireStart()
+    {
+
+        _animator.SetTrigger(HASH_FIRESTART);
 
     }
 
