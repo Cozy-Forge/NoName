@@ -25,7 +25,8 @@ public class InventoryButtonManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        #region ΩÃ±€≈Ê
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -34,6 +35,7 @@ public class InventoryButtonManager : MonoBehaviour
             Debug.LogError($"{transform} : InventoryButtonManager is Multiple running!");
             Destroy(gameObject);
         }
+        #endregion
         wft = new WaitForSeconds(_durationSpeed);
     }
 

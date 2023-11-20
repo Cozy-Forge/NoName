@@ -15,8 +15,6 @@ public class BlockManager : MonoBehaviour
 
     public static int empty_place_size = 3;
 
-    public TetrisImg[] test;
-
     private void Awake()
     {
         #region ΩÃ±€≈Ê
