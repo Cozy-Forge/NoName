@@ -6,7 +6,7 @@ using UnityEngine;
 public class MoveEffectController : MonoBehaviour
 {
 
-    private AudioSource _source;
+    private AudioSource _source;    
     private PlayerController _controller;
     private ParticleSystem _particle;
 
