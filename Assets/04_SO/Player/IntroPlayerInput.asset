@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 490e09e09e2a296459296118e7a7bced, type: 3}
-  m_Name: FroggyBullet
+  m_Script: {fileID: 11500000, guid: e9645872ee7dd3645910ec939bf693c8, type: 3}
+  m_Name: IntroPlayerInput
   m_EditorClassIdentifier: 
-  Speed: 14
-  Damage: 5
-  HitAbleTag:
-  - Player

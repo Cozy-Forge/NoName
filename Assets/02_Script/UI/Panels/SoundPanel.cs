@@ -13,6 +13,7 @@ public enum Sound_Type
 
 public class SoundPanel : Panel
 {
+
     [SerializeField]
     private Slider _masterSoundSlider;
     [SerializeField]
