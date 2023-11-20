@@ -36,7 +36,7 @@ public class StartZone : MonoBehaviour
                     _blinder.SetActive(true);
 
                     //SceneChange
-                    SceneManager.LoadScene(1); // 임시
+                    LoadingSceneController.LoadScene("MapCreater"); // 임시
                 });
     }
 }
