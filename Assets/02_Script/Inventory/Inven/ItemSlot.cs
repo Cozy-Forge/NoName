@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+public class ItemSlot : MonoBehaviour, IPointerDownHandler
 {
     [Header("프리팹으로 None넣어놓기")]
     [SerializeField] Item currentItem = null;
@@ -27,34 +27,26 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         itemDescription = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         stackText = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
 
-        SetItem(currentItem, currentStackCount);
-    }
-
-    /// <summary>
-    /// 슬롯 클릭시 이벤트
-    /// </summary>
-    /// <param name="eventData"></param>
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        CraftingTable.Instance.AddItemToList(currentItem);
-        RemoveItem();
-        Debug.Log("누름");
+        SetItem(currentItem, currentItem.ItemData.StackCount);
     }
 
     public void RemoveItem()
     {
+        Debug.Log(1);
         if (currentStackCount > 0)
         {
+            Debug.Log(2);
             currentStackCount--;
             Inventory.instance.ItemList.Remove(currentItem);
 
             if (currentStackCount <= 0)
             {
+                Debug.Log(3);
                 Item noneItem = Inventory.instance.NoneItem;
                 SetItem(noneItem, noneItem.ItemData.StackCount);
             }
         }
-        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
+        stackText.text = currentStackCount == 0 ? "" : $"{currentStackCount}";
     }
 
     public void IncreaseItem()
