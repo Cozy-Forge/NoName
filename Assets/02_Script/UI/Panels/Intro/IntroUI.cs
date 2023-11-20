@@ -21,7 +21,7 @@ public class IntroUI : MonoBehaviour
 
     private void Awake()
     {
-        _introPlayerInputReader.Input.Disable();
+        _introPlayerInputReader.InputData.Disable();
 
         foreach(var btn in _btnLists)
         {
@@ -76,7 +76,7 @@ public class IntroUI : MonoBehaviour
     public void StartBtn()
     {
         // 시작
-        _introPlayerInputReader.Input.Enable();
+        _introPlayerInputReader.InputData.Enable();
 
         // 시작 애니메이션 넣기
 
