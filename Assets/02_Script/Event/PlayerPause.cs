@@ -12,6 +12,7 @@ public class PlayerPause : MonoBehaviour
         
         FindObjectOfType<PlayerController>().enabled = false;
         FindObjectOfType<PlayerWeaponContainer>().enabled = false;
+        FindObjectOfType<Rigidbody2D>().velocity = Vector2.zero;
         _reader.InputData.Disable();
     }
 
@@ -20,6 +21,7 @@ public class PlayerPause : MonoBehaviour
 
         FindObjectOfType<PlayerController>().enabled = true;
         FindObjectOfType<PlayerWeaponContainer>().enabled = true;
+        FindObjectOfType<Rigidbody2D>().velocity = Vector2.zero;
         _reader.InputData.Enable();
 
     }

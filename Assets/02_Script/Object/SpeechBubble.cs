@@ -43,6 +43,7 @@ public class SpeechBubble : MonoBehaviour
     {
 
         _isReleasing = true;
+
         yield return new WaitUntil(() => !_isTextPlay);
 
         float per = 0;
@@ -53,7 +54,7 @@ public class SpeechBubble : MonoBehaviour
         {
 
             per += Time.deltaTime * 3;
-            _spriteRenderer.size = Vector2.Lerp(size, new Vector2(0, 2), 
+            _spriteRenderer.size = Vector2.Lerp(size, new Vector2(0, 1.5f), 
                 FAED.Easing(FAED_Easing.OutSine, per));
 
             yield return null;
@@ -61,6 +62,7 @@ public class SpeechBubble : MonoBehaviour
         }
 
         _isReleasing = false;
+        _spriteRenderer.size = new Vector2(0, 0);
 
     }
 
@@ -75,7 +77,7 @@ public class SpeechBubble : MonoBehaviour
         {
 
             per += Time.deltaTime * 3;
-            _spriteRenderer.size = Vector2.Lerp(new Vector2(0, 2), new Vector2(text.Length, 2), 
+            _spriteRenderer.size = Vector2.Lerp(new Vector2(0, 1.5f), new Vector2(text.Length / 2, 1.5f), 
                 FAED.Easing(FAED_Easing.OutSine, per));
 
             yield return null;
@@ -83,7 +85,13 @@ public class SpeechBubble : MonoBehaviour
         }
 
 
-        _tmp.DOText(text, 0.3f);
+        for(int i = 0; i < text.Length; i++)
+        {
+
+            _tmp.text += text[i];
+            yield return new WaitForSeconds(0.015f);
+
+        }
 
         yield return new WaitForSeconds(0.3f);
 

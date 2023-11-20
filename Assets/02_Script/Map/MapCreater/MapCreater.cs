@@ -214,6 +214,8 @@ public class MapCreater : MonoBehaviour
             var points = new List<(Vector2Int point, Vector2Int dir)>();
             var roadLens = new List<int>();
 
+            if (notVistidData.Count <= 0) percent = 100;
+
             foreach(var dir in dirs)
             {
 
@@ -227,7 +229,7 @@ public class MapCreater : MonoBehaviour
                 RoomData obj;
                 bool isConst = false;
 
-                if(Random.value > 0.9f && constQ.Count > 0)
+                if(Random.value > 0.85f && constQ.Count > 0)
                 {
 
                     obj = Instantiate(constQ.Peek(), _root);
@@ -313,10 +315,11 @@ public class MapCreater : MonoBehaviour
     private bool Overlap(RoomData room, RoomData nRoom)
     {
         Rect rt = new Rect(
-        room.transform.position.x - (room.Width / 2),
-        room.transform.position.y - (room.Height / 2),
-        room.Width,
+            room.transform.position.x - (room.Width / 2),
+            room.transform.position.y - (room.Height / 2),
+            room.Width,
             room.Height);
+
         Rect nr = new Rect(
             nRoom.transform.position.x - (nRoom.Width / 2),
             nRoom.transform.position.y - (nRoom.Height / 2),

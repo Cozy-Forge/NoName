@@ -10708,6 +10708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHP: 1000
+  _notHitTime: 0.02
 --- !u!114 &2104546369
 MonoBehaviour:
   m_ObjectHideFlags: 0
