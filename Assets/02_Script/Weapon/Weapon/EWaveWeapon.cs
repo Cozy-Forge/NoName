@@ -6,7 +6,7 @@ using UnityEngine;
 public class EWaveWeapon : Weapon
 {
     private PlayerController _playerController;
-
+    [SerializeField] private GameObject _lightBObj;
     protected override void Awake()
     {
         base.Awake();
@@ -15,7 +15,7 @@ public class EWaveWeapon : Weapon
 
     private void SpawnWave()
     {
-        var obj = Instantiate(gameObject, _playerController.transform.position, Quaternion.identity);
+        var obj = Instantiate(_lightBObj, _playerController.transform.position, Quaternion.identity);
 
         FAED.InvokeDelay(() =>
         {
@@ -41,6 +41,8 @@ public class EWaveWeapon : Weapon
 
         objTransform.localScale = targetScale;
     }
+
+    
 
     protected override void DoAttack(Transform trm)
     {

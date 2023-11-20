@@ -6,14 +6,17 @@ using static UnityEditor.PlayerSettings;
 public class MeleeWeapon : Weapon
 {
     Vector3 startLocalPosition;
+    HPObject hpObject;
     [SerializeField] private float _stingBackTime = 0.2f;
+    public bool _doAttack = false;
 
     protected override void DoAttack(Transform trm)
     {
-        Debug.Log(transform.position);
-        startLocalPosition = transform.localPosition;
-        Debug.Log("근접공격");
-        StartCoroutine(Sting(trm));
+        if (_doAttack)
+        {
+            startLocalPosition = transform.localPosition;
+            StartCoroutine(Sting(trm));
+        }
     }
 
     private IEnumerator Sting(Transform trm)
@@ -43,6 +46,7 @@ public class MeleeWeapon : Weapon
     protected override void Awake()
     {
         base.Awake();
+        
         _playerController = FindObjectOfType<PlayerController>();
 
     }
@@ -50,18 +54,38 @@ public class MeleeWeapon : Weapon
     public override void OnEquip()
     {
         _playerController.OnDashEvent += DashSting;
+        _playerController.OnDashEndEvent += Doattack;
     }
 
-   
+    private void Doattack()
+    {
+        _doAttack = true;
+    }
 
     private void DashSting(Vector2 pos)
     {
+        _doAttack = false;
         //돌진기
         transform.up = pos;
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            collision.GetComponent<HPObject>().TakeDamage(10);
+            Debug.Log("데미지");
+        }
+        else
+        {
+            Debug.Log("데미지 안들어감");
+        }
     }
 
     private void OnDestroy()
     {
+        _playerController.OnDashEndEvent -= Doattack;
         _playerController.OnDashEvent -= DashSting;
     }
 

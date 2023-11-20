@@ -3,25 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveWeapon : Weapon
+public class BoomWeapon : Weapon
 {
     private PlayerController _playerController;
-
+    [SerializeField] private GameObject _bombObj;
     protected override void Awake()
     {
         base.Awake();
         _playerController = FindObjectOfType<PlayerController>();
-        
     }
 
     public override void OnEquip()
     {
-        _playerController.OnDashEndEvent += SpawnWave;
+        _playerController.OnDashEvent += SpawnWave;
     }
 
-    private void SpawnWave()
+    private void SpawnWave(Vector2 dir)
     {
-        var obj = Instantiate(gameObject, _playerController.transform.position, Quaternion.identity);
+        var obj = Instantiate(_bombObj, _playerController.transform.position, Quaternion.identity);
         _data.Range = transform.localScale.x;
 
         FAED.InvokeDelay(() =>
@@ -32,7 +31,7 @@ public class WaveWeapon : Weapon
             }
         }, 0.5f);
 
-        StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(8f, 8f, 1f), 0.3f));
+       StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(8f, 8f, 1f), 0.3f));
     }
 
     private IEnumerator ObjectTransformScaleOverTime(Transform objTransform, Vector3 targetScale, float duration)
@@ -50,26 +49,12 @@ public class WaveWeapon : Weapon
         objTransform.localScale = targetScale;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            TestEnemyController enemyController = other.GetComponent<TestEnemyController>();
-            if (enemyController != null && enemyController.Data.Speed > 2)
-            {
-                enemyController.Data.Speed -= 2;
-            }
-            else
-            {
-                Debug.Log("null");
-            }
-        }
-    }
+    
 
 
     private void OnDestroy()
     {
-        _playerController.OnDashEndEvent -= SpawnWave;
+        _playerController.OnDashEvent -= SpawnWave;
     }
 
 
