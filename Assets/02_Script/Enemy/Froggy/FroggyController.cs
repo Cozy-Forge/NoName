@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class FroggyController : StateController<EnumBigFroggyState>, IEnemyDataGetAble
 {
@@ -46,7 +47,10 @@ public class FroggyController : StateController<EnumBigFroggyState>, IEnemyDataG
 
     }
 
- 
+    private void OnDisable()
+    {
+        transform.DOKill();
+    }
 
 
 }

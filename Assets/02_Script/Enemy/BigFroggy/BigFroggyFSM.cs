@@ -74,9 +74,6 @@ public class BigFroggyJumpState : BigFroggyState
             _transform.parent.position.x - (50 / 2),
             _transform.parent.position.y - (50 / 2),
             50, 50); //나중에 사이즈로 바꿔
-
-        Debug.Log(_rect.center);
-
     }
 
     private void HandleJumpStart()

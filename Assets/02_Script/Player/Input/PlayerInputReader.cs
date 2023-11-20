@@ -46,10 +46,10 @@ public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayer
         }
 
     }
-    
 
     public void OnDash(InputAction.CallbackContext context)
     {
+
 
         if (context.performed)
         {
@@ -60,4 +60,11 @@ public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayer
 
     }
 
+    public void SetEnable(bool value)
+    {
+        if (value)
+            _input.Enable();
+        else
+            _input.Disable();
+    }
 }

@@ -29,14 +29,14 @@ public class StartZone : MonoBehaviour
         _isStart = true;
         _introPlayerInputReader.InputData.Disable();
 
-        _player.DOJump(transform.position, 2, 1, 0.25f)
+        _player.DOJump(transform.position, 2, 1, 0.5f)
                 .SetEase(Ease.InSine)
                 .OnComplete(() =>
                 {
                     _blinder.SetActive(true);
 
                     //SceneChange
-                    SceneManager.LoadScene(1); // 임시
+                    LoadingSceneController.LoadScene("MapCreater"); // 임시
                 });
     }
 }
