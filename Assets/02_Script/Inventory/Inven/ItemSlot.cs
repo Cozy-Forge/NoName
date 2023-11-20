@@ -67,6 +67,8 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (CraftingTable.Instance == null) return;
+
         CraftingTable.Instance.AddItemToList(currentItem);
         RemoveItem();
         Debug.Log("´©¸§");
