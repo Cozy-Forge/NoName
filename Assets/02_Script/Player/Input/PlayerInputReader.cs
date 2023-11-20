@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(menuName = "SO/Player/Input")]
 public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayerActions
 {
-    public PlayerInputController Input { get; private set; }
+    private PlayerInputController _input;
 
     public Vector2 MoveInputDir { get; private set; }
     public Vector2 OldMoveInputDir { get; private set; } = Vector2.left;
@@ -19,15 +19,15 @@ public class PlayerInputReader : ScriptableObject, PlayerInputController.IPlayer
     private void OnEnable()
     {
 
-        if (Input == null)
+        if (_input == null)
         {
 
-            Input = new PlayerInputController();
-            Input.Player.SetCallbacks(this);
+            _input = new PlayerInputController();
+            _input.Player.SetCallbacks(this);
 
         }
 
-        Input.Enable();
+        _input.Enable();
 
     }
 

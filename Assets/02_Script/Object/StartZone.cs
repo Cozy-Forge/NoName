@@ -27,7 +27,7 @@ public class StartZone : MonoBehaviour
             return;
 
         _isStart = true;
-        _introPlayerInputReader.Input.Disable();
+        _introPlayerInputReader.InputData.Disable();
 
         _player.DOJump(transform.position, 2, 1, 0.25f)
                 .SetEase(Ease.InSine)
