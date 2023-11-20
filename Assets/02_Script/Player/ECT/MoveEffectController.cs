@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveParticleController : MonoBehaviour
+public class MoveEffectController : MonoBehaviour
 {
 
     private PlayerController _controller;
