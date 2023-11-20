@@ -6,6 +6,7 @@ using UnityEngine;
 public class MoveEffectController : MonoBehaviour
 {
 
+    private AudioSource _source;
     private PlayerController _controller;
     private ParticleSystem _particle;
 
@@ -14,6 +15,7 @@ public class MoveEffectController : MonoBehaviour
 
         _controller = transform.root.GetComponent<PlayerController>();
         _particle = GetComponent<ParticleSystem>();
+        _source = GetComponent<AudioSource>();
 
         _controller.OnMoveEvent += HandlePlayerMove;
         _controller.OnStateChangeEvent += HandleStateChanged;
@@ -27,6 +29,7 @@ public class MoveEffectController : MonoBehaviour
         {
 
             _particle.Stop();
+            _source.Stop();
 
         }
 
@@ -34,6 +37,7 @@ public class MoveEffectController : MonoBehaviour
         {
 
             _particle.Play();
+            _source.Play();
 
         }
 
