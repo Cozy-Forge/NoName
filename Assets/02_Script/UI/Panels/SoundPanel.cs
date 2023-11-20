@@ -54,10 +54,11 @@ public class SoundPanel : Panel
         // Get Saved Json Value
         // Set Value
         // Slider Set Value
-        
-        //DataManager.Instance.soundData.BGMSoundVal;
-        //DataManager.Instance.soundData.EffSoundVal;
 
+        _masterSoundSlider.value = DataManager.Instance.soundData.MasterSoundVal;
+        _bgmSoundSlider.value = DataManager.Instance.soundData.BGMSoundVal;
+        _sfxSoundSlider.value = DataManager.Instance.soundData.EffSoundVal;
+        _uiSoundSlider.value = DataManager.Instance.soundData.UISoundVal;
     }
 
     private void SetSound(Sound_Type type, float value)

@@ -6,8 +6,10 @@ using UnityEngine;
 #region 사운드데이터클래스
 public class SoundData
 {
+    public float MasterSoundVal = .5f;
     public float BGMSoundVal = .5f;
     public float EffSoundVal = .5f;
+    public float UISoundVal = .5f;
 }
 #endregion
 
