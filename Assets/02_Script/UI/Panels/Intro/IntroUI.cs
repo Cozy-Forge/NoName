@@ -9,6 +9,8 @@ public class IntroUI : MonoBehaviour
     [Header("IntroUIController")]
     [SerializeField]
     private PlayerUIReader _introUIController;
+    [SerializeField]
+    private PlayerInputReader _introPlayerInputReader;
 
     [Header("IntroUI Info")]
     [SerializeField]
@@ -19,6 +21,8 @@ public class IntroUI : MonoBehaviour
 
     private void Awake()
     {
+        _introPlayerInputReader.Input.Disable();
+
         foreach(var btn in _btnLists)
         {
             btn.Activate(false);
@@ -72,6 +76,7 @@ public class IntroUI : MonoBehaviour
     public void StartBtn()
     {
         // 시작
+        _introPlayerInputReader.Input.Enable();
 
         // 시작 애니메이션 넣기
 

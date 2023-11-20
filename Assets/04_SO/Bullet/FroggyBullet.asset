@@ -16,4 +16,3 @@ MonoBehaviour:
   Damage: 5
   HitAbleTag:
   - Player
-  - Hit

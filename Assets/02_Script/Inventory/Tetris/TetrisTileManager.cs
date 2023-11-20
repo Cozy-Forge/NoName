@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,15 +10,22 @@ public class TetrisTileManager : MonoBehaviour
 
     [Header("전체 보드 사이즈")]
     [SerializeField] private int _boardXSize;
+    public int boardXSize => _boardXSize;
     [SerializeField] private int _boardYSize;
+    public int boardYSize => _boardYSize;
 
 
     [Header("오브젝트")]
     [SerializeField] private RectTransform _tileParent;     //타일 중 제일 부모
-    [SerializeField] private RectTransform  _weapon;        //이 친구자식으로 블록 소환
+    public RectTransform tileParent => _tileParent;
+    [SerializeField] private RectTransform _weapon;        //이 친구자식으로 블록 소환
 
     [Header("벡터")]
     [SerializeField] private Vector2 _endPos;               //최대 사이즈일때 부모 위치
+
+    [Header("내려가는 딜레이")]
+    [SerializeField] private float _speed;
+    public float speed => _speed;
 
     private Transform _tempTrm;
 
@@ -32,7 +40,7 @@ public class TetrisTileManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            Debug.LogError($"{transform} : TetrisTile is Multiply running!");
+            Debug.LogError($"{transform} : TetrisTile is Multiple running!");
         }
         #endregion
 
@@ -40,26 +48,13 @@ public class TetrisTileManager : MonoBehaviour
         if (_tileParent == null)
             Debug.LogError($"{transform} : tileParent is null!");
 
-        if( _weapon == null )
+        if (_weapon == null)
             Debug.LogError($"{transform} : weapon is null");
         #endregion
 
         SettingBoard(); // 처음 보드 생성
-    }
 
-    //여긴 지울 예정
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            _boardXSize++;
-            SettingBoard();
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            _boardYSize++;
-            SettingBoard();
-        }
+        gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -102,5 +97,44 @@ public class TetrisTileManager : MonoBehaviour
         float y = Mathf.Lerp(0, _endPos.y, 1 - (float)(screenY - _boardYSize) / (float)screenY);
 
         _tileParent.localPosition = new Vector2(x, y);
+    }
+
+    //보드의 X사이즈를 증가시킵니다.
+    public void IncreaseBoardSizeX()
+    {
+        if (_boardXSize < screenX)
+        {
+            _boardXSize++;
+            SettingBoard();
+            foreach (TetrisImg tetrisImg in PriortyQueueBlock.Instance._tetrisImgList)
+            {
+                tetrisImg.SetPos();
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"{transform} : 잘못된 접근 수치 - 보드X사이즈가 너무 커짐");
+        }
+    }
+
+    //보드의 Y사이즈를 증가시킵니다.
+    public void IncreaseBoardSizeY()
+    {
+        if(_boardYSize < screenY)
+        {
+            _boardYSize++;
+            SettingBoard();
+            foreach (TetrisImg tetrisImg in PriortyQueueBlock.Instance._tetrisImgList)
+            {
+                tetrisImg.ClearBoard();
+                tetrisImg.IncreaseYPos();
+                tetrisImg.SetPos();
+                tetrisImg.FillBoard(false);
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"{transform} : 잘못된 접근 수치 - 보드Y사이즈가 너무 커짐");
+        }
     }
 }

@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class InventoryButtonManager : MonoBehaviour
 {
+    public static InventoryButtonManager Instance;
+
     [Header("패널")]
     [SerializeField] private RectTransform _inventroyPanel;
     [SerializeField] private RectTransform _inventroy;
@@ -16,20 +18,42 @@ public class InventoryButtonManager : MonoBehaviour
     bool _isMoved = false;
     bool _isShow = false;
 
-    private Vector3 originVec = new Vector3(0,0,0);
+    private Vector3 originVec = new Vector3(0, 0, 0);
     private Vector3 hiddenVec = new Vector3(1000, 0, 0);
 
     private WaitForSeconds wft;
 
     private void Awake()
     {
+        #region 싱글톤
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError($"{transform} : InventoryButtonManager is Multiple running!");
+            Destroy(gameObject);
+        }
+        #endregion
         wft = new WaitForSeconds(_durationSpeed);
     }
 
-    private void Update() //여기있는 코드 나중에 인풋시스템으로 옮겨야 댐
+    //여기있는 코드 나중에 인풋시스템으로 옮겨야 댐
+    private void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.E))
-            OpenInventoryPanel();
+        InputKey();
+    }
+
+    public void InputKey()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (_isShow)
+                CloseInventoryPanel();
+            else
+                OpenInventoryPanel();
+        }
     }
 
     /// <summary>
@@ -37,13 +61,24 @@ public class InventoryButtonManager : MonoBehaviour
     /// </summary>
     public void OpenInventoryPanel()
     {
-        if(!_isMoved && !_isShow)
+        if (!_isMoved && !_isShow)
         {
             _isShow = true;
             _isMoved = true;
-            _inventroyPanel.DOAnchorPos(originVec,_durationSpeed);
+            _inventroyPanel.DOAnchorPos(originVec, _durationSpeed);
             StartCoroutine(DelayTime());
         }
+    }
+
+    //강제로 인벤 열기
+    public void CompulsionOpenTetris()
+    {
+        transform.DOKill();
+        _isShow = true;
+        _isMoved = true;
+        _inventroyPanel.DOAnchorPos(originVec, _durationSpeed);
+        ShowItem();
+        StartCoroutine(DelayTime());
     }
 
     /// <summary>
@@ -51,6 +86,10 @@ public class InventoryButtonManager : MonoBehaviour
     /// </summary>
     public void CloseInventoryPanel()
     {
+        if (BlockManager.Instance != null && BlockManager.Instance.selectBlock != null)
+        {
+            return;
+        }
         if (!_isMoved && _isShow)
         {
             _isShow = false;
@@ -74,6 +113,10 @@ public class InventoryButtonManager : MonoBehaviour
     /// </summary>
     public void ShowInven()
     {
+        if (BlockManager.Instance != null && BlockManager.Instance.selectBlock != null)
+        {
+            return;
+        }
         _item.gameObject.SetActive(false);
         _inventroy.gameObject.SetActive(true);
     }
