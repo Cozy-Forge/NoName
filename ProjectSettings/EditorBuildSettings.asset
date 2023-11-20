@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01_Scenes/Map/MapCreater.unity
-    guid: 24bc671314064be4db15ce71846821b8
-  - enabled: 1
     path: Assets/01_Scenes/00_IntroScene.unity
     guid: 2e294e18e8a20e041bd72e6269eeeded
+  - enabled: 1
+    path: Assets/01_Scenes/Map/MapCreater.unity
+    guid: 24bc671314064be4db15ce71846821b8
   m_configObjects: {}

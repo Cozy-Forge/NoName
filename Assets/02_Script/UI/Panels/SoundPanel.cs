@@ -13,6 +13,7 @@ public enum Sound_Type
 
 public class SoundPanel : Panel
 {
+
     [SerializeField]
     private Slider _masterSoundSlider;
     [SerializeField]
@@ -53,6 +54,9 @@ public class SoundPanel : Panel
         // Get Saved Json Value
         // Set Value
         // Slider Set Value
+        
+        //DataManager.Instance.soundData.BGMSoundVal;
+        //DataManager.Instance.soundData.EffSoundVal;
 
     }
 
@@ -65,6 +69,6 @@ public class SoundPanel : Panel
     public override void ShowOff()
     {
         base.ShowOff();
-        // save Json
+        DataManager.Instance.SaveOption();
     }
 }

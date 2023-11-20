@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class InventoryButtonManager : MonoBehaviour
 {
+    public static InventoryButtonManager Instance;
+
     [Header("∆–≥Œ")]
     [SerializeField] private RectTransform _inventroyPanel;
     [SerializeField] private RectTransform _inventroy;
@@ -23,6 +25,17 @@ public class InventoryButtonManager : MonoBehaviour
 
     private void Awake()
     {
+        #region ΩÃ±€≈Ê
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError($"{transform} : InventoryButtonManager is Multiple running!");
+            Destroy(gameObject);
+        }
+        #endregion
         wft = new WaitForSeconds(_durationSpeed);
     }
 
@@ -44,6 +57,16 @@ public class InventoryButtonManager : MonoBehaviour
             _inventroyPanel.DOAnchorPos(originVec,_durationSpeed);
             StartCoroutine(DelayTime());
         }
+    }
+
+    public void CompulsionOpenTetris()
+    {
+        transform.DOKill();
+        _isShow = true;
+        _isMoved = true;
+        _inventroyPanel.DOAnchorPos(originVec, _durationSpeed);
+        ShowItem();
+        StartCoroutine(DelayTime());
     }
 
     /// <summary>

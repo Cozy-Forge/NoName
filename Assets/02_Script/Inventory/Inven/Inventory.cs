@@ -16,12 +16,6 @@ public class Inventory : MonoBehaviour
         set { itemList = value; }
     }
 
-    private bool saleToggle = true;
-    public bool SaleToggle
-    {
-        get { return saleToggle; }
-    }
-
     public static Inventory instance = null;
 
     private void Awake()
@@ -34,12 +28,6 @@ public class Inventory : MonoBehaviour
         transform.GetComponentsInChildren<ItemSlot>(slots); //인벤토리 찾아오기
     }
 
-    public void SaleToggleChange()
-    {
-        saleToggle = !saleToggle;
-        Debug.Log(saleToggle);
-    }
-
     public void RedrawInven()
     {
         foreach (ItemSlot slot in slots)
@@ -47,6 +35,7 @@ public class Inventory : MonoBehaviour
             slot.SetItem(noneItem, noneItem.ItemData.StackCount);
         }
         Debug.Log(itemList.Count);
+
         for (int i = 0; i < itemList.Count; i++)
         {
             foreach (ItemSlot slot in slots)
@@ -54,7 +43,7 @@ public class Inventory : MonoBehaviour
                 if (slot.CurrentItem.ItemData.ItemName == itemList[i].ItemData.ItemName) //이미 있으면 스택에 추가
                     if (slot.CurrentStackCount < itemList[i].ItemData.StackCount)
                     {
-                        slot.AddItem();
+                        slot.IncreaseItem();
                         break;
                     }
                 if (slot.CurrentItem.ItemData.ItemName == "NoneItem") //없으면 생성
@@ -74,7 +63,7 @@ public class Inventory : MonoBehaviour
             if (slot.CurrentItem.ItemData.ItemName == item.ItemData.ItemName) //이미 있으면 스택에 추가
                 if (slot.CurrentStackCount < item.ItemData.StackCount)
                 {
-                    slot.AddItem();
+                    slot.IncreaseItem();
                     break;
                 }
             if (slot.CurrentItem.ItemData.ItemName == "NoneItem") //없으면 생성
