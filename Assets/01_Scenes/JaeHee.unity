@@ -14920,10 +14920,6 @@ MonoBehaviour:
     resultItem: {fileID: 5251647889431473665, guid: 2c64330b260f2d847942797340bffc3e, type: 3}
   - position: {x: -1, y: -1, z: -1}
     resultItem: {fileID: 6250064136155255206, guid: 4fe1ddb70233ca44f96a5bd80f778de3, type: 3}
-  - position: {x: -1, y: -1, z: -1}
-    resultItem: {fileID: 6250064136155255206, guid: 4fe1ddb70233ca44f96a5bd80f778de3, type: 3}
-  - position: {x: -1, y: -1, z: -1}
-    resultItem: {fileID: 6250064136155255206, guid: 4fe1ddb70233ca44f96a5bd80f778de3, type: 3}
 --- !u!1 &1090952952
 GameObject:
   m_ObjectHideFlags: 0
