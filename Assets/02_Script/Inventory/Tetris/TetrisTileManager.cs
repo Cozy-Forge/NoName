@@ -53,6 +53,8 @@ public class TetrisTileManager : MonoBehaviour
         #endregion
 
         SettingBoard(); // 처음 보드 생성
+
+        gameObject.SetActive(false);
     }
 
     /// <summary>

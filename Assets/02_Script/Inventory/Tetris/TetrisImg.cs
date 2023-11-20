@@ -45,6 +45,9 @@ public class TetrisImg : MonoBehaviour
     const int _spriteSize = 200;
     const int _tileLength = 50;
 
+    [SerializeField] Weapon _weaponPrefab;
+    public Weapon weaponPrefab => _weaponPrefab;
+
     public bool _isDebug = false;
 
     private Color[] _tempPixels;
@@ -489,8 +492,11 @@ public class TetrisImg : MonoBehaviour
                 }
             }
         }
-        if(isAdd)
+        if (isAdd)
+        {
+            GameObject.Find("Player").GetComponent<PlayerWeaponContainer>().AddWeapon(Instantiate(_weaponPrefab));
             PriortyQueueBlock.Instance.Push(this);
+        }
     }
 
     public void DebugArr()
