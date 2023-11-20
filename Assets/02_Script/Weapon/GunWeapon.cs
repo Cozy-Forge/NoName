@@ -35,6 +35,7 @@ public class GunWeapon : Weapon
 
         var dir = target.position - transform.position;
         dir.Normalize();
+        dir.z = 0;
 
         _spriteRenderer.flipY = dir.x switch
         {

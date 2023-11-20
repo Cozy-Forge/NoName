@@ -10653,7 +10653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab98f1876f420454f9680ca3d8542dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugWeapon: {fileID: 478231972163257037, guid: 1bafa970c5d9ba543b6a8a968ac0d290, type: 3}
+  debugWeapon: {fileID: 3459130084825751026, guid: ebbb938acbe437d4b8165dd06ae54eb9, type: 3}
   _maxWeapon: 6
 --- !u!114 &7291449487752728229
 MonoBehaviour:

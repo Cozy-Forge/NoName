@@ -15,4 +15,4 @@ MonoBehaviour:
   <Data>k__BackingField:
     Range: 7
     AttackPower: 2
-    AttackCoolDown: 0.001
+    AttackCoolDown: 0.13
