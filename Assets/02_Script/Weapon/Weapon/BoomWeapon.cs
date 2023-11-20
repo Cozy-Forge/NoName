@@ -6,7 +6,7 @@ using UnityEngine;
 public class BoomWeapon : Weapon
 {
     private PlayerController _playerController;
-
+    [SerializeField] private GameObject _bombObj;
     protected override void Awake()
     {
         base.Awake();
@@ -20,7 +20,7 @@ public class BoomWeapon : Weapon
 
     private void SpawnWave(Vector2 dir)
     {
-        var obj = Instantiate(gameObject, _playerController.transform.position, Quaternion.identity);
+        var obj = Instantiate(_bombObj, _playerController.transform.position, Quaternion.identity);
         _data.Range = transform.localScale.x;
 
         FAED.InvokeDelay(() =>
@@ -49,15 +49,7 @@ public class BoomWeapon : Weapon
         objTransform.localScale = targetScale;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-                other.GetComponent<HPObject>().TakeDamage(20);
-        }
-        else
-            Debug.Log("null");
-    }
+    
 
 
     private void OnDestroy()

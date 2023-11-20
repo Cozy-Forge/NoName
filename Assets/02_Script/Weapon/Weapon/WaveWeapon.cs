@@ -6,6 +6,7 @@ using UnityEngine;
 public class WaveWeapon : Weapon
 {
     private PlayerController _playerController;
+    [SerializeField] private GameObject _slowObj;
 
     protected override void Awake()
     {
@@ -21,7 +22,7 @@ public class WaveWeapon : Weapon
 
     private void SpawnWave()
     {
-        var obj = Instantiate(gameObject, _playerController.transform.position, Quaternion.identity);
+        var obj = Instantiate(_slowObj, _playerController.transform.position, Quaternion.identity);
         _data.Range = transform.localScale.x;
 
         FAED.InvokeDelay(() =>
@@ -50,13 +51,7 @@ public class WaveWeapon : Weapon
         objTransform.localScale = targetScale;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-
-        }
-    }
+    
 
 
     private void OnDestroy()
