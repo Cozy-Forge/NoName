@@ -6,8 +6,10 @@ using UnityEngine;
 #region 사운드데이터클래스
 public class SoundData
 {
+    public float MasterSoundVal = .5f;
     public float BGMSoundVal = .5f;
     public float EffSoundVal = .5f;
+    public float UISoundVal = .5f;
 }
 #endregion
 
@@ -49,10 +51,11 @@ public class DataManager : MonoBehaviour
         if (!GetDir())
         {
             Directory.CreateDirectory(_path);
+            soundData.MasterSoundVal = 0.5f;            
             soundData.BGMSoundVal = 0.5f;
-            soundData.EffSoundVal = 0.5f;
+            soundData.EffSoundVal = 0.5f;            
+            soundData.UISoundVal = 0.5f;            
             SaveOption();
-
         }
         #endregion
         #region 파일이 있으면 데이터 로드
