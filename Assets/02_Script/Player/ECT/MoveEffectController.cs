@@ -71,12 +71,14 @@ public class MoveEffectController : MonoBehaviour
         {
 
             _particle.Stop();
+            _source.Stop();
 
         }
         else if(!_particle.isPlaying)
         {
 
             _particle.Play();
+            _source.Play();
 
         }
 

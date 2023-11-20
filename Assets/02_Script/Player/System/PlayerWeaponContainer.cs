@@ -14,7 +14,12 @@ public class PlayerWeaponContainer : MonoBehaviour
     private void Awake()
     {
 
-        AddWeapon(Instantiate(debugWeapon));
+        if(debugWeapon != null)
+        {
+
+            AddWeapon(Instantiate(debugWeapon));
+
+        }
 
     }
 
