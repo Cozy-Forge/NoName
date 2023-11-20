@@ -10,17 +10,22 @@ public class DieDissolveEvent : MonoBehaviour
     private readonly int HASN_DISSOLVE = Shader.PropertyToID("_FullGlowDissolveFade");
 
     [SerializeField] private UnityEvent _onDissolveEnd;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private HPObject _hpObject;
-    private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
         
         _hpObject = GetComponent<HPObject>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _hpObject.OnDieEvent += HandleDie;
 
+        if (_spriteRenderer == null)
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        if (_spriteRenderer == null)
+        {
+            Debug.LogError($"{gameObject.name}'s DieDissolveEvent : SpriteRenderer is null");
+        }
     }
 
     private void HandleDie()

@@ -9,7 +9,8 @@ public enum EnumGlowyState
 
 public class GlowyController : StateController<EnumGlowyState>
 {
-    [SerializeField] private GlowyDataSO _data;
+    [SerializeField] private LaserMonsterDataSO _data;
+    [SerializeField] private LineRenderer _lineRenderer;
 
     private void Awake()
     {
@@ -20,11 +21,11 @@ public class GlowyController : StateController<EnumGlowyState>
         //Idle
         var idleState = new EnemyIdleState<EnumGlowyState>(this, _data);
 
-        var idleToJump = new EnemyTargetRangeTransition<EnumGlowyState>
+        var idleToMove = new EnemyTargetRangeTransition<EnumGlowyState>
             (transform, _data.Range, _data.TargetAbleLayer, EnumGlowyState.Move);
 
         idleState
-            .AddTransition(idleToJump);
+            .AddTransition(idleToMove);
 
         #endregion
 
@@ -36,9 +37,7 @@ public class GlowyController : StateController<EnumGlowyState>
         var moveToLaser = new EnemyTargetRangeTransition<EnumGlowyState>
             (transform, _data.AttackAbleRange, _data.TargetAbleLayer, EnumGlowyState.Laser, () => !_data.IsAttackCoolDown);
 
-        var moveToLaserLengthCheck = new EnemyTargetRangeTransition<EnumGlowyState>
-            (transform, _data.AttackAbleRange, _data.TargetAbleLayer, EnumGlowyState.Idle);
-        var moveToIdle = new ReverseTransition<EnumGlowyState>(moveToLaserLengthCheck);
+        var moveToIdle = new ReverseTransition<EnumGlowyState>(idleToMove);
 
         moveState
             .AddTransition(moveToLaser)
@@ -46,7 +45,7 @@ public class GlowyController : StateController<EnumGlowyState>
             
         #endregion
 
-        var laserState = new GlowyLaserState(this, _data);
+        var laserState = new GlowyLaserState(this, _data, _lineRenderer);
 
         _stateContainer.Add(EnumGlowyState.Idle, idleState);
         _stateContainer.Add(EnumGlowyState.Move, moveState);
