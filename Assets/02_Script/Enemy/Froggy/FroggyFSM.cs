@@ -79,7 +79,23 @@ public class FroggyJumpState : FroggyState
             _spriteRenderer.flipX = _target.position.x > _transform.position.x;
             FAED.TakePool("FroggyJumpParticle", _transform.position + Vector3.down, Quaternion.identity);
 
-            var pos = _target.position + (Vector3)Random.insideUnitCircle;
+            var poss = GetAblePos(_target);
+
+            Vector3 pos;
+
+            if (poss.Count > 0)
+            {
+
+                pos = poss[Random.Range(0, poss.Count)];
+
+            }
+            else
+            {
+
+                pos = _transform.position;
+
+            }
+
 
             _transform.DOJump(pos, _data.JumpPower, 1, _data.JumpDuration)
                 .SetEase(Ease.InSine)
@@ -100,9 +116,38 @@ public class FroggyJumpState : FroggyState
         {
 
             _animater.SetJumpEnd();
+            _data.SetJumpCoolDown();
             _controller.ChangeState(EnumBigFroggyState.Idle);
 
         }
+
+    }
+
+    private List<Vector2> GetAblePos(Transform target)
+    {
+
+        var list = new List<Vector2>();
+
+        for (int x = -2; x <= 2; x++)
+        {
+
+            for (int y = -2; y <= 2; y++)
+            {
+
+                var point = target.position + new Vector3(x, y);
+
+                if (!Physics2D.OverlapCircle(point, 0.5f, LayerMask.GetMask("Wall")))
+                {
+
+                    list.Add(point);
+
+                }
+
+            }
+
+        }
+
+        return list;
 
     }
 
