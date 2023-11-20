@@ -8,7 +8,7 @@ public class MeleeWeapon : Weapon
     Vector3 startLocalPosition;
     HPObject hpObject;
     [SerializeField] private float _stingBackTime = 0.2f;
-    public bool _doAttack = false;
+    public bool _doAttack = true;
 
     protected override void DoAttack(Transform trm)
     {

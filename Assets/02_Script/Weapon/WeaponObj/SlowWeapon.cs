@@ -22,4 +22,8 @@ public class SlowWeapon : MonoBehaviour
             Debug.Log("안 맞았다 병신아");
         }
     }
+    public void DestroyObj()
+    {
+        Destroy(gameObject);
+    }
 }
