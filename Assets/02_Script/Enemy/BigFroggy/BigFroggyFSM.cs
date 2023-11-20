@@ -51,6 +51,7 @@ public class BigFroggyJumpState : BigFroggyState
     private SpriteRenderer _spriteRenderer;
     private Transform _shadowTrm;
     private Rect _rect;
+    private AudioSource _audioSource;
 
     public override void Create()
     {
@@ -59,6 +60,7 @@ public class BigFroggyJumpState : BigFroggyState
         _impulseSource = _transform.GetComponent<CinemachineImpulseSource>();
         _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
         _shadowTrm = _transform.Find("Shadow");
+        _audioSource = _transform.Find("FJ").GetComponent<AudioSource>();
 
     }
 
@@ -95,6 +97,7 @@ public class BigFroggyJumpState : BigFroggyState
 
             }
 
+            _audioSource.Play();
             _spriteRenderer.flipX = dir.x > _transform.position.x;
             FAED.TakePool("BigFroggyJumpParticle", dir + Vector3.down * 2, Quaternion.identity);
             var obj = FAED.TakePool("BigFroggyWarning", dir + Vector3.down * 2, Quaternion.identity);
@@ -143,7 +146,7 @@ public class BigFroggyJumpState : BigFroggyState
     private IEnumerator LandBltCo()
     {
 
-
+        _audioSource.Play();
         _animater.SetJumpEnd();
         _impulseSource.GenerateImpulse(1.5f);
         FAED.TakePool("BigFroggyJumpParticle", _transform.position + Vector3.down * 2, Quaternion.identity);
@@ -175,6 +178,8 @@ public class BigFroggyJumpState : BigFroggyState
 
 public class BigFroggyFireState : BigFroggyState
 {
+
+    private AudioSource _audioSource;
     public BigFroggyFireState(StateController<EnumBigFroggyState> controller, BigFroggyDataSO data) : base(controller, data)
     {
     }
@@ -193,6 +198,7 @@ public class BigFroggyFireState : BigFroggyState
     {
 
         _animater.OnFireStartEvent += HandleFireStart;
+        _audioSource = _transform.Find("FL").GetComponent<AudioSource>();
 
     }
 
@@ -218,6 +224,8 @@ public class BigFroggyFireState : BigFroggyState
 
     private void Fire(FireType type)
     {
+
+        _audioSource.Play();
 
         switch (type)
         {

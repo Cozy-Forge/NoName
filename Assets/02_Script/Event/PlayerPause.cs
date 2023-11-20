@@ -7,21 +7,27 @@ public class PlayerPause : MonoBehaviour
 
     [SerializeField] private PlayerInputReader _reader;
 
+    private GameObject pl;
+
     private void OnEnable()
     {
-        
-        FindObjectOfType<PlayerController>().enabled = false;
-        FindObjectOfType<PlayerWeaponContainer>().enabled = false;
-        FindObjectOfType<Rigidbody2D>().velocity = Vector2.zero;
+
+        pl = FindObjectOfType<PlayerController>().gameObject;
+        pl.SetActive(false);
+
         _reader.InputData.Disable();
     }
 
     private void OnDisable()
     {
+        
+        if(pl != null)
+        {
 
-        FindObjectOfType<PlayerController>().enabled = true;
-        FindObjectOfType<PlayerWeaponContainer>().enabled = true;
-        FindObjectOfType<Rigidbody2D>().velocity = Vector2.zero;
+            pl.SetActive(true);
+
+        }
+
         _reader.InputData.Enable();
 
     }
