@@ -51,7 +51,6 @@ public class CraftingTable : MonoBehaviour
             if (slot.CurrentItem.ItemData.ItemName == material.ItemData.ItemName) //이미 있으면 스택에 추가
                 if (slot.CurrentStackCount < material.ItemData.StackCount)
                 {
-                    Debug.Log("Increase Item");
                     slot.IncreaseItem();
                     break;
                 }
