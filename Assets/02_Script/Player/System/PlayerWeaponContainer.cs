@@ -98,6 +98,16 @@ public class PlayerWeaponContainer : MonoBehaviour
 
         Destroy(weapon.gameObject);
 
+        var ls = _weapons.ToList();
+        _maxWeapon = ls.Count;
+
+        for (int i = 0; i < ls.Count; i++)
+        {
+
+            ls[i].transform.position = Quaternion.AngleAxis(360 / _maxWeapon * i, Vector3.forward) * Vector2.right + transform.position;
+
+        }
+
     }
 
     public void CastingAll(Collider2D[] arr)
