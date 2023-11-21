@@ -3,21 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PriortyQueueBlock
+public class PriortyQueueBlock : MonoBehaviour
 {
     public static PriortyQueueBlock Instance = null;
 
-    public List<TetrisImg> _tetrisImgList = new List<TetrisImg>(); // 우선순위 리스트
+    [HideInInspector] public List<TetrisImg> _tetrisImgList = new List<TetrisImg>(); // 우선순위 리스트
+    [HideInInspector] public bool isImgDestroy = false; //패널 안닫히게 하는 예외처리
+    
     private int size => _tetrisImgList.Count; // 리스트 사이즈
 
+    
     PlayerWeaponContainer _weaponContainer;
     /// <summary>
     /// 생성자 인스턴스 예외처리
     /// </summary>
-    public PriortyQueueBlock()
+    private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
             Debug.LogError($"PriortyQueueEquipment is multiply running!");
+            Destroy(transform);
+        }
+        
     }
 
     /// <summary>
@@ -43,6 +54,12 @@ public class PriortyQueueBlock
     /// <param name="cnt"></param>
     public void RandomPop(int cnt = 3)
     {
+        StartCoroutine(CoRandomPop(cnt));
+    }
+
+    public IEnumerator CoRandomPop(int cnt)
+    {
+        isImgDestroy = true;
         int tempIdx = 0;
         for (int i = 0; i < cnt; i++)
         {
@@ -50,9 +67,10 @@ public class PriortyQueueBlock
             {
                 tempIdx = Random.Range(0, size);
                 Pop(tempIdx);
+                yield return new WaitForSeconds(0.3f);
             }
         }
-        AllDownBlock();
+        yield return StartCoroutine(AllDownBlock());
     }
 
     /// <summary>
@@ -82,7 +100,7 @@ public class PriortyQueueBlock
     /// <summary>
     /// 빈자리가 있으면 다시 내려감
     /// </summary>
-    public void AllDownBlock()
+    IEnumerator AllDownBlock()
     {
         bool isAllDown = false;
 
@@ -102,8 +120,11 @@ public class PriortyQueueBlock
                     _tetrisImgList[i].Move(BLOCKMOVEDIR.DOWN);
                     _tetrisImgList[i].SetPos();
                     isAllDown = false;
+                    yield return new WaitForSeconds(0.3f);
                 }
             }
         }
+        isImgDestroy = false;
+        yield return null;
     }
 }

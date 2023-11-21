@@ -134,7 +134,7 @@ public class BlockManager : MonoBehaviour
             FAED.InsertPool(tetrisImg.gameObject);
         }
 
-        PriortyQueueBlock.Instance.RandomPop(1);
+        PriortyQueueBlock.Instance.RandomPop();
     }
 
     public void SetSelectBlockNull() => _selectBlock = null;

@@ -4,9 +4,5 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private void Awake()
-    {
-        if (PriortyQueueBlock.Instance == null)
-            PriortyQueueBlock.Instance = new PriortyQueueBlock();
-    }
+
 }
