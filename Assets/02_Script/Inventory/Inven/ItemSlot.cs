@@ -59,8 +59,16 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
         currentItem = item;
         currentStackCount = count;
         image.sprite = currentItem.ItemData.ItemImage; // 이미지
-        itemName.text = currentItem.ItemData.ItemName; // 이름
-        itemDescription.text = currentItem.ItemData.ItemDescription; // 설명
+        if (currentItem.ItemData.ItemType != ItemType.None)
+        {
+            itemName.text = currentItem.ItemData.ItemName; // 이름
+            itemDescription.text = currentItem.ItemData.ItemDescription; // 설명
+        }
+        else
+        {
+            itemName.text = string.Empty; // 이름
+            itemDescription.text = string.Empty; // 설명
+        }
         stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}"; // 스택 카운트
     }
 
