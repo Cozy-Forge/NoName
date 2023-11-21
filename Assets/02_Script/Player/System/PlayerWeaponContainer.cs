@@ -105,9 +105,14 @@ public class PlayerWeaponContainer : MonoBehaviour
         foreach (var item in arr)
         {
 
-            float dist = Vector2.Distance(root.position, item.transform.position);
+            var dir = item.transform.position - transform.position;
+            dir.Normalize();
 
-            if (dist < minRange)
+            var hit = Physics2D.Raycast(transform.position, dir, float.MaxValue, LayerMask.GetMask("Target"));
+
+            float dist = Vector2.Distance(transform.position, hit.point);
+
+            if (dist < minRange && hit.transform == item.transform)
             {
 
                 trm = item.transform;
