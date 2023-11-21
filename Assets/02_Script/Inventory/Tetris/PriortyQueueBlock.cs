@@ -18,8 +18,6 @@ public class PriortyQueueBlock
     {
         if (Instance != null)
             Debug.LogError($"PriortyQueueEquipment is multiply running!");
-
-        _weaponContainer = GameObject.Find("Player").GetComponent<PlayerWeaponContainer>();
     }
 
     /// <summary>
@@ -63,7 +61,9 @@ public class PriortyQueueBlock
     /// <param name="idx"></param>
     public void Pop(int idx)
     {
-        _weaponContainer.RemoveWeapon(_tetrisImgList[idx].weaponPrefab);
+        if(_weaponContainer == null)
+            _weaponContainer = GameObject.Find("Player").GetComponent<PlayerWeaponContainer>();
+        _weaponContainer.RemoveWeapon(_tetrisImgList[idx].weapon);
         _tetrisImgList[idx].ClearBoard();
         FAED.InsertPool(_tetrisImgList[idx].gameObject);
         _tetrisImgList.RemoveAt(idx);

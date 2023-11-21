@@ -91,7 +91,7 @@ public class GlowyLaserState : GlowyState
         {
             Vector3 hitPos = ShotRay(_data.LaserRange, dir);
 
-            DamageCheck(dir, _data.LaserRange, _data.TargetAbleLayer);
+            DamageCheck(dir, _data.LaserRange, _data.WallLayer, _data.TargetAbleLayer);
             LineRendererSetPos(hitPos, Mathf.Lerp(0.1f, 0.5f, curTime / _data.LaserHoldingTime), Color.white);
 
             curTime += Time.deltaTime;
@@ -104,13 +104,21 @@ public class GlowyLaserState : GlowyState
         _controller.ChangeState(EnumGlowyState.Idle);
     }
 
-    private void DamageCheck(Vector3 dir, float dist, LayerMask targetLayer)
+    private void DamageCheck(Vector3 dir, float dist, LayerMask wallLayer, LayerMask targetLayer)
     {
         RaycastHit2D hit = Physics2D.Raycast(_transform.position, dir, dist, targetLayer);
-        if (hit.collider)
+        if (hit.collider) // Target Hit
         {
-            //damage
-            float damage = Mathf.Clamp(_data.LaserDamage, 1, int.MaxValue);
+            //wallCheck
+            float toPlayerDist = Vector2.Distance(hit.point, _transform.position);
+            RaycastHit2D wallHit = Physics2D.Raycast(_transform.position, dir, toPlayerDist, wallLayer);
+
+            if (wallHit.collider) // Wall Hit
+                return;
+
+            //if not wall hit
+            //player get damage
+            float damage = Mathf.Clamp(_data.LaserDamage, 1, int.MaxValue); // 최소 데미지
 
             if (hit.collider.TryGetComponent<HPObject>(out var hp))
             {

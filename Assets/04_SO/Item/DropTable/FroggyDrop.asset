@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: FroggyDrop
   m_EditorClassIdentifier: 
   _dropTable:
-  - {fileID: 3459130084825751038, guid: ebbb938acbe437d4b8165dd06ae54eb9, type: 3}
+  - {fileID: 7420912785659536623, guid: 1b734dff09cfd0347b5a8ada9b93930e, type: 3}
+  - {fileID: 1371622565183609584, guid: be5ae7ce9c081a2469a7c0fb517b620d, type: 3}
+  - {fileID: 3925882155946951411, guid: 512ee34a8c37d0e4ab8aa5f942cfb6b9, type: 3}
+  - {fileID: 1899931908453623040, guid: d60875f4b64d69f449de5134a1c012b5, type: 3}
+  - {fileID: 3806438201042427808, guid: 6269a79c20a653e42a63a1ee36cc3051, type: 3}

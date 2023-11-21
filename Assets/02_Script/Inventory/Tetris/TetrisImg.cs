@@ -39,6 +39,7 @@ public class TetrisImg : MonoBehaviour
 
     [SerializeField] Weapon _weaponPrefab;
     public Weapon weaponPrefab => _weaponPrefab;
+    [HideInInspector] public Weapon weapon;
 
     public bool _isDebug = false;
 
@@ -490,7 +491,8 @@ public class TetrisImg : MonoBehaviour
         }
         if (isAdd)
         {
-            GameObject.Find("Player").GetComponent<PlayerWeaponContainer>().AddWeapon(Instantiate(_weaponPrefab));
+            weapon = Instantiate(_weaponPrefab);
+            GameObject.Find("Player").GetComponent<PlayerWeaponContainer>().AddWeapon(weapon);
             PriortyQueueBlock.Instance.Push(this);
         }
     }
