@@ -9,4 +9,12 @@ public class Item : MonoBehaviour
 
     public ItemSO ItemData => itemData;
     public TetrisImg tetrisImg=>_tetrisImg;
+
+    private void Awake()
+    {
+        
+        gameObject.AddComponent<SpriteRenderer>().sprite = itemData.ItemImage;
+
+    }
+
 }

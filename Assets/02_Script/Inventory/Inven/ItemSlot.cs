@@ -72,6 +72,8 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         if (CraftingTable.Instance == null || !CraftingTable.Instance.gameObject.activeSelf) return;
+        if (currentItem == null || currentItem.ItemData.ItemType == ItemType.None) return;
+
 
         CraftingTable.Instance.AddItemToList(currentItem);
         RemoveItem();

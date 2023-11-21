@@ -9,7 +9,7 @@ public class GetItem : MonoBehaviour
 
     private void Awake()
     {
-        
+
         _item = GetComponent<Item>();
 
     }
@@ -17,10 +17,11 @@ public class GetItem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             Inventory.instance.AddItem(_item);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
     }
@@ -28,10 +29,11 @@ public class GetItem : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if(collision.transform.CompareTag("Player"))
+        if (collision.transform.CompareTag("Player"))
         {
             Inventory.instance.AddItem(_item);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
     }
