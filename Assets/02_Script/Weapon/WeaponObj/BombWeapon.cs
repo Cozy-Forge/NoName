@@ -10,8 +10,6 @@ public class BombWeapon : MonoBehaviour
         {
             other.GetComponent<HPObject>().TakeDamage(20);
         }
-        else
-            Debug.Log("null");
     }
 
     public void DestroyObj()

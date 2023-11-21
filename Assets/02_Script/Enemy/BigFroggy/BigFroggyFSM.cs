@@ -66,11 +66,7 @@ public class BigFroggyJumpState : BigFroggyState
 
     protected override void OnEnter()
     {
-
         _animater.SetJump();
-
-        Debug.Log(_transform.parent);
-        Debug.Log(_transform.parent.position);
 
         _rect = new Rect(
             _transform.parent.position.x - (50 / 2),

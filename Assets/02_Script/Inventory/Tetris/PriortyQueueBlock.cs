@@ -87,7 +87,6 @@ public class PriortyQueueBlock : MonoBehaviour
         _tetrisImgList[idx].ClearBoard();
         FAED.InsertPool(_tetrisImgList[idx].gameObject);
         _tetrisImgList.RemoveAt(idx);
-        
     }
 
     /// <summary>
