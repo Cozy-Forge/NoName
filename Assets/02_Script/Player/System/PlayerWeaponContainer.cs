@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerWeaponContainer : MonoBehaviour
@@ -49,6 +50,7 @@ public class PlayerWeaponContainer : MonoBehaviour
 
         }
 
+
     }
 
     public void AddWeapon(Weapon weapon)
@@ -57,17 +59,33 @@ public class PlayerWeaponContainer : MonoBehaviour
         if (_weapons.Count >= _maxWeapon)
         {
 
-            Destroy(weapon.gameObject);
-            return;
+            var ls = _weapons.ToList();
+            _weapons.Add(weapon);
+            weapon.transform.SetParent(transform);
+            _maxWeapon++;
+
+            for (int i = 0; i < ls.Count; i++)
+            {
+
+                ls[i].transform.position = Quaternion.AngleAxis(360 / _maxWeapon * i, Vector3.forward) * Vector2.right + transform.position;
+
+            }
+
+
+        }
+        else
+        {
+
+
+            _weapons.Add(weapon);
+            var pos = Quaternion.AngleAxis(360 / _maxWeapon * _weapons.Count, Vector3.forward) * Vector2.right;
+
+            weapon.transform.position = pos + transform.position;
+            weapon.transform.SetParent(transform);
+            weapon.OnEquip();
 
         }
 
-        _weapons.Add(weapon);
-        var pos = Quaternion.AngleAxis(360 / _maxWeapon * _weapons.Count, Vector3.forward) * Vector2.right;
-
-        weapon.transform.position = pos + transform.position;
-        weapon.transform.SetParent(transform);
-        weapon.OnEquip();
 
     }
 

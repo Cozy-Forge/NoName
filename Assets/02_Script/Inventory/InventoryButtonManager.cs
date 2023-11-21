@@ -13,8 +13,11 @@ public class InventoryButtonManager : MonoBehaviour
     [SerializeField] private RectTransform _item;
     [SerializeField] private RectTransform _craftingPanel;
 
+
     [Header("변경 속도")]
     [SerializeField] private float _durationSpeed;
+
+    [SerializeField] private PlayerInputReader _inputReader;
 
     bool _isMoved = false;
     bool _isShow = false;
@@ -51,9 +54,19 @@ public class InventoryButtonManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (_isShow)
+            {
+
                 CloseInventoryPanel();
+
+
+            }
             else
+            {
+
+
                 OpenInventoryPanel();
+
+            }
         }
     }
 
@@ -68,6 +81,7 @@ public class InventoryButtonManager : MonoBehaviour
             _isMoved = true;
             _inventroyPanel.DOAnchorPos(originVec, _durationSpeed);
             StartCoroutine(DelayTime());
+            _inputReader.SetEnable(false);
         }
     }
 
@@ -98,6 +112,7 @@ public class InventoryButtonManager : MonoBehaviour
             _craftingPanel.gameObject.SetActive(false);
             _inventroyPanel.DOAnchorPos(hiddenVec, _durationSpeed);
             StartCoroutine(DelayTime());
+            _inputReader.SetEnable(true);
         }
     }
 
