@@ -78,7 +78,7 @@ public class PlayerWeaponContainer : MonoBehaviour
 
         _weapons.Remove(weapon);
 
-        Destroy(weapon);
+        Destroy(weapon.gameObject);
 
     }
 

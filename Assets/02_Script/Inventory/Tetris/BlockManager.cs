@@ -26,19 +26,16 @@ public class BlockManager : MonoBehaviour
             Destroy(transform);
             Debug.LogError($"{transform} : BlockManager is Multiple running!");
         }
-
-        if (PriortyQueueBlock.Instance == null)
-            PriortyQueueBlock.Instance = new PriortyQueueBlock();
-        else
-        {
-            Debug.LogError($"{transform} : PriortyQueueBlock is Multiple Running!");
-        }
         #endregion
     }
 
     private void Start()
     {
         _wfs = new WaitForSeconds(TetrisTileManager.Instance.speed);
+    }
+
+    private void OnEnable()
+    {
         StartCoroutine(MoveCo());
     }
 

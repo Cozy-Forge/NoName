@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Dragon Core
   itemDescription: Dragon Core
   itemImage: {fileID: 517258092, guid: 302ee54186e90dc4085722034bab842c, type: 3}
-  stackCount: 5
+  stackCount: 30
   weight: {x: 10, y: 10, z: 0}
   itemType: 0

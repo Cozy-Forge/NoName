@@ -63,7 +63,7 @@ public class PriortyQueueBlock
     {
         if(_weaponContainer == null)
             _weaponContainer = GameObject.Find("Player").GetComponent<PlayerWeaponContainer>();
-        _weaponContainer.RemoveWeapon(_tetrisImgList[idx].weaponPrefab);
+        _weaponContainer.RemoveWeapon(_tetrisImgList[idx].weapon);
         _tetrisImgList[idx].ClearBoard();
         FAED.InsertPool(_tetrisImgList[idx].gameObject);
         _tetrisImgList.RemoveAt(idx);
