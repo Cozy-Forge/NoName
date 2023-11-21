@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class MapCreater : MonoBehaviour
@@ -12,6 +13,7 @@ public class MapCreater : MonoBehaviour
     [SerializeField] private TileBase _baseTile, _wallTile, _wallSideXTile, _wallSideYTile_T1, _wallSideYTile_T2;
     [SerializeField] private List<RoomData> _constRoom;
     [SerializeField] private Transform _root;
+
     private List<RoomData> _rooms = new List<RoomData>();
     private List<RoomBindData> _roomBind = new();
 
@@ -104,7 +106,7 @@ public class MapCreater : MonoBehaviour
         CreateRoom();
         DrawRoad();
         CloseMap();
-        _root.transform.localScale = Vector3.one * 2;
+        _root.transform.localScale = Vector3.one * 2.000001f;
 
     }
 
@@ -209,6 +211,14 @@ public class MapCreater : MonoBehaviour
         while(notVistidData.Count > 0 || constQ.Count > 0)
         {
 
+            if(notVistidData.Count == 0)
+            {
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                return;
+
+            }
+
             var room = notVistidData.Dequeue();
             var dirs = GetRamdomDir(percent);
             var points = new List<(Vector2Int point, Vector2Int dir)>();
@@ -306,7 +316,7 @@ public class MapCreater : MonoBehaviour
                 oldDir = room.oldDir
 
             });
-            percent--;
+            percent -= 5;
 
         }
 

@@ -3,23 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PriortyQueueBlock
+public class PriortyQueueBlock : MonoBehaviour
 {
     public static PriortyQueueBlock Instance = null;
 
-    public List<TetrisImg> _tetrisImgList = new List<TetrisImg>(); // 우선순위 리스트
+    [HideInInspector] public List<TetrisImg> _tetrisImgList = new List<TetrisImg>(); // 우선순위 리스트
+    [HideInInspector] public bool isImgDestroy = false; //패널 안닫히게 하는 예외처리
+    
     private int size => _tetrisImgList.Count; // 리스트 사이즈
+
+    private WaitForSeconds _destroyWfs = new WaitForSeconds(0.15f);
+    private WaitForSeconds _downWfs = new WaitForSeconds(0.3f);
 
     PlayerWeaponContainer _weaponContainer;
     /// <summary>
     /// 생성자 인스턴스 예외처리
     /// </summary>
-    public PriortyQueueBlock()
+    private void Awake()
     {
-        if (Instance != null)
+        #region 인스턴스
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
             Debug.LogError($"PriortyQueueEquipment is multiply running!");
-
-        _weaponContainer = GameObject.Find("Player").GetComponent<PlayerWeaponContainer>();
+            Destroy(transform);
+        }
+        #endregion
     }
 
     /// <summary>
@@ -45,6 +57,12 @@ public class PriortyQueueBlock
     /// <param name="cnt"></param>
     public void RandomPop(int cnt = 3)
     {
+        StartCoroutine(CoRandomPop(cnt));
+    }
+
+    public IEnumerator CoRandomPop(int cnt)
+    {
+        isImgDestroy = true;
         int tempIdx = 0;
         for (int i = 0; i < cnt; i++)
         {
@@ -52,9 +70,10 @@ public class PriortyQueueBlock
             {
                 tempIdx = Random.Range(0, size);
                 Pop(tempIdx);
+                yield return _destroyWfs;
             }
         }
-        AllDownBlock();
+        yield return StartCoroutine(AllDownBlock());
     }
 
     /// <summary>
@@ -63,11 +82,13 @@ public class PriortyQueueBlock
     /// <param name="idx"></param>
     public void Pop(int idx)
     {
-        _weaponContainer.RemoveWeapon(_tetrisImgList[idx].weaponPrefab);
+        if(_weaponContainer == null)
+            _weaponContainer = GameObject.Find("Player").GetComponent<PlayerWeaponContainer>();
+        _weaponContainer.RemoveWeapon(_tetrisImgList[idx].weapon);
         _tetrisImgList[idx].ClearBoard();
         FAED.InsertPool(_tetrisImgList[idx].gameObject);
         _tetrisImgList.RemoveAt(idx);
-        
+        TetrisTileManager.Instance.PlayExplosionSound();
     }
 
     /// <summary>
@@ -82,7 +103,7 @@ public class PriortyQueueBlock
     /// <summary>
     /// 빈자리가 있으면 다시 내려감
     /// </summary>
-    public void AllDownBlock()
+    IEnumerator AllDownBlock()
     {
         bool isAllDown = false;
 
@@ -99,11 +120,14 @@ public class PriortyQueueBlock
                         _tetrisImgList[i].FillBoard(false);
                         break;
                     }
+                    yield return _downWfs;
                     _tetrisImgList[i].Move(BLOCKMOVEDIR.DOWN);
                     _tetrisImgList[i].SetPos();
                     isAllDown = false;
                 }
             }
         }
+        isImgDestroy = false;
+        yield return null;
     }
 }

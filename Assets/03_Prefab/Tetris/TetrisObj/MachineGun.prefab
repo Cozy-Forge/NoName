@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eaf0ced2070757745a262f53768be3b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f04610da7ca21314db26c06f592ab7c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -90,4 +90,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponPrefab: {fileID: 3459130084825751026, guid: ebbb938acbe437d4b8165dd06ae54eb9, type: 3}
+  weapon: {fileID: 0}
   _isDebug: 0

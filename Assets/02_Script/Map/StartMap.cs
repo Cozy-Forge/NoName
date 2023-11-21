@@ -7,9 +7,9 @@ public class StartMap : MonoBehaviour
 
     private IEnumerator Start()
     {
-        
-        yield return null;
-        FindObjectOfType<PlayerController>().transform.position = transform.position;
+
+        yield return new WaitForSeconds(0.1f);
+        FindObjectOfType<StartController>().Pos(transform.position);
 
     }
 

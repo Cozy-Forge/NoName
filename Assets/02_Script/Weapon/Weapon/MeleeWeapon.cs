@@ -74,16 +74,6 @@ public class MeleeWeapon : Weapon
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<HPObject>().TakeDamage(10);
-            Debug.Log("데미지");
-        }
-        else if(collision.CompareTag("Hit"))
-        {
-            collision.GetComponent<Hitbox>().Casting(10);
-        }
-        else
-        {
-            Debug.Log("데미지 안들어감");
-
         }
     }
 

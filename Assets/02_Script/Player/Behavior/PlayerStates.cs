@@ -124,6 +124,13 @@ public class MoveState : PlayerState
 
     }
 
+    public override void Destroy()
+    {
+
+        _inputReader.OnDashKeyPressEvent -= HandleDash;
+
+    }
+
     protected override void Run()
     {
 
@@ -224,6 +231,7 @@ public class DashState : PlayerState
         var dir = _inputReader.OldMoveInputDir;
 
         var hit = Physics2D.Raycast(_transform.position, dir, _data.DashLength, _data.DashObstacleLayer);
+        var col = Physics2D.OverlapBox(_transform.position, new Vector2(1.2f, 2.2f), 0, LayerMask.GetMask("Wall"));
 
         if (hit.collider != null)
         {
@@ -241,6 +249,14 @@ public class DashState : PlayerState
             _dashTransition.Set(hit.point - dir);
             _dashEndPos = hit.point - dir;
 
+
+        }
+        else if (col != null)
+        {
+
+            _dashEndPos = _transform.position;
+            _controller.ChangeState(EnumPlayerState.Move);
+            return;
 
         }
         else

@@ -39,6 +39,7 @@ public class TetrisImg : MonoBehaviour
 
     [SerializeField] Weapon _weaponPrefab;
     public Weapon weaponPrefab => _weaponPrefab;
+    [HideInInspector] public Weapon weapon;
 
     public bool _isDebug = false;
 
@@ -210,9 +211,12 @@ public class TetrisImg : MonoBehaviour
                     }
                 }
                 _rectTransform.rotation = Quaternion.Euler(0, 0, _rectTransform.eulerAngles.z + 90);
+                SetPos();
+                return;
             }
             SetPos();
         }
+        TetrisTileManager.Instance.PlayMoveSound();
     }
 
     //¿Œµ¶Ω∫ ¿Ãµø
@@ -250,7 +254,7 @@ public class TetrisImg : MonoBehaviour
                 _pos.y++;
                 break;
         }
-
+        TetrisTileManager.Instance.PlayMoveSound();
         SetPos();
     }
 
@@ -490,7 +494,8 @@ public class TetrisImg : MonoBehaviour
         }
         if (isAdd)
         {
-            GameObject.Find("Player").GetComponent<PlayerWeaponContainer>().AddWeapon(Instantiate(_weaponPrefab));
+            weapon = Instantiate(_weaponPrefab);
+            GameObject.Find("Player").GetComponent<PlayerWeaponContainer>().AddWeapon(weapon);
             PriortyQueueBlock.Instance.Push(this);
         }
     }

@@ -45,6 +45,7 @@ public class Panel : MonoBehaviour
     public virtual void ShowOff()
     {
         _mySeq.Kill();
+        _isAnim = false;
         _isShow = false;
         gameObject.SetActive(false);
     }

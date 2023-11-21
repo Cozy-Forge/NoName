@@ -6,8 +6,18 @@ using UnityEngine.Playables;
 public class BigFroggyMapController : MonoBehaviour
 {
 
-    [SerializeField] private PlayableDirector _playableDirector;
+    [SerializeField] private GameObject pos;
 
+    private void Update()
+    {
 
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+
+            FindObjectOfType<PlayerController>().transform.position = pos.transform.position;
+
+        }
+
+    }
 
 }

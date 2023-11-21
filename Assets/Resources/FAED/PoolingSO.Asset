@@ -40,4 +40,22 @@ MonoBehaviour:
   - poolingKey: FroggyJumpParticle
     poolingObject: {fileID: 2010262399580016421, guid: dd27af0ff3ef72c41b36cea4c9991622, type: 3}
     poolCount: 10
+  - poolingKey: Bomb
+    poolingObject: {fileID: 649820166860820019, guid: 1e791647df12fcf449e27cb92ccaf00c, type: 3}
+    poolCount: 10
+  - poolingKey: BombIce
+    poolingObject: {fileID: 7127751929270978968, guid: 869a6e28525b1714da25b4dfca2a7c39, type: 3}
+    poolCount: 10
+  - poolingKey: MachineGun
+    poolingObject: {fileID: 3651162930752843095, guid: 5b8ad8b96756d8547974b7371115f5ae, type: 3}
+    poolCount: 10
+  - poolingKey: Pistol
+    poolingObject: {fileID: 4266826605156476375, guid: 66721be78b0a2064bbf13186c998c9e8, type: 3}
+    poolCount: 10
+  - poolingKey: Spear
+    poolingObject: {fileID: 7840890361883307607, guid: 2614ce5a8dc158d47a5e55995afc190c, type: 3}
+    poolCount: 10
+  - poolingKey: ThunderBomb
+    poolingObject: {fileID: 4034262574713306547, guid: 0b3591acdb77b8549a73744792e323a8, type: 3}
+    poolCount: 10
   scenePoolingObjects: []

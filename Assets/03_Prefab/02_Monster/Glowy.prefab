@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 517488798082017366}
   - component: {fileID: 517488798082017353}
   - component: {fileID: 517488798082017352}
+  - component: {fileID: 7766286103394889713}
   m_Layer: 3
   m_Name: Sprite
   m_TagString: Hit
@@ -171,7 +172,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 112e53e9c429543489c177b98cb216f7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -263,6 +264,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootHP: {fileID: 517488798103955392}
+--- !u!50 &7766286103394889713
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517488798082017365}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &517488798103955403
 GameObject:
   m_ObjectHideFlags: 0

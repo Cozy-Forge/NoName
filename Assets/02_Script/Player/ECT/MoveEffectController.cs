@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveParticleController : MonoBehaviour
+public class MoveEffectController : MonoBehaviour
 {
 
+    private AudioSource _source;    
     private PlayerController _controller;
     private ParticleSystem _particle;
 
@@ -14,6 +15,7 @@ public class MoveParticleController : MonoBehaviour
 
         _controller = transform.root.GetComponent<PlayerController>();
         _particle = GetComponent<ParticleSystem>();
+        _source = GetComponent<AudioSource>();
 
         _controller.OnMoveEvent += HandlePlayerMove;
         _controller.OnStateChangeEvent += HandleStateChanged;
@@ -27,6 +29,7 @@ public class MoveParticleController : MonoBehaviour
         {
 
             _particle.Stop();
+            _source.Stop();
 
         }
 
@@ -34,6 +37,7 @@ public class MoveParticleController : MonoBehaviour
         {
 
             _particle.Play();
+            _source.Play();
 
         }
 
@@ -67,12 +71,14 @@ public class MoveParticleController : MonoBehaviour
         {
 
             _particle.Stop();
+            _source.Stop();
 
         }
         else if(!_particle.isPlaying)
         {
 
             _particle.Play();
+            _source.Play();
 
         }
 
