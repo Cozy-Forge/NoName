@@ -55,17 +55,11 @@ public class InventoryButtonManager : MonoBehaviour
         {
             if (_isShow)
             {
-
                 CloseInventoryPanel();
-
-
             }
             else
             {
-
-
                 OpenInventoryPanel();
-
             }
         }
     }
@@ -102,9 +96,11 @@ public class InventoryButtonManager : MonoBehaviour
     public void CloseInventoryPanel()
     {
         if (BlockManager.Instance != null && BlockManager.Instance.selectBlock != null)
-        {
             return;
-        }
+        
+        if (PriortyQueueBlock.Instance != null && PriortyQueueBlock.Instance.isImgDestroy)
+            return;
+
         if (!_isMoved && _isShow)
         {
             _isShow = false;
@@ -131,9 +127,11 @@ public class InventoryButtonManager : MonoBehaviour
     public void ShowInven()
     {
         if (BlockManager.Instance != null && BlockManager.Instance.selectBlock != null)
-        {
             return;
-        }
+
+        if (PriortyQueueBlock.Instance != null && PriortyQueueBlock.Instance.isImgDestroy)
+            return;
+
         _item.gameObject.SetActive(false);
         _inventroy.gameObject.SetActive(true);
     }

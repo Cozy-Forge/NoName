@@ -12,7 +12,9 @@ public class PriortyQueueBlock : MonoBehaviour
     
     private int size => _tetrisImgList.Count; // 리스트 사이즈
 
-    
+    private WaitForSeconds _destroyWfs = new WaitForSeconds(0.15f);
+    private WaitForSeconds _downWfs = new WaitForSeconds(0.3f);
+
     PlayerWeaponContainer _weaponContainer;
     /// <summary>
     /// 생성자 인스턴스 예외처리
@@ -67,7 +69,7 @@ public class PriortyQueueBlock : MonoBehaviour
             {
                 tempIdx = Random.Range(0, size);
                 Pop(tempIdx);
-                yield return new WaitForSeconds(0.3f);
+                yield return _destroyWfs;
             }
         }
         yield return StartCoroutine(AllDownBlock());
@@ -117,10 +119,10 @@ public class PriortyQueueBlock : MonoBehaviour
                         _tetrisImgList[i].FillBoard(false);
                         break;
                     }
+                    yield return _downWfs;
                     _tetrisImgList[i].Move(BLOCKMOVEDIR.DOWN);
                     _tetrisImgList[i].SetPos();
                     isAllDown = false;
-                    yield return new WaitForSeconds(0.3f);
                 }
             }
         }
