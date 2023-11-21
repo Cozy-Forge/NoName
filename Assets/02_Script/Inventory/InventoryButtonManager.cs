@@ -11,6 +11,7 @@ public class InventoryButtonManager : MonoBehaviour
     [SerializeField] private RectTransform _inventroyPanel;
     [SerializeField] private RectTransform _inventroy;
     [SerializeField] private RectTransform _item;
+    [SerializeField] private RectTransform _craftingPanel;
 
     [Header("변경 속도")]
     [SerializeField] private float _durationSpeed;
@@ -94,6 +95,7 @@ public class InventoryButtonManager : MonoBehaviour
         {
             _isShow = false;
             _isMoved = true;
+            _craftingPanel.gameObject.SetActive(false);
             _inventroyPanel.DOAnchorPos(hiddenVec, _durationSpeed);
             StartCoroutine(DelayTime());
         }
@@ -119,6 +121,11 @@ public class InventoryButtonManager : MonoBehaviour
         }
         _item.gameObject.SetActive(false);
         _inventroy.gameObject.SetActive(true);
+    }
+
+    public void CraftingBtn()
+    {
+        _craftingPanel.gameObject.SetActive(!_craftingPanel.gameObject.activeSelf);
     }
 
     IEnumerator DelayTime()
