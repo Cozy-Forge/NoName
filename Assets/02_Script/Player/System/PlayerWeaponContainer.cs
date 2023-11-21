@@ -26,6 +26,8 @@ public class PlayerWeaponContainer : MonoBehaviour
     private void Update()
     {
 
+        if (weapons.Count < 0) return;
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
 
