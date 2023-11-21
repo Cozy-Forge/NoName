@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FrogLeg
   m_EditorClassIdentifier: 
   itemName: Frog Leg
-  itemDescription: "\uAC1C\uAD6C\uB9AC\uB4B7\uB2E4\uB9AC"
+  itemDescription: Frog Leg
   itemImage: {fileID: -1549018963, guid: 302ee54186e90dc4085722034bab842c, type: 3}
   stackCount: 5
   weight: {x: 3, y: -1, z: 0}

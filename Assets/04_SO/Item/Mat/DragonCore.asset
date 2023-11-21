@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DragonCore
   m_EditorClassIdentifier: 
   itemName: Dragon Core
-  itemDescription: "\uB4DC\uB798\uACE4\uC758 \uCF54\uC5B4"
+  itemDescription: Dragon Core
   itemImage: {fileID: 517258092, guid: 302ee54186e90dc4085722034bab842c, type: 3}
   stackCount: 5
   weight: {x: 10, y: 10, z: 0}

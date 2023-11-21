@@ -57,7 +57,6 @@ public class CraftingTable : MonoBehaviour
                 }
             if (slot.CurrentItem.ItemData.ItemName == "NoneItem") //없으면 생성
             {
-                Debug.Log("SetItem");
                 slot.SetItem(material, 1);
                 break;
             }
@@ -82,7 +81,6 @@ public class CraftingTable : MonoBehaviour
         {
             slot.SetItem(Inventory.instance.NoneItem, Inventory.instance.NoneItem.ItemData.StackCount);
         }
-        Debug.Log(materials.Count);
         OpenTetris(result);
     }
 

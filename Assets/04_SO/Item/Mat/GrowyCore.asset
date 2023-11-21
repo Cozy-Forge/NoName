@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GrowyCore
   m_EditorClassIdentifier: 
   itemName: Growy Core
-  itemDescription: "\uAE00\uB85C\uC704\uC758 \uCF54\uC5B4"
+  itemDescription: Growy Core
   itemImage: {fileID: 84752771, guid: 302ee54186e90dc4085722034bab842c, type: 3}
   stackCount: 5
   weight: {x: 3, y: 3, z: 0}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GrowyFragments
   m_EditorClassIdentifier: 
   itemName: Growy Fragments
-  itemDescription: "\uAE00\uB85C\uC704\uC758 \uD30C\uD3B8"
+  itemDescription: Growy Fragments
   itemImage: {fileID: -2083183700, guid: 302ee54186e90dc4085722034bab842c, type: 3}
   stackCount: 5
   weight: {x: 5, y: 1, z: 0}

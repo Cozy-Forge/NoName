@@ -31,16 +31,13 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
 
     public void RemoveItem()
     {
-        Debug.Log(1);
         if (currentStackCount > 0)
         {
-            Debug.Log(2);
             currentStackCount--;
             Inventory.instance.ItemList.Remove(currentItem);
 
             if (currentStackCount <= 0)
             {
-                Debug.Log(3);
                 Item noneItem = Inventory.instance.NoneItem;
                 SetItem(noneItem, noneItem.ItemData.StackCount);
             }
@@ -78,6 +75,5 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
 
         CraftingTable.Instance.AddItemToList(currentItem);
         RemoveItem();
-        Debug.Log("´©¸§");
     }
 }

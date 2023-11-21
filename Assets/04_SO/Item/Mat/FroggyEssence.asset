@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FroggyEssence
   m_EditorClassIdentifier: 
   itemName: Froggy Essence
-  itemDescription: "\uD504\uB85C\uAE30\uC758 \uC815\uC218"
+  itemDescription: Froggy Essence
   itemImage: {fileID: -1188459745, guid: 302ee54186e90dc4085722034bab842c, type: 3}
   stackCount: 5
   weight: {x: 2, y: 2, z: 2}
