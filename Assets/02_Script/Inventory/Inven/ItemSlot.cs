@@ -74,7 +74,7 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
         if (CraftingTable.Instance == null || !CraftingTable.Instance.gameObject.activeSelf) return;
         if (currentItem == null || currentItem.ItemData.ItemType == ItemType.None) return;
 
-
+        InventoryButtonManager.Instance.PlayBtnClickSound();
         CraftingTable.Instance.AddItemToList(currentItem);
         RemoveItem();
     }

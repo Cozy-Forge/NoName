@@ -157,4 +157,7 @@ public class InventoryButtonManager : MonoBehaviour
         yield return _wft;
         _isMoved = false;
     }
+
+    public void PlayBtnClickSound() => _invenAudio.Play();
+
 }
