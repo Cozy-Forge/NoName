@@ -18,7 +18,7 @@ MonoBehaviour:
     m_Bits: 8
   <DashObstacleLayer>k__BackingField:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 128
   <DashLength>k__BackingField: 4
   <DashPower>k__BackingField: 50
   _dashCoolDown: 0.5
