@@ -20,6 +20,7 @@ public class CraftSlot : MonoBehaviour
     {
         image = transform.GetChild(0).GetComponent<Image>();
         stackText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        stackText.text = string.Empty;
     }
 
     public void IncreaseItem()
