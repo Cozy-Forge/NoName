@@ -21,6 +21,7 @@ public class PriortyQueueBlock : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        #region 인스턴스
         if (Instance == null)
         {
             Instance = this;
@@ -30,7 +31,7 @@ public class PriortyQueueBlock : MonoBehaviour
             Debug.LogError($"PriortyQueueEquipment is multiply running!");
             Destroy(transform);
         }
-        
+        #endregion
     }
 
     /// <summary>
@@ -87,6 +88,7 @@ public class PriortyQueueBlock : MonoBehaviour
         _tetrisImgList[idx].ClearBoard();
         FAED.InsertPool(_tetrisImgList[idx].gameObject);
         _tetrisImgList.RemoveAt(idx);
+        TetrisTileManager.Instance.PlayExplosionSound();
     }
 
     /// <summary>

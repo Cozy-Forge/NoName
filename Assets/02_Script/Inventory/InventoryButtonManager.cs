@@ -22,10 +22,12 @@ public class InventoryButtonManager : MonoBehaviour
     bool _isMoved = false;
     bool _isShow = false;
 
+    private AudioSource _invenAudio;
+
     private Vector3 originVec = new Vector3(0, 0, 0);
     private Vector3 hiddenVec = new Vector3(1000, 0, 0);
 
-    private WaitForSeconds wft;
+    private WaitForSeconds _wft;
 
     private void Awake()
     {
@@ -40,7 +42,8 @@ public class InventoryButtonManager : MonoBehaviour
             Destroy(gameObject);
         }
         #endregion
-        wft = new WaitForSeconds(_durationSpeed);
+        _invenAudio = GetComponent<AudioSource>();
+        _wft = new WaitForSeconds(_durationSpeed);
     }
 
     //여기있는 코드 나중에 인풋시스템으로 옮겨야 댐
@@ -74,6 +77,7 @@ public class InventoryButtonManager : MonoBehaviour
             _isShow = true;
             _isMoved = true;
             _inventroyPanel.DOAnchorPos(originVec, _durationSpeed);
+            _invenAudio.Play();
             StartCoroutine(DelayTime());
             _inputReader.SetEnable(false);
         }
@@ -107,6 +111,7 @@ public class InventoryButtonManager : MonoBehaviour
             _isMoved = true;
             _craftingPanel.gameObject.SetActive(false);
             _inventroyPanel.DOAnchorPos(hiddenVec, _durationSpeed);
+            _invenAudio.Play();
             StartCoroutine(DelayTime());
             _inputReader.SetEnable(true);
         }
@@ -117,8 +122,12 @@ public class InventoryButtonManager : MonoBehaviour
     /// </summary>
     public void ShowItem()
     {
-        _item.gameObject.SetActive(true);
-        _inventroy.gameObject.SetActive(false);
+        if(!_item.gameObject.activeSelf)
+        {
+            _item.gameObject.SetActive(true);
+            _inventroy.gameObject.SetActive(false);
+            _invenAudio.Play();
+        }
     }
 
     /// <summary>
@@ -134,16 +143,18 @@ public class InventoryButtonManager : MonoBehaviour
 
         _item.gameObject.SetActive(false);
         _inventroy.gameObject.SetActive(true);
+        _invenAudio.Play();
     }
 
     public void CraftingBtn()
     {
         _craftingPanel.gameObject.SetActive(!_craftingPanel.gameObject.activeSelf);
+        _invenAudio.Play();
     }
 
     IEnumerator DelayTime()
     {
-        yield return wft;
+        yield return _wft;
         _isMoved = false;
     }
 }

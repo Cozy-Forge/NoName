@@ -31,6 +31,10 @@ public class TetrisTileManager : MonoBehaviour
     private static int screenX = 10;                        //보드 최대 크기X
     private static int screenY = 20;                        //보드 최대 크기Y
 
+    [Header("오디오 소스")]
+    [SerializeField] private AudioSource _moveAudio;
+    [SerializeField] private AudioSource _explosionAudio;
+
     private void Awake()
     {
         #region 싱글톤
@@ -136,4 +140,8 @@ public class TetrisTileManager : MonoBehaviour
             Debug.LogWarning($"{transform} : 잘못된 접근 수치 - 보드Y사이즈가 너무 커짐");
         }
     }
+
+    //이미지 이동 사운드
+    public void PlayMoveSound() => _moveAudio.Play();
+    public void PlayExplosionSound() => _explosionAudio.Play();
 }

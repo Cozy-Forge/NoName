@@ -211,9 +211,12 @@ public class TetrisImg : MonoBehaviour
                     }
                 }
                 _rectTransform.rotation = Quaternion.Euler(0, 0, _rectTransform.eulerAngles.z + 90);
+                SetPos();
+                return;
             }
             SetPos();
         }
+        TetrisTileManager.Instance.PlayMoveSound();
     }
 
     //¿Œµ¶Ω∫ ¿Ãµø
@@ -251,7 +254,7 @@ public class TetrisImg : MonoBehaviour
                 _pos.y++;
                 break;
         }
-
+        TetrisTileManager.Instance.PlayMoveSound();
         SetPos();
     }
 
