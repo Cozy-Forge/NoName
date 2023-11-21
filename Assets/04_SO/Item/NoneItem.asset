@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac721aee05896a42b95a7418f7854ec, type: 3}
   m_Name: NoneItem
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: NoneItem
   itemDescription: 
   itemImage: {fileID: 1885534115, guid: 6a344a210db596243befb5781d6b63b3, type: 3}
   stackCount: 0
