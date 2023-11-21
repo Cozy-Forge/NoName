@@ -10,6 +10,10 @@ public class BombWeapon : MonoBehaviour
         {
             other.GetComponent<HPObject>().TakeDamage(20);
         }
+        else if (other.CompareTag("Hit"))
+        {
+            other.GetComponent<Hitbox>().Casting(20);
+        }
         else
             Debug.Log("null");
     }

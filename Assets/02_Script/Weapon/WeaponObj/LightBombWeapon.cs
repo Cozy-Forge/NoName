@@ -10,6 +10,10 @@ public class LightBombWeapon : MonoBehaviour
         {
             collision.GetComponent<HPObject>().TakeDamage(30);
         }
+        else if (collision.CompareTag("Hit"))
+        {
+            collision.GetComponent<Hitbox>().Casting(20);
+        }
         else
         {
             Debug.Log("null");
