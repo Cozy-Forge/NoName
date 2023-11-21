@@ -9,7 +9,6 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
 {
     [Header("프리팹으로 None넣어놓기")]
     [SerializeField] Item currentItem = null;
-
     public Item CurrentItem => currentItem;
 
     private int currentStackCount = 0;

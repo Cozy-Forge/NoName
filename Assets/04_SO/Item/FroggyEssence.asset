@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ac721aee05896a42b95a7418f7854ec, type: 3}
-  m_Name: TestItem2
+  m_Name: FroggyEssence
   m_EditorClassIdentifier: 
-  itemName: TestItem2
-  itemDescription: Dummy
-  itemImage: {fileID: 1885534115, guid: 6a344a210db596243befb5781d6b63b3, type: 3}
-  stackCount: 1
-  weight: {x: 0, y: 0, z: 0}
-  itemType: 1
+  itemName: Froggy Essence
+  itemDescription: "\uD504\uB85C\uAE30\uC758 \uC815\uC218"
+  itemImage: {fileID: -1188459745, guid: 302ee54186e90dc4085722034bab842c, type: 3}
+  stackCount: 5
+  weight: {x: 2, y: 2, z: 2}
+  itemType: 0
