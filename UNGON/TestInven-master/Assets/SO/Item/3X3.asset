@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a389735d4234e4c4ead017dc80aa1175, type: 3}
+  m_Name: 3X3
+  m_EditorClassIdentifier: 
+  item:
+    attackPower: 1
+    attackSpeed: 1
+    type: 3
+    so: {fileID: 11400000, guid: efb206250d4022742af6434453c8f11b, type: 2}
+  <itemSizes>k__BackingField:
+  - {x: 0, y: 0}
+  - {x: 0, y: 1}
+  - {x: 1, y: 0}
+  - {x: -1, y: 0}
+  - {x: 0, y: -1}
