@@ -59,11 +59,14 @@ public class ItemObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
             if(inventory.AddItem(item, point.Value, itemSo.itemSizes))
             {
-
+                Debug.Log("AddSuccess");
                 transform.localPosition = new Vector2(point.Value.x - inventory.width / 2,
                     point.Value.y - inventory.height / 2) * 100;
 
                 // 여기서 효과를 일괄 적용 시키자
+                inventory.Check();
+
+
             }
             else
             {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,9 @@ public class Inventory : MonoBehaviour
     [field: SerializeField] public int width { get; private set; }
     [field: SerializeField] public int height { get; private set; }
 
-    public List<(Item? item, Vector2Int point, List<Vector2Int> size)> items = new();
+    public List<(Item item, Vector2Int point, List<Vector2Int> size)> items = new();
 
-    private List<List<Item?>> container = new();
+    private List<List<Item>> container = new();
 
     private void Awake()
     {
@@ -89,7 +90,7 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(Item item)
     {
 
-        var removeItem = items.Find(x => x.item.Value.guid == item.guid);
+        var removeItem = items.Find(x => x.item.guid == item.guid);
 
         if (removeItem.item != null)
         {
@@ -118,14 +119,7 @@ public class Inventory : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-
-        Check();
-
-    }
-
-    private void Check()
+    public void Check()
     {
 
         Vector2Int[] dirs = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
@@ -133,7 +127,7 @@ public class Inventory : MonoBehaviour
         foreach (var item in items)
         {
 
-            HashSet<ItemType> tp = new();
+            HashSet<Item> tp = new();
 
             foreach (var pt in item.size)
             {
@@ -151,10 +145,10 @@ public class Inventory : MonoBehaviour
                         if (dirPt.x < container[dirPt.y].Count && dirPt.x >= 0)
                         {
 
-                            if (container[dirPt.y][dirPt.x] != null && container[dirPt.y][dirPt.x]?.guid != item.item.Value.guid)
+                            if (container[dirPt.y][dirPt.x] != null && container[dirPt.y][dirPt.x]?.guid != item.item.guid)
                             {
 
-                                tp.Add(container[dirPt.y][dirPt.x].Value.type);
+                                tp.Add(container[dirPt.y][dirPt.x]);
 
                             }
 
@@ -169,12 +163,11 @@ public class Inventory : MonoBehaviour
             foreach (var t in tp)
             {
 
-                item.item.Value.effectSO.Effect(t);
+                item.item.effectSO.Effect(t);
 
             }
 
         }
 
     }
-
 }

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 3X1
   m_EditorClassIdentifier: 
   item:
+    name: 3x1
     attackPower: 1
-    attackSpeed: 1
+    attackDelay: 0
     type: 1
-    effectSO: {fileID: 11400000, guid: efb206250d4022742af6434453c8f11b, type: 2}
+    effectSO: {fileID: 11400000, guid: 4c024556bd8e81e49bc6f85802f4e15e, type: 2}
   <itemSizes>k__BackingField:
   - {x: 0, y: 0}
   - {x: 0, y: 1}

@@ -3,23 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public enum ItemType
 {
 
-    Gray = 0,
-    Red,
-    Green,
-    Blue,
-    Yellow,
+    Melee,
+    Range,
+    Accessory,
+
+}
+
+// 원거리 근거리 등등
+public enum Category
+{
+
 
 }
 
 [System.Serializable]
-public struct Item
+public class Item
 {
-
+    public string name;
     public int attackPower;
-    public int attackSpeed;
+    public float attackDelay;
     public ItemType type;
     public ItemEffectSO effectSO;
     [HideInInspector] public Guid guid;

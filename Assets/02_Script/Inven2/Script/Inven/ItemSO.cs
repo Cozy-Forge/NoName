@@ -19,7 +19,7 @@ public class ItemSO : ScriptableObject
         {
 
             attackPower = item.attackPower,
-            attackSpeed = item.attackSpeed,
+            attackDelay = item.attackDelay,
             effectSO = Instantiate(item.effectSO),
             type = item.type,
             guid = Guid.NewGuid(),

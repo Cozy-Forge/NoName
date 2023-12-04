@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bedaf6408ac3dd4fabf4df63954c650, type: 3}
-  m_Name: Debug2
+  m_Script: {fileID: 11500000, guid: 07c6c94730e2d4e42972096029b7e00f, type: 3}
+  m_Name: Decrease
   m_EditorClassIdentifier: 

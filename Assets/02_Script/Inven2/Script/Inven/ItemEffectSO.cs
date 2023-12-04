@@ -5,6 +5,6 @@ using UnityEngine;
 public abstract class ItemEffectSO : ScriptableObject
 {
 
-    public abstract void Effect(ItemType type);
+    public abstract void Effect(Item item);
 
 }
