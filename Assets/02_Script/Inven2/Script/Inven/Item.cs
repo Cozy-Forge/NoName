@@ -30,6 +30,7 @@ public class Item
     public ItemType type;
     public ItemEffectSO effectSO;
     [HideInInspector] public Guid guid;
+    public ItemDataChangeWeapon weapon;
     //이외 어쩌고저쩌고 많은 값들
 }
 

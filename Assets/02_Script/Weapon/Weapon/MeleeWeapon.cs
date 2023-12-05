@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class MeleeWeapon : Weapon
+public class MeleeWeapon : ItemDataChangeWeapon
 {
     Vector3 startLocalPosition;
     HPObject hpObject;
@@ -34,7 +34,7 @@ public class MeleeWeapon : Weapon
 
         transform.position = endPosition;
 
-        
+
 
         transform.localPosition = startLocalPosition;
     }
@@ -45,7 +45,7 @@ public class MeleeWeapon : Weapon
     protected override void Awake()
     {
         base.Awake();
-        
+
         _playerController = FindObjectOfType<PlayerController>();
 
     }
@@ -66,15 +66,16 @@ public class MeleeWeapon : Weapon
         _doAttack = false;
         //µ¹Áø±â
         transform.up = pos;
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<HPObject>().TakeDamage(10);
+            collision.GetComponent<HPObject>().TakeDamage(item.attackPower + _data.AttackPower);
         }
+
     }
 
     private void OnDestroy()
@@ -82,8 +83,5 @@ public class MeleeWeapon : Weapon
         _playerController.OnDashEndEvent -= Doattack;
         _playerController.OnDashEvent -= DashSting;
     }
-
-
-
 
 }

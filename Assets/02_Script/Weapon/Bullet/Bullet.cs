@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     private bool _isAdd;
 
     public BulletData Data;
+    public float AddValue;
 
     private void Awake()
     {
@@ -78,9 +79,7 @@ public class Bullet : MonoBehaviour
             if (collision.CompareTag(item))
             {
 
-                float damage = Random.Range((int)Data.Damage - 5, (int)Data.Damage + 5);
-
-                damage = Mathf.Clamp(damage, 1, int.MaxValue);
+                float damage = Data.Damage + AddValue;
 
                 if(collision.TryGetComponent<HPObject>(out var hp))
                 {

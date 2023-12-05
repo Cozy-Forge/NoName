@@ -6,17 +6,18 @@ using UnityEngine.EventSystems;
 public class ItemObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
 
-    [field:SerializeField] public ItemSO itemSo { get; private set; }
+    [field: SerializeField] public ItemSO itemSo { get; private set; }
 
     private Item item;
     private Inventory inventory;
     private InventoryViewer inventoryViewer;
     private bool isDrag;
     private Vector2 originPos;
-
+    private ItemDataChangeWeapon weapon;
+    
     private void Awake()
     {
-        
+
         inventory = FindObjectOfType<Inventory>();
         inventoryViewer = FindObjectOfType<InventoryViewer>();
         item = itemSo.MakeItem();
@@ -41,7 +42,8 @@ public class ItemObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         isDrag = true;
 
-        inventory.RemoveItem(item);
+        if (weapon != null)
+            inventory.RemoveItem(item, weapon);
 
     }
 
@@ -53,13 +55,16 @@ public class ItemObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isDrag = false;
 
         var point = inventoryViewer.GetPoint(transform.localPosition);
-        Debug.Log(point);
+        //Debug.Log(point);
         if (point != null)
         {
-
-            if(inventory.AddItem(item, point.Value, itemSo.itemSizes))
+            weapon = Instantiate(item.weapon);
+            weapon.SetItemData(item);
+            //weapon.ChangeWeaponData(item.effectSO.,);
+            //weapon.
+            if (inventory.AddItem(item, point.Value, itemSo.itemSizes, weapon))
             {
-                Debug.Log("AddSuccess");
+                //Debug.Log("AddSuccess");
                 transform.localPosition = new Vector2(point.Value.x - inventory.width / 2,
                     point.Value.y - inventory.height / 2) * 100;
 
@@ -72,6 +77,7 @@ public class ItemObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             {
 
                 transform.localPosition = originPos;
+                Destroy(weapon);
 
             }
 

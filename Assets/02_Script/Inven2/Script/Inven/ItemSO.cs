@@ -23,6 +23,7 @@ public class ItemSO : ScriptableObject
             effectSO = Instantiate(item.effectSO),
             type = item.type,
             guid = Guid.NewGuid(),
+            weapon = item.weapon,
 
         };
 

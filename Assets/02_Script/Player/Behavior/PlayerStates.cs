@@ -68,6 +68,7 @@ public class MoveState : PlayerState
         {
 
             _container = container;
+            Debug.Log(_container);
             _targetLayer = targetLayer;
             _transform = container.transform;
             

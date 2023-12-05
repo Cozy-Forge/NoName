@@ -2,6 +2,7 @@ using FD.Dev;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngineInternal;
 
 public abstract class Weapon : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual void Awake()
     {
-        
+
         _data = _so.Data;
 
     }

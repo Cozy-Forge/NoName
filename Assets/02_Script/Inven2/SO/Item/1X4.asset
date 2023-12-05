@@ -15,9 +15,10 @@ MonoBehaviour:
   item:
     name: '1x4                                                                                                   '
     attackPower: 1
-    attackDelay: 0
+    attackDelay: 0.5
     type: 0
     effectSO: {fileID: 11400000, guid: 4c024556bd8e81e49bc6f85802f4e15e, type: 2}
+    weapon: {fileID: 3459130084825751026, guid: ebbb938acbe437d4b8165dd06ae54eb9, type: 3}
   <itemSizes>k__BackingField:
   - {x: 0, y: 0}
   - {x: 0, y: -1}

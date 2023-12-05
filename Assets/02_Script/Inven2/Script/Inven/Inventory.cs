@@ -12,8 +12,11 @@ public class Inventory : MonoBehaviour
 
     private List<List<Item>> container = new();
 
+    PlayerWeaponContainer weaponContainer;
+
     private void Awake()
     {
+        weaponContainer = FindObjectOfType<PlayerWeaponContainer>();
 
         for (int y = 0; y < height; y++)
         {
@@ -33,10 +36,10 @@ public class Inventory : MonoBehaviour
 
     }
 
-    public bool AddItem(Item item, Vector2Int point, List<Vector2Int> size)
+    public bool AddItem(Item item, Vector2Int point, List<Vector2Int> size, Weapon weapon)
     {
 
-        Debug.Log(size.Count);
+        //Debug.Log(size.Count);
 
         foreach (var i in size)
         {
@@ -83,11 +86,12 @@ public class Inventory : MonoBehaviour
 
         items.Add((item, point, size));
 
-        return true;
+        weaponContainer.AddWeapon(weapon);
 
+        return true;
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(Item item, Weapon weapon)
     {
 
         var removeItem = items.Find(x => x.item.guid == item.guid);
@@ -114,8 +118,11 @@ public class Inventory : MonoBehaviour
                 }
 
             }
+            
+            weaponContainer.RemoveWeapon(weapon);
 
         }
+
 
     }
 

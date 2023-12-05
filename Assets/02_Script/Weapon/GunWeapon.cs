@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunWeapon : Weapon
+public class GunWeapon : ItemDataChangeWeapon
 {
 
     [SerializeField] private Transform _shootPos;
@@ -25,6 +25,7 @@ public class GunWeapon : Weapon
     {
 
         var blt = FAED.TakePool<Bullet>("TestBullet", _shootPos.position, transform.rotation);
+        blt.AddValue = item.attackPower + _data.AttackPower;
         blt.Shoot();
 
         FAED.TakePool<PoolingParticle>("ShootParticle", _shootPos.position, transform.rotation, transform);
