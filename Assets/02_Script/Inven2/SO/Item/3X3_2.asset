@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a389735d4234e4c4ead017dc80aa1175, type: 3}
+  m_Name: 3X3_2
+  m_EditorClassIdentifier: 
+  item:
+    name: 3XX
+    attackPower: 10
+    attackDelay: 1
+    type: 0
+    effectSO: {fileID: 11400000, guid: 4c024556bd8e81e49bc6f85802f4e15e, type: 2}
+    weapon: {fileID: 4076461126265029521, guid: 654cb593215069b49bd92da060c4cdd0, type: 3}
+  <itemSizes>k__BackingField:
+  - {x: 0, y: 0}
+  - {x: 0, y: 1}
+  - {x: 1, y: 0}
+  - {x: -1, y: 0}
+  - {x: 0, y: -1}

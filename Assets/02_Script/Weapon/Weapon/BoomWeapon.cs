@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoomWeapon : Weapon
+public class BoomWeapon : ItemDataChangeWeapon
 {
     private PlayerController _playerController;
     [SerializeField] private GameObject _bombObj;
@@ -22,9 +22,9 @@ public class BoomWeapon : Weapon
     {
         var obj = Instantiate(_bombObj, _playerController.transform.position, Quaternion.identity);
         _data.Range = transform.localScale.x;
+        obj.GetComponent<BombWeapon>().damage = item.attackPower + _data.AttackPower;
 
-
-       StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(8f, 8f, 1f), 0.3f));
+        StartCoroutine(ObjectTransformScaleOverTime(obj.transform, new Vector3(8f, 8f, 1f), 0.3f));
     }
 
     private IEnumerator ObjectTransformScaleOverTime(Transform objTransform, Vector3 targetScale, float duration)
@@ -42,7 +42,7 @@ public class BoomWeapon : Weapon
         objTransform.localScale = targetScale;
     }
 
-    
+
 
 
     private void OnDestroy()
@@ -53,6 +53,6 @@ public class BoomWeapon : Weapon
 
     protected override void DoAttack(Transform trm)
     {
-        
+
     }
 }
